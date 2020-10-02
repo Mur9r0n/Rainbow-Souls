@@ -1205,6 +1205,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5811481121891847067, guid: 9b3493de187726d40aea93b27aadd7a3, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: 10a8bcb24a70aaa42ba4e752f2ce196d, type: 2}
     - target: {fileID: 6507847008512283946, guid: 9b3493de187726d40aea93b27aadd7a3, type: 3}
       propertyPath: m_Name
       value: Chest
@@ -1257,6 +1261,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7956136856359684359, guid: 9b3493de187726d40aea93b27aadd7a3, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 10a8bcb24a70aaa42ba4e752f2ce196d, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b3493de187726d40aea93b27aadd7a3, type: 3}
 --- !u!1001 &3841143470396043398
