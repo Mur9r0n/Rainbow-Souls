@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class InteractableObjects : MonoBehaviour
 {
+    public InventorySystem m_inventorySystem;
+    public InteractableItem m_interactableItem;
+    
     public enum Type
     {
         Checkpoint,
@@ -24,6 +28,15 @@ public class InteractableObjects : MonoBehaviour
         if (m_Type == Type.Chest)
         {
             m_Material = GetComponent<Renderer>().material;
+        }
+        
+        //TODO: Löschen beim Builden
+        if (m_Type == Type.Item)
+        {
+            if (!gameObject.TryGetComponent(out InteractableItem interactableItem))
+            {
+                throw new MissingComponentException("You forgot the InteractableItems Component in " + gameObject.name);
+            }
         }
     }
 
@@ -71,8 +84,10 @@ public class InteractableObjects : MonoBehaviour
 
             case Type.Item:
 
-                Debug.Log("Pick up Item");
                 InteractManager.Instance.RemoveFromList(this);
+                m_inventorySystem.AddItem(m_interactableItem.m_Item);
+                Debug.Log("Picked up " + m_interactableItem.m_Item.Name);
+                Destroy(gameObject);
                 break;
 
             case Type.NPC:

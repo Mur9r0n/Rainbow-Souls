@@ -8,6 +8,8 @@ using UnityEngine.InputSystem.Utilities;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField, Tooltip("Inventory of the Player")]
+    private InventorySystem m_inventorySystem;
     private InteractableObjects m_interactableObject = null;
     private CharacterController m_controller = null;
     private Animator m_anim = null;
@@ -61,6 +63,7 @@ public class PlayerController : MonoBehaviour
     {
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
+        m_inventorySystem.InventoryContainer.Clear();
     }
 
     private void Update()

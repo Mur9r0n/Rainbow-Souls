@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Item")]
-public class Item : ScriptableObject
+public abstract class Item : ScriptableObject
 {
     [Header("Item Informations")] 
     
@@ -14,7 +14,7 @@ public class Item : ScriptableObject
     [SerializeField, Tooltip("Identification")]
     private int m_ID;
 
-    [SerializeField, Tooltip("Description")] [TextArea(3, 10)]
+    [SerializeField, Tooltip("Description")] [TextArea(5, 15)]
     private string m_description;
 
     [SerializeField, Tooltip("Pigment Value")]
