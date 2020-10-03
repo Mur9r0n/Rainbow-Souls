@@ -41,6 +41,7 @@ public class SheepController : MonoBehaviour
         SheepAttackState m_attackState = new SheepAttackState();
         SheepResetState m_resetState = new SheepResetState();
         SheepWalkState m_walkState = new SheepWalkState();
+        SheepSearchState m_searchState = new SheepSearchState();
 
         m_idleState.SheepInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
@@ -57,7 +58,7 @@ public class SheepController : MonoBehaviour
             ),
             new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
-                () => !PlayerInFOV() && !PlayerInRange(), m_resetState
+                () => !PlayerInFOV() && !PlayerInRange(), m_searchState
             ));
 
         m_resetState.SheepInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
@@ -75,11 +76,19 @@ public class SheepController : MonoBehaviour
 
         m_walkState.SheepInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
-                () => !PlayerInFOV() && !PlayerInRange(), m_resetState
+                () => !PlayerInFOV() && !PlayerInRange(), m_searchState
             ),
             new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => PlayerInFOV() && PlayerInRange(), m_attackState
+            ));
+        m_searchState.SheepInit(this,new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+            (
+                () => m_searchState.m_Playerfound, m_walkState
+            ),
+            new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+            (
+                () => !m_searchState.m_Playerfound && m_searchState.m_Timer<=0, m_resetState
             ));
 
         m_activeState = m_idleState;
@@ -112,7 +121,7 @@ public class SheepController : MonoBehaviour
         }
     }
 
-    private bool PlayerInFOV()
+    public bool PlayerInFOV()
     {
         Vector3 playerposition = GameManager.Instance.PlayerTransform.position;
         Vector3 origin = transform.position + new Vector3(0, 1, 0);

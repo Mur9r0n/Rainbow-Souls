@@ -7,7 +7,7 @@ public class SheepWalkState : ABaseState
         m_controller.m_Agent.isStopped = false;
         //TODO Adjustments todo
         m_controller.m_FOVAngle = 55f;
-        m_controller.m_FOVDistance = 30f;
+        m_controller.m_FOVDistance = 15f;
         Debug.Log("Hier wäre die Update! SheepWalkState");
         return base.Enter();
     }

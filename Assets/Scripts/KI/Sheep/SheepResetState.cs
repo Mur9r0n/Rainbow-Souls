@@ -20,6 +20,12 @@ public class SheepResetState : ABaseState
             m_controller.m_Agent.enabled = true;
             IsFinished = true;
         }
+    }
 
+    public override void Exit()
+    {
+        m_controller.m_FOVAngle = m_controller.OriginalFOVAngle;
+        m_controller.m_FOVDistance = m_controller.OriginalFOVDistance;
+        base.Exit();
     }
 }
