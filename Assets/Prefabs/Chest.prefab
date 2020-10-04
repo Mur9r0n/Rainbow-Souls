@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1191921776385659885}
   m_Layer: 0
   m_Name: Chest
-  m_TagString: Untagged
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 10a8bcb24a70aaa42ba4e752f2ce196d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Type: 1
+  m_Dissolving: 0
+  m_Material: {fileID: 2100000, guid: 10a8bcb24a70aaa42ba4e752f2ce196d, type: 2}
 --- !u!65 &1191921776385659885
 BoxCollider:
   m_ObjectHideFlags: 0
