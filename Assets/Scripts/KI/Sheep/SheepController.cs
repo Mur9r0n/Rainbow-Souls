@@ -16,6 +16,9 @@ public class SheepController : MonoBehaviour
     [SerializeField, Tooltip("Current Healthpoints.")]
     private float m_currentHealthPoints;
 
+    [SerializeField, Tooltip("Time to pass until resetting."), Range(1f, 20f)]
+    public float m_ResetDelay = 1f;
+
     [Header("FOV and Range Parameters:")]
     [SerializeField, Tooltip("Field of View Distance."), Range(1f, 100f)]
     public float m_FOVDistance = 1f;

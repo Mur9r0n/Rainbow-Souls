@@ -7,7 +7,7 @@ public class SheepSearchState : ABaseState
     
     public override bool Enter()
     {
-        m_Timer = 10;
+        m_Timer = m_controller.m_ResetDelay;
         m_controller.m_Agent.SetDestination(GameManager.Instance.PlayerTransform.position);
         Debug.Log("Hier wäre die Update! SheepSearchState");
         return base.Enter();
