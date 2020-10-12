@@ -12,5 +12,6 @@ public class SheepAttackState : ABaseState
     public override void Update()
     {
         Debug.Log("Attack Player!");
+        m_controller.transform.LookAt(GameManager.Instance.PlayerTransform.position);
     }
 }
