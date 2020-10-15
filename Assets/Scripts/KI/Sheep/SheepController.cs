@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class SheepController : MonoBehaviour
 {
     public NavMeshAgent m_Agent;
@@ -204,21 +205,30 @@ public class SheepController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Vector3 origin = transform.position + new Vector3(0, 1, 0);
+
         Vector3 FovLine1 = Quaternion.AngleAxis(m_FOVAngle, transform.up) * transform.forward * m_FOVDistance;
-        Vector3 FovLine2 = Quaternion.AngleAxis(-m_FOVAngle, transform.up) * transform.forward * m_FOVDistance;
+        Vector3 FovLine2 = Quaternion.AngleAxis(-m_FOVAngle, transform.up) * transform.forward * m_FOVDistance;        
+        Vector3 FovLine3 = Quaternion.AngleAxis(m_FOVAngle, transform.right) * transform.forward * m_FOVDistance;
+        Vector3 FovLine4 = Quaternion.AngleAxis(-m_FOVAngle, transform.right) * transform.forward * m_FOVDistance;
+
+
         Vector3 AttackLine1 = Quaternion.AngleAxis(m_AttackAngle, transform.up) * transform.forward * m_AttackDistance;
         Vector3 AttackLine2 = Quaternion.AngleAxis(-m_AttackAngle, transform.up) * transform.forward * m_AttackDistance;
 
         Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(transform.position, m_FOVDistance);
-        Gizmos.DrawWireSphere(transform.position,m_AttackDistance);
+        Gizmos.DrawWireSphere(origin, m_FOVDistance);
+        Gizmos.DrawWireSphere(origin, m_AttackDistance);
 
         Gizmos.color = Color.black;
-        Gizmos.DrawRay(transform.position, FovLine1);
-        Gizmos.DrawRay(transform.position, FovLine2);
+        Gizmos.DrawRay(origin, FovLine1);
+        Gizmos.DrawRay(origin, FovLine2);
+        Gizmos.DrawRay(origin, FovLine3);        
+        Gizmos.DrawRay(origin, FovLine4);
+        
         Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(transform.position, AttackLine1);
-        Gizmos.DrawRay(transform.position, AttackLine2);
+        Gizmos.DrawRay(origin, AttackLine1);
+        Gizmos.DrawRay(origin, AttackLine2);
 
     }
 }

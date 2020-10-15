@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 
-public class SheepSearchState : ABaseState
+public class MushroomSearchState : ABaseState
 {
     public float m_Timer;
     public bool m_Playerfound;
     
     public override bool Enter()
     {
-        m_Timer = m_sheepController.m_ResetDelay;
-        m_sheepController.m_Agent.SetDestination(GameManager.Instance.PlayerTransform.position);
-        Debug.Log("Hier wäre die Update! SheepSearchState");
+        m_Timer = m_mushroomController.m_ResetDelay;
+        m_mushroomController.m_Agent.SetDestination(GameManager.Instance.PlayerTransform.position);
+        Debug.Log("Hier wäre die Update! MushroomSearchState");
         return base.Enter();
     }
     
@@ -37,7 +37,7 @@ public class SheepSearchState : ABaseState
 
     public void SearchForPlayer()
     {
-        if (m_sheepController.PlayerInFOV())
+        if (m_mushroomController.PlayerInFOV())
             m_Playerfound = true;
     }
 }

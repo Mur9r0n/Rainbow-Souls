@@ -15,9 +15,9 @@ public abstract class ABaseState
         }
     }
 
-    protected SheepController m_controller;
-    // protected BeeController m_BeeController;
-    // protected MushroomController m_MushroomController;
+    protected SheepController m_sheepController;
+    protected BeeController m_beeController;
+    protected MushroomController m_mushroomController;
 
     private Dictionary<TransitionDelegate, ABaseState> m_transitions;
 
@@ -29,32 +29,32 @@ public abstract class ABaseState
             m_transitions.Add(keyValuePair.Key, keyValuePair.Value);
         }
 
-        m_controller = _controller;
+        m_sheepController = _controller;
     }
 
-    // public virtual void BeeInit(BeeController _beeController,
-    //     params KeyValuePair<TransitionDelegate, ABaseState>[] _transitions)
-    // {
-    //     m_transitions = new Dictionary<TransitionDelegate, ABaseState>();
-    //     foreach (var keyValuePair in _transitions)
-    //     {
-    //         m_transitions.Add(keyValuePair.Key, keyValuePair.Value);
-    //     }
-    //
-    //     m_BeeController = _beeController;
-    // }
-    //
-    // public virtual void MushroomInit(MushroomController _mushroomController,
-    //     params KeyValuePair<TransitionDelegate, ABaseState>[] _transitions)
-    // {
-    //     m_transitions = new Dictionary<TransitionDelegate, ABaseState>();
-    //     foreach (var keyValuePair in _transitions)
-    //     {
-    //         m_transitions.Add(keyValuePair.Key, keyValuePair.Value);
-    //     }
-    //
-    //     m_MushroomController = _mushroomController;
-    // }
+    public virtual void BeeInit(BeeController _controller,
+        params KeyValuePair<TransitionDelegate, ABaseState>[] _transitions)
+    {
+        m_transitions = new Dictionary<TransitionDelegate, ABaseState>();
+        foreach (var keyValuePair in _transitions)
+        {
+            m_transitions.Add(keyValuePair.Key, keyValuePair.Value);
+        }
+    
+        m_beeController = _controller;
+    }
+    
+    public virtual void MushroomInit(MushroomController _controller,
+        params KeyValuePair<TransitionDelegate, ABaseState>[] _transitions)
+    {
+        m_transitions = new Dictionary<TransitionDelegate, ABaseState>();
+        foreach (var keyValuePair in _transitions)
+        {
+            m_transitions.Add(keyValuePair.Key, keyValuePair.Value);
+        }
+    
+        m_mushroomController = _controller;
+    }
 
     public virtual bool Enter()
     {
