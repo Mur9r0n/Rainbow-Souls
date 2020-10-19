@@ -394,11 +394,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4727786761192173483, guid: 75e13dd35896d514ca2266148663614f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000010752035
+      value: 0.0000000010752039
       objectReference: {fileID: 0}
     - target: {fileID: 4727786761192173483, guid: 75e13dd35896d514ca2266148663614f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -2.0489293e-11
+      value: -2.0489301e-11
       objectReference: {fileID: 0}
     - target: {fileID: 4727786761192173483, guid: 75e13dd35896d514ca2266148663614f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -526,6 +526,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1619877811291915233, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1619877811291915233, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837253046421273000, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1837253046421273000, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468389, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_Name
       value: Mushroom Enemy
@@ -613,6 +629,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1964101010655898806, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1964101010655898806, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813719563666702964, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4813719563666702964, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5921139730103073903, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_Name
       value: Bee Enemy
@@ -1191,7 +1223,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 1.9848e-41, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -1536,6 +1568,14 @@ PrefabInstance:
     - target: {fileID: 5571469918893534677, guid: 6f0e02db30bcef74881d9db366aa07a0, type: 3}
       propertyPath: m_Agent
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6551264438264259283, guid: 6f0e02db30bcef74881d9db366aa07a0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6551264438264259283, guid: 6f0e02db30bcef74881d9db366aa07a0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6833913090733130254, guid: 6f0e02db30bcef74881d9db366aa07a0, type: 3}
       propertyPath: m_LocalPosition.x
