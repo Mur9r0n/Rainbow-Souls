@@ -10,6 +10,8 @@ public class SheepController : MonoBehaviour
     public Quaternion OriginalRotation { get; set; }
     public float OriginalFOVAngle { get; set; }
     public float OriginalFOVDistance { get; set; }
+
+    public Healthbar m_Healthbar;
     
     [SerializeField, Tooltip("Maximum Healthpoints.")]
     private float m_maxHealthPoints;
@@ -43,6 +45,7 @@ public class SheepController : MonoBehaviour
         OriginalRotation = transform.rotation;
         OriginalFOVAngle = m_FOVAngle;
         OriginalFOVDistance = m_FOVDistance;
+        m_Healthbar = GetComponentInChildren<Healthbar>();
     }
     
     private void Start()
