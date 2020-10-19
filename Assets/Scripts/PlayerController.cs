@@ -8,22 +8,24 @@ using UnityEngine.InputSystem.Utilities;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Private Variables
     private InteractableObjects m_interactableObject = null;
     private CharacterController m_controller = null;
     private Animator m_anim = null;
     private PlayerInputs m_inputs = null;
     private Transform m_mainCameraTransform = null;
 
+    private float m_currentSpeed = 0f;
+    private float m_speedSmoothVelocity = 0f;
+    private float m_speedSmoothTime = 0.1f;
+    private float m_rotationSpeed = 0.1f;
+    #endregion
+    
     [SerializeField, Tooltip("FreeLookCamera to Follow the Player.")]
     private CinemachineFreeLook m_cinemachineFreeLook = null;
 
     [SerializeField, Tooltip("Speed in which the Character moves.")]
     private float m_movementSpeed = 5.0f;
-
-    private float m_currentSpeed = 0f;
-    private float m_speedSmoothVelocity = 0f;
-    private float m_speedSmoothTime = 0.1f;
-    private float m_rotationSpeed = 0.1f;
 
     [SerializeField, Tooltip("Enable Gravity?")]
     private bool m_useGravity = true;
@@ -31,6 +33,13 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Maximum Healthpoints.")] public int m_MaxHealth = 100;
     [Tooltip("Current Healthpoints.")] public int m_CurrentHealth = 80;
 
+    #region Animator Variables
+    private int m_lightAttack = Animator.StringToHash("Light_Attack");
+    private int m_heavyAttack = Animator.StringToHash("Heavy_Attack");
+    private int m_walking = Animator.StringToHash("Walking");
+    
+
+    #endregion
     //TEST
     bool isSprinting = false;
 
@@ -42,7 +51,6 @@ public class PlayerController : MonoBehaviour
         m_mainCameraTransform = Camera.main.transform;
 
         #region Input Action
-
         m_inputs.Player.Dodge.performed += _ => Dodge();
         m_inputs.Player.LightAttack.performed += _ => LightAttack();
         m_inputs.Player.HeavyAttack.performed += _ => HeavyAttack();
@@ -53,7 +61,6 @@ public class PlayerController : MonoBehaviour
         m_inputs.Player.SwitchItems.performed += _ => SwitchItems(m_inputs.Player.SwitchItems.ReadValue<float>());
         m_inputs.Player.OpenInventory.performed += _ => OpenInventory();
         m_inputs.Player.OpenMenu.performed += _ => OpenMenu();
-
         #endregion
     }
 
@@ -74,7 +81,7 @@ public class PlayerController : MonoBehaviour
     {
         if (_context != Vector2.zero)
         {
-            //Vector2 movementInput = new Vector2(_context.ReadValue<Vector2>().x, _context.ReadValue<Vector2>().y);
+            m_anim.SetBool(m_walking, true);
             Vector2 movementInput = new Vector2(_context.x, _context.y);
 
             Vector3 forward = m_mainCameraTransform.forward;
@@ -110,6 +117,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            m_anim.SetBool(m_walking, false);
             m_cinemachineFreeLook.m_RecenterToTargetHeading.m_enabled = false;
         }
 
@@ -135,11 +143,13 @@ public class PlayerController : MonoBehaviour
 
     public void LightAttack()
     {
+        m_anim.SetTrigger(m_lightAttack);
         Debug.Log("Light Attack");
     }
 
     public void HeavyAttack()
     {
+        m_anim.SetTrigger(m_heavyAttack);
         Debug.Log("Heavy Attack");
     }
 
