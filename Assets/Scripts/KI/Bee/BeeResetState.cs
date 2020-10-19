@@ -9,7 +9,7 @@ public class BeeResetState : ABaseState
     {
         m_beeController.m_Agent.isStopped = false;
         m_beeController.m_Agent.SetDestination(m_beeController.OriginalPosition);
-        Debug.Log("Hier wäre die Update! SheepResetState");
+        // Debug.Log("Hier wäre die Update! SheepResetState");
         return base.Enter();
     }
 
@@ -28,10 +28,8 @@ public class BeeResetState : ABaseState
                 temp = m_beeController.transform.rotation;
             }
             m_beeController.m_Agent.enabled = false;
-            // m_controller.transform.rotation = m_controller.OriginalRotation;
             m_beeController.transform.rotation = Quaternion.Lerp((Quaternion)temp,m_beeController.OriginalRotation,timer);
             m_beeController.m_Agent.enabled = true;
-            // IsFinished = true;
         }
     }
 

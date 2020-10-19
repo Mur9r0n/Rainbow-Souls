@@ -5,7 +5,7 @@ public class MushroomAttackState : ABaseState
     public override bool Enter()
     {
         m_mushroomController.m_Agent.isStopped = true;
-        Debug.Log("Hier wäre die Update! MushroomAttackState");
+        // Debug.Log("Hier wäre die Update! MushroomAttackState");
         return base.Enter();
     }
     

@@ -9,14 +9,14 @@ public class MushroomSearchState : ABaseState
     {
         m_Timer = m_mushroomController.m_ResetDelay;
         m_mushroomController.m_Agent.SetDestination(GameManager.Instance.PlayerTransform.position);
-        Debug.Log("Hier wäre die Update! MushroomSearchState");
+        // Debug.Log("Hier wäre die Update! MushroomSearchState");
         return base.Enter();
     }
     
     public override void Update()
     {
         m_Timer -= Time.deltaTime;
-        Debug.Log("Searching...");
+        // Debug.Log("Searching...");
 
         if (m_Timer >= 0f)
         {

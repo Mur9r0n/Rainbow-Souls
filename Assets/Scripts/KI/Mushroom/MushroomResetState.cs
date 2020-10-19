@@ -9,7 +9,7 @@ public class MushroomResetState : ABaseState
     {
         m_mushroomController.m_Agent.isStopped = false;
         m_mushroomController.m_Agent.SetDestination(m_mushroomController.OriginalPosition);
-        Debug.Log("Hier wäre die Update! MushroomResetState");
+        // Debug.Log("Hier wäre die Update! MushroomResetState");
         return base.Enter();
     }
 
@@ -28,10 +28,8 @@ public class MushroomResetState : ABaseState
                 temp = m_mushroomController.transform.rotation;
             }
             m_mushroomController.m_Agent.enabled = false;
-            // m_controller.transform.rotation = m_controller.OriginalRotation;
             m_mushroomController.transform.rotation = Quaternion.Lerp((Quaternion)temp,m_mushroomController.OriginalRotation,timer);
             m_mushroomController.m_Agent.enabled = true;
-            // IsFinished = true;
         }
     }
 

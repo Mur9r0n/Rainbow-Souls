@@ -9,6 +9,7 @@ using UnityEngine.InputSystem.Utilities;
 public class PlayerController : MonoBehaviour
 {
     #region Private Variables
+
     private InteractableObjects m_interactableObject = null;
     private CharacterController m_controller = null;
     private Animator m_anim = null;
@@ -19,26 +20,32 @@ public class PlayerController : MonoBehaviour
     private float m_speedSmoothVelocity = 0f;
     private float m_speedSmoothTime = 0.1f;
     private float m_rotationSpeed = 0.1f;
+
     #endregion
-    
+
     [SerializeField, Tooltip("FreeLookCamera to Follow the Player.")]
     private CinemachineFreeLook m_cinemachineFreeLook = null;
+
     [SerializeField, Tooltip("Speed in which the Character moves.")]
     private float m_movementSpeed = 5.0f;
+
     [SerializeField, Tooltip("Enable Gravity?")]
     private bool m_useGravity = true;
-    [Tooltip("Maximum Healthpoints.")] 
-    public int m_MaxHealth = 100;
-    [Tooltip("Current Healthpoints.")] 
-    public int m_CurrentHealth = 80;
 
+    [Tooltip("Maximum Healthpoints.")] public int m_MaxHealth = 100;
+    [Tooltip("Current Healthpoints.")] public int m_CurrentHealth = 80;
+    [Tooltip("Amount of Damage dealt to Enemies.")]
+    public float m_DamageBase = 10f;
+    private float m_attackDamage = 0f;
+    
     #region Animator Variables
+
     private int m_lightAttack = Animator.StringToHash("Light_Attack");
     private int m_heavyAttack = Animator.StringToHash("Heavy_Attack");
     private int m_walking = Animator.StringToHash("Walking");
-    
 
     #endregion
+
     //TEST
     bool isSprinting = false;
 
@@ -50,6 +57,7 @@ public class PlayerController : MonoBehaviour
         m_mainCameraTransform = Camera.main.transform;
 
         #region Input Action
+
         m_inputs.Player.Dodge.performed += _ => Dodge();
         m_inputs.Player.LightAttack.performed += _ => LightAttack();
         m_inputs.Player.HeavyAttack.performed += _ => HeavyAttack();
@@ -60,6 +68,7 @@ public class PlayerController : MonoBehaviour
         m_inputs.Player.SwitchItems.performed += _ => SwitchItems(m_inputs.Player.SwitchItems.ReadValue<float>());
         m_inputs.Player.OpenInventory.performed += _ => OpenInventory();
         m_inputs.Player.OpenMenu.performed += _ => OpenMenu();
+
         #endregion
     }
 
@@ -143,12 +152,14 @@ public class PlayerController : MonoBehaviour
     public void LightAttack()
     {
         m_anim.SetTrigger(m_lightAttack);
+        m_attackDamage = m_DamageBase;
         Debug.Log("Light Attack");
     }
 
     public void HeavyAttack()
     {
         m_anim.SetTrigger(m_heavyAttack);
+        m_attackDamage = m_DamageBase * 1.5f;
         Debug.Log("Heavy Attack");
     }
 
@@ -231,6 +242,31 @@ public class PlayerController : MonoBehaviour
                 m_interactableObject = null;
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other);
+        if (other.gameObject.CompareTag("Mushroom"))
+        {
+            if (other.gameObject.GetComponent<MushroomController>())
+                other.gameObject.GetComponent<MushroomController>().TakeDamage((int)m_attackDamage);
+        }
+
+        // else if (other.gameObject.CompareTag("Bee"))
+        // {
+        //     other.gameObject.GetComponent<MushroomController>().TakeDamage(2000);
+        // }
+        // else if (other.gameObject.CompareTag("Sheep"))
+        // {
+        //     other.gameObject.GetComponent<MushroomController>().TakeDamage(2000);
+        // }
+    }
+
+    public void TakeDamage(int _damageAmount)
+    {
+        m_CurrentHealth -= _damageAmount;
+        Debug.Log(m_CurrentHealth);
     }
 
 
