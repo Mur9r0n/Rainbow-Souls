@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -36,14 +37,18 @@ public class BeeController : MonoBehaviour
     private ABaseState m_activeState;
     private BeeIdleState m_idleState;
 
-    private void Start()
+    private void Awake()
     {
         m_Agent = GetComponent<NavMeshAgent>();
         OriginalPosition = transform.position;
         OriginalRotation = transform.rotation;
         OriginalFOVAngle = m_FOVAngle;
         OriginalFOVDistance = m_FOVDistance;
+    }
 
+    private void Start()
+    {
+        GameManager.Instance.m_Enemies.Add(this.gameObject);
         m_idleState = new BeeIdleState();
         BeeAttackState m_attackState = new BeeAttackState();
         BeeResetState m_resetState = new BeeResetState();
@@ -201,7 +206,6 @@ public class BeeController : MonoBehaviour
 
         return false;
     }
-
 
     private void OnDrawGizmos()
     {

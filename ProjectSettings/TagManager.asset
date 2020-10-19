@@ -6,7 +6,9 @@ TagManager:
   tags:
   - Ground
   - Interactable
-  - Enemy
+  - Sheep
+  - Bee
+  - Mushroom
   layers:
   - Default
   - TransparentFX

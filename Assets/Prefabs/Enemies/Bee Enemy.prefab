@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 7674545271991295500}
   m_Layer: 0
   m_Name: Bee Enemy
-  m_TagString: Enemy
+  m_TagString: Bee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,7 +198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e4a1ff6e9b15d4147905eab53cfb4abf, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Bee
       objectReference: {fileID: 0}
     - target: {fileID: 3163226146608637661, guid: e4a1ff6e9b15d4147905eab53cfb4abf, type: 3}
       propertyPath: m_Materials.Array.data[0]

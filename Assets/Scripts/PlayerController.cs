@@ -23,15 +23,14 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField, Tooltip("FreeLookCamera to Follow the Player.")]
     private CinemachineFreeLook m_cinemachineFreeLook = null;
-
     [SerializeField, Tooltip("Speed in which the Character moves.")]
     private float m_movementSpeed = 5.0f;
-
     [SerializeField, Tooltip("Enable Gravity?")]
     private bool m_useGravity = true;
-
-    [Tooltip("Maximum Healthpoints.")] public int m_MaxHealth = 100;
-    [Tooltip("Current Healthpoints.")] public int m_CurrentHealth = 80;
+    [Tooltip("Maximum Healthpoints.")] 
+    public int m_MaxHealth = 100;
+    [Tooltip("Current Healthpoints.")] 
+    public int m_CurrentHealth = 80;
 
     #region Animator Variables
     private int m_lightAttack = Animator.StringToHash("Light_Attack");
@@ -77,7 +76,7 @@ public class PlayerController : MonoBehaviour
         LookForInteractables();
     }
 
-    public void Movement( /*InputAction.CallbackContext*/ Vector2 _context)
+    public void Movement(Vector2 _context)
     {
         if (_context != Vector2.zero)
         {
@@ -102,7 +101,7 @@ public class PlayerController : MonoBehaviour
 
             float targetSpeed = m_movementSpeed * movementInput.magnitude;
             if (isSprinting)
-                m_currentSpeed = 13;
+                m_currentSpeed = 10f;
             else
                 m_currentSpeed = Mathf.SmoothDamp(m_currentSpeed, targetSpeed, ref m_speedSmoothVelocity,
                     m_speedSmoothTime);
@@ -155,6 +154,9 @@ public class PlayerController : MonoBehaviour
 
     public void TargetSystem()
     {
+        Vector3 target = FindObjectOfType<SheepController>().transform.position;
+        transform.LookAt(target);
+        Debug.Log(target);
         Debug.Log("Target System");
     }
 

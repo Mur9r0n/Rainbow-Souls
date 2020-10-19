@@ -20,6 +20,11 @@ public class MushroomController : MonoBehaviour
     [SerializeField, Tooltip("Time to pass until resetting."), Range(1f, 20f)]
     public float m_ResetDelay = 1f;
 
+    //TODO Testing
+    [SerializeField] private GameObject m_poisonCloudPrefab;
+    private bool m_isRecharging = false;
+    private float m_rechargeDelay = 10f;
+
     [Header("FOV and Range Parameters:")]
     [SerializeField, Tooltip("Field of View Distance."), Range(1f, 100f)]
     public float m_FOVDistance = 1f;
@@ -36,14 +41,17 @@ public class MushroomController : MonoBehaviour
     private ABaseState m_activeState;
     private MushroomIdleState m_idleState;
 
-    private void Start()
+    private void Awake()
     {
         m_Agent = GetComponent<NavMeshAgent>();
         OriginalPosition = transform.position;
         OriginalRotation = transform.rotation;
         OriginalFOVAngle = m_FOVAngle;
         OriginalFOVDistance = m_FOVDistance;
-
+    }
+    private void Start()
+    {
+        GameManager.Instance.m_Enemies.Add(this.gameObject);
         m_idleState = new MushroomIdleState();
         MushroomAttackState m_attackState = new MushroomAttackState();
         MushroomResetState m_resetState = new MushroomResetState();
@@ -184,9 +192,14 @@ public class MushroomController : MonoBehaviour
                 {
                     if (hit.collider.gameObject.CompareTag("Player"))
                     {
-                        // Debug.Log("Able to Attack!");
-                        Debug.DrawRay(origin, directionToPlayer, Color.blue,
-                            5f);
+                        //TODO Testing
+                        if (!m_isRecharging)
+                        {
+                            m_isRecharging = true;
+                            Instantiate(m_poisonCloudPrefab, transform.position, Quaternion.identity);
+                            Invoke("Recharging",m_rechargeDelay);
+                        }
+                        Debug.DrawRay(origin, directionToPlayer, Color.blue, 5f);
                         return true;
                     }
                     else
@@ -202,7 +215,10 @@ public class MushroomController : MonoBehaviour
         return false;
     }
 
-
+    private void Recharging()
+    {
+        m_isRecharging = false;
+    }
     private void OnDrawGizmos()
     {
         Vector3 origin = transform.position + new Vector3(0, 1, 0);

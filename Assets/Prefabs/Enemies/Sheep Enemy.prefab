@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4156500784427693177}
   m_Layer: 0
   m_Name: Sheep Enemy
-  m_TagString: Enemy
+  m_TagString: Sheep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -203,7 +203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7540848694519518456, guid: f5d5226c747d6d14986de7a56ca5a766, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5d5226c747d6d14986de7a56ca5a766, type: 3}
@@ -297,7 +297,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 579c54557721be545ad0854f1c4d916a, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Sheep
       objectReference: {fileID: 0}
     - target: {fileID: 1921220650394037469, guid: 579c54557721be545ad0854f1c4d916a, type: 3}
       propertyPath: m_Materials.Array.data[0]
