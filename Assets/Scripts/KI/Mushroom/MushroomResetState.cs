@@ -37,6 +37,7 @@ public class MushroomResetState : ABaseState
 
     public override void Exit()
     {
+        timer = 0;
         m_mushroomController.m_FOVAngle = m_mushroomController.OriginalFOVAngle;
         m_mushroomController.m_FOVDistance = m_mushroomController.OriginalFOVDistance;
         base.Exit();

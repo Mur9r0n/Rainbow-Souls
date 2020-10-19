@@ -37,6 +37,7 @@ public class SheepResetState : ABaseState
 
     public override void Exit()
     {
+        timer = 0;
         m_sheepController.m_FOVAngle = m_sheepController.OriginalFOVAngle;
         m_sheepController.m_FOVDistance = m_sheepController.OriginalFOVDistance;
         base.Exit();

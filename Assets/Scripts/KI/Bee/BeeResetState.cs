@@ -37,6 +37,7 @@ public class BeeResetState : ABaseState
 
     public override void Exit()
     {
+        timer = 0;
         m_beeController.m_FOVAngle = m_beeController.OriginalFOVAngle;
         m_beeController.m_FOVDistance = m_beeController.OriginalFOVDistance;
         base.Exit();
