@@ -41,7 +41,7 @@ public class PoisonCloudBehaviour : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Raucherhusten!");
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
         }
     }
 }
