@@ -20,24 +20,31 @@ public class PlayerController : MonoBehaviour
     private float m_speedSmoothVelocity = 0f;
     private float m_speedSmoothTime = 0.1f;
     private float m_rotationSpeed = 0.1f;
+    private GameObject m_targetedEnemy = null;
 
     #endregion
 
     [SerializeField, Tooltip("FreeLookCamera to Follow the Player.")]
     private CinemachineFreeLook m_cinemachineFreeLook = null;
 
-    [SerializeField, Tooltip("Speed in which the Character moves.")]
-    private float m_movementSpeed = 5.0f;
-
     [SerializeField, Tooltip("Enable Gravity?")]
     private bool m_useGravity = true;
 
+    #region Stat Variables
+
     [Tooltip("Maximum Healthpoints.")] public int m_MaxHealth = 100;
     [Tooltip("Current Healthpoints.")] public int m_CurrentHealth = 80;
+
+    [SerializeField, Tooltip("Speed in which the Character moves.")]
+    private float m_movementSpeed = 5.0f;
+
     [Tooltip("Amount of Damage dealt to Enemies.")]
     public float m_DamageBase = 10f;
+
     private float m_attackDamage = 0f;
-    
+
+    #endregion
+
     #region Animator Variables
 
     private int m_lightAttack = Animator.StringToHash("Light_Attack");
@@ -87,49 +94,92 @@ public class PlayerController : MonoBehaviour
 
     public void Movement(Vector2 _context)
     {
-        if (_context != Vector2.zero)
+        if (!m_targetedEnemy)
         {
-            m_anim.SetBool(m_walking, true);
-            Vector2 movementInput = new Vector2(_context.x, _context.y);
+            if (_context != Vector2.zero)
+            {
+                m_anim.SetBool(m_walking, true);
+                Vector2 movementInput = new Vector2(_context.x, _context.y);
 
-            Vector3 forward = m_mainCameraTransform.forward;
-            Vector3 right = m_mainCameraTransform.right;
-            forward.y = 0;
-            right.y = 0;
+                Vector3 forward = m_mainCameraTransform.forward;
+                Vector3 right = m_mainCameraTransform.right;
+                forward.y = 0;
+                right.y = 0;
 
-            forward.Normalize();
-            right.Normalize();
+                forward.Normalize();
+                right.Normalize();
 
-            Vector3 desiredMoveDirection = (forward * movementInput.y + right * movementInput.x).normalized;
+                Vector3 desiredMoveDirection = (forward * movementInput.y + right * movementInput.x).normalized;
+
+                if (desiredMoveDirection != Vector3.zero)
+                {
+                    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection),
+                        m_rotationSpeed);
+                }
+
+                float targetSpeed = m_movementSpeed * movementInput.magnitude;
+                if (isSprinting)
+                    m_currentSpeed = 10f;
+                else
+                    m_currentSpeed = Mathf.SmoothDamp(m_currentSpeed, targetSpeed, ref m_speedSmoothVelocity,
+                        m_speedSmoothTime);
+
+                m_controller.Move(desiredMoveDirection * m_currentSpeed * Time.deltaTime);
+
+
+                if (!m_cinemachineFreeLook.m_RecenterToTargetHeading.m_enabled)
+                {
+                    m_cinemachineFreeLook.m_RecenterToTargetHeading.m_enabled = true;
+                }
+            }
+            else
+            {
+                m_anim.SetBool(m_walking, false);
+                m_cinemachineFreeLook.m_RecenterToTargetHeading.m_enabled = false;
+            }
+        }
+        else if (m_targetedEnemy)
+        {
+            Vector3 desiredMoveDirection = (m_targetedEnemy.transform.position - transform.position).normalized;
 
             if (desiredMoveDirection != Vector3.zero)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection),
-                    m_rotationSpeed);
+                    1f);
             }
 
-            float targetSpeed = m_movementSpeed * movementInput.magnitude;
-            if (isSprinting)
-                m_currentSpeed = 10f;
-            else
-                m_currentSpeed = Mathf.SmoothDamp(m_currentSpeed, targetSpeed, ref m_speedSmoothVelocity,
-                    m_speedSmoothTime);
-
-            m_controller.Move(desiredMoveDirection * m_currentSpeed * Time.deltaTime);
-
-
-            if (!m_cinemachineFreeLook.m_RecenterToTargetHeading.m_enabled)
+            if (_context != Vector2.zero)
             {
-                m_cinemachineFreeLook.m_RecenterToTargetHeading.m_enabled = true;
+                m_anim.SetBool(m_walking, true);
+                Vector2 movementInput = new Vector2(_context.x, _context.y);
+                
+                float targetSpeed = m_movementSpeed * movementInput.magnitude;
+
+                if (isSprinting)
+                {
+                    m_currentSpeed = 10f;
+                }
+
+                else
+                {
+                    m_currentSpeed = Mathf.SmoothDamp(m_currentSpeed, targetSpeed, ref m_speedSmoothVelocity,
+                        m_speedSmoothTime);
+                }
+
+                Vector3 movement = transform.forward * movementInput.y + transform.right * movementInput.x;
+                m_controller.Move(movement* Time.deltaTime * m_currentSpeed );
+
+                if (!m_cinemachineFreeLook.m_RecenterToTargetHeading.m_enabled)
+                {
+                    m_cinemachineFreeLook.m_RecenterToTargetHeading.m_enabled = true;
+                }
+            }
+            else
+            {
+                m_anim.SetBool(m_walking, false);
+                m_cinemachineFreeLook.m_RecenterToTargetHeading.m_enabled = false;
             }
         }
-        else
-        {
-            m_anim.SetBool(m_walking, false);
-            m_cinemachineFreeLook.m_RecenterToTargetHeading.m_enabled = false;
-        }
-
-        //m_anim.SetFloat("MovementSpeed", _context.magnitude);
     }
 
     private void Gravity()
@@ -165,10 +215,35 @@ public class PlayerController : MonoBehaviour
 
     public void TargetSystem()
     {
-        Vector3 target = FindObjectOfType<SheepController>().transform.position;
-        transform.LookAt(target);
-        Debug.Log(target);
-        Debug.Log("Target System");
+        if (!m_targetedEnemy)
+        {
+            foreach (GameObject possibleTarget in GameManager.Instance.m_Enemies)
+            {
+                if (m_targetedEnemy != null)
+                {
+                    if (Vector3.Distance(possibleTarget.transform.position, transform.position) <
+                        Vector3.Distance(m_targetedEnemy.transform.position, transform.position))
+                    {
+                        m_targetedEnemy = possibleTarget;
+                    }
+                }
+                else
+                {
+                    m_targetedEnemy = possibleTarget;
+                }
+            }
+
+            m_cinemachineFreeLook.LookAt = m_targetedEnemy.transform;
+            // m_cinemachineFreeLook.m_BindingMode = CinemachineTransposer.BindingMode.LockToTarget;
+        }
+        else if (m_targetedEnemy)
+        {
+            m_targetedEnemy = null;
+            m_cinemachineFreeLook.LookAt = this.transform;
+            // m_cinemachineFreeLook.m_BindingMode = CinemachineTransposer.BindingMode.WorldSpace;
+        }
+
+        Debug.Log("Target : " + m_targetedEnemy);
     }
 
     public void Sprint()
@@ -250,7 +325,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Mushroom"))
         {
             if (other.gameObject.GetComponent<MushroomController>())
-                other.gameObject.GetComponent<MushroomController>().TakeDamage((int)m_attackDamage);
+                other.gameObject.GetComponent<MushroomController>().TakeDamage((int) m_attackDamage);
         }
 
         // else if (other.gameObject.CompareTag("Bee"))

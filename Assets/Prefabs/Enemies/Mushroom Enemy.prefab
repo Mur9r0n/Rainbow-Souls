@@ -384,15 +384,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Agent: {fileID: 0}
   m_Healthbar: {fileID: 0}
-  m_maxHealthPoints: 10000
-  m_currentHealthPoints: 10000
+  m_maxHealthPoints: 250
+  m_currentHealthPoints: 250
   m_ResetDelay: 20
-  m_poisonCloudPrefab: {fileID: 2584638056654703915, guid: ced1ffdcab3c8624990afa2044eb4d32, type: 3}
   m_FOVDistance: 11.3
   m_FOVAngle: 67.6
-  m_AttackDistance: 3
+  m_AttackDistance: 2.25
   m_PoisonDistance: 7.7
-  m_AttackAngle: 90
+  m_PoisonCloudPrefab: {fileID: 2584638056654703915, guid: ced1ffdcab3c8624990afa2044eb4d32, type: 3}
 --- !u!195 &6284733359925468411
 NavMeshAgent:
   m_ObjectHideFlags: 0

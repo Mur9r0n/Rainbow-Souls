@@ -24,12 +24,6 @@ public class MushroomController : MonoBehaviour
     [SerializeField, Tooltip("Time to pass until resetting."), Range(1f, 20f)]
     public float m_ResetDelay = 1f;
 
-    //TODO Testing
-    [SerializeField] private GameObject m_poisonCloudPrefab;
-    private bool m_isRecharging = false;
-    private float m_rechargeDelay = 2f;
-    private int m_attack = Animator.StringToHash("Melee Attack");
-
     [Header("FOV and Range Parameters:")] [SerializeField, Tooltip("Field of View Distance."), Range(1f, 100f)]
     public float m_FOVDistance = 1f;
 
@@ -37,13 +31,12 @@ public class MushroomController : MonoBehaviour
     public float m_FOVAngle = 1f;
 
     [SerializeField, Tooltip("Distance at which the GameObject is able to Attack."), Range(1f, 100f)]
-    public float m_AttackDistance = 1f;
+    public float m_AttackDistance = 2f;
 
     [SerializeField, Tooltip("Distance at which the GameObject is able to Attack."), Range(1f, 100f)]
     public float m_PoisonDistance = 1f;
 
-    [SerializeField, Tooltip("Angle at which the GameObject is able to Attack."), Range(0f, 90f)]
-    public float m_AttackAngle = 1f;
+    [SerializeField] public GameObject m_PoisonCloudPrefab;
 
     private ABaseState m_activeState;
     private MushroomIdleState m_idleState;
@@ -63,7 +56,7 @@ public class MushroomController : MonoBehaviour
     {
         GameManager.Instance.m_Enemies.Add(this.gameObject);
         m_Healthbar.GetMaxHealth(m_maxHealthPoints);
-        
+
         m_idleState = new MushroomIdleState();
         MushroomAttackState m_attackState = new MushroomAttackState();
         MushroomResetState m_resetState = new MushroomResetState();
@@ -146,6 +139,8 @@ public class MushroomController : MonoBehaviour
                 }
             }
         }
+
+
     }
 
     public bool PlayerInFOV()
@@ -189,66 +184,31 @@ public class MushroomController : MonoBehaviour
     {
         Vector3 playerposition = GameManager.Instance.PlayerTransform.position;
         Vector3 origin = transform.position + new Vector3(0, 1, 0);
-        Vector3 directionToPlayer = (playerposition + new Vector3(0, 1, 0)) -
-                                    origin;
+        Vector3 directionToPlayer = (playerposition + new Vector3(0, 1, 0)) - origin;
 
-        if (Vector3.SignedAngle(directionToPlayer, transform.forward, Vector3.forward) <= m_AttackAngle &&
-            Vector3.SignedAngle(directionToPlayer, transform.forward, Vector3.forward) >= -m_AttackAngle)
+        RaycastHit hit;
+        if (Vector3.Distance(origin, playerposition) <= m_PoisonDistance)
         {
-            //Melee Attack
-            RaycastHit hit;
-            if (Vector3.Distance(origin, playerposition) <= m_AttackDistance)
+            if (Physics.Raycast(origin, directionToPlayer, out hit, m_PoisonDistance))
             {
-                if (Physics.Raycast(origin, directionToPlayer, out hit, m_AttackDistance))
+                if (hit.collider.gameObject.CompareTag("Player"))
                 {
-                    if (hit.collider.gameObject.CompareTag("Player"))
-                    {
-                        //TODO Testing
-                        if (!m_isRecharging)
-                        {
-                            m_isRecharging = true;
-                            m_anim.SetTrigger(m_attack);
-                            // Instantiate(m_poisonCloudPrefab, transform.position, Quaternion.identity);
-                            Invoke("Recharging", m_rechargeDelay);
-                        }
-
-
-                        Debug.DrawRay(origin, directionToPlayer, Color.blue, 5f);
-                        return true;
-                    }
-                    else
-                    {
-                        // Debug.Log("Cant attack player! ");
-                        Debug.DrawRay(origin, directionToPlayer, Color.white, 5f);
-                        return false;
-                    }
+                    Debug.DrawRay(origin, directionToPlayer, Color.blue, 5f);
+                    return true;
                 }
-            }
-            //Poison Cloud Spawning
-            else if (Vector3.Distance(origin, playerposition) > m_AttackDistance &&
-                     Vector3.Distance(origin, playerposition) <= m_PoisonDistance)
-            {
-                //TODO Testing
-                if (!m_isRecharging)
+                else
                 {
-                    m_isRecharging = true;
-                    Instantiate(m_poisonCloudPrefab, transform.position, Quaternion.identity);
-                    Invoke("Recharging", 10);
+                    // Debug.Log("Cant attack player! ");
+                    Debug.DrawRay(origin, directionToPlayer, Color.white, 5f);
+                    return false;
                 }
             }
         }
-
         return false;
-    }
-
-    private void Recharging()
-    {
-        m_isRecharging = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Debug.Log(other);
         if (other.gameObject.CompareTag("Player"))
         {
             if (other.gameObject.GetComponent<PlayerController>())
@@ -258,9 +218,14 @@ public class MushroomController : MonoBehaviour
 
     public void TakeDamage(int _damageAmount)
     {
-        Debug.Log("HAllo");
         m_currentHealthPoints -= _damageAmount;
         m_Healthbar.GetCurrentHealth(m_currentHealthPoints);
+        
+        if (m_currentHealthPoints <= 0)
+        {
+            m_currentHealthPoints = 0;
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnDrawGizmos()
@@ -272,23 +237,15 @@ public class MushroomController : MonoBehaviour
         Vector3 FovLine3 = Quaternion.AngleAxis(m_FOVAngle, transform.right) * transform.forward * m_FOVDistance;
         Vector3 FovLine4 = Quaternion.AngleAxis(-m_FOVAngle, transform.right) * transform.forward * m_FOVDistance;
 
-
-        Vector3 AttackLine1 = Quaternion.AngleAxis(m_AttackAngle, transform.up) * transform.forward * m_AttackDistance;
-        Vector3 AttackLine2 = Quaternion.AngleAxis(-m_AttackAngle, transform.up) * transform.forward * m_AttackDistance;
-
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(origin, m_FOVDistance);
         Gizmos.DrawWireSphere(origin, m_AttackDistance);
-        Gizmos.DrawWireSphere(origin,m_PoisonDistance);
+        Gizmos.DrawWireSphere(origin, m_PoisonDistance);
 
         Gizmos.color = Color.black;
         Gizmos.DrawRay(origin, FovLine1);
         Gizmos.DrawRay(origin, FovLine2);
         Gizmos.DrawRay(origin, FovLine3);
         Gizmos.DrawRay(origin, FovLine4);
-
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(origin, AttackLine1);
-        Gizmos.DrawRay(origin, AttackLine2);
     }
 }
