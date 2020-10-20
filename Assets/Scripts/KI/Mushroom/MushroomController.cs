@@ -15,6 +15,8 @@ public class MushroomController : MonoBehaviour
 
     public Healthbar m_Healthbar;
 
+    private PlayerController m_playerController;
+    
     [SerializeField, Tooltip("Maximum Healthpoints.")]
     private float m_maxHealthPoints;
 
@@ -50,6 +52,7 @@ public class MushroomController : MonoBehaviour
         OriginalFOVAngle = m_FOVAngle;
         OriginalFOVDistance = m_FOVDistance;
         m_Healthbar = GetComponentInChildren<Healthbar>();
+        m_playerController = FindObjectOfType<PlayerController>();
     }
 
     private void Start()
@@ -224,6 +227,10 @@ public class MushroomController : MonoBehaviour
         if (m_currentHealthPoints <= 0)
         {
             m_currentHealthPoints = 0;
+            if (m_playerController.m_targetedEnemy == this.gameObject)
+            {
+                m_playerController.m_targetedEnemy = null;
+            }
             gameObject.SetActive(false);
         }
     }

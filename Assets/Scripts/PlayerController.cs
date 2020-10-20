@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private float m_speedSmoothVelocity = 0f;
     private float m_speedSmoothTime = 0.1f;
     private float m_rotationSpeed = 0.1f;
-    private GameObject m_targetedEnemy = null;
+    public GameObject m_targetedEnemy = null;
 
     #endregion
 
@@ -90,6 +90,8 @@ public class PlayerController : MonoBehaviour
         Movement(m_inputs.Player.Movement.ReadValue<Vector2>());
         if (m_useGravity) Gravity();
         LookForInteractables();
+
+        if (m_targetedEnemy ? m_cinemachineFreeLook.LookAt = m_targetedEnemy.transform : m_cinemachineFreeLook.LookAt = transform) ;
     }
 
     public void Movement(Vector2 _context)
@@ -233,13 +235,11 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            m_cinemachineFreeLook.LookAt = m_targetedEnemy.transform;
             // m_cinemachineFreeLook.m_BindingMode = CinemachineTransposer.BindingMode.LockToTarget;
         }
         else if (m_targetedEnemy)
         {
             m_targetedEnemy = null;
-            m_cinemachineFreeLook.LookAt = this.transform;
             // m_cinemachineFreeLook.m_BindingMode = CinemachineTransposer.BindingMode.WorldSpace;
         }
 

@@ -226,7 +226,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2878736593532245633, guid: 42e21bff88e1d524bba1b06e2b1d2796, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 42e21bff88e1d524bba1b06e2b1d2796, type: 3}
 --- !u!1 &653260035
 GameObject:
@@ -376,6 +377,18 @@ PrefabInstance:
       propertyPath: m_Orbits.Array.data[2].m_Radius
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 1494886136321866644, guid: 75e13dd35896d514ca2266148663614f, type: 3}
+      propertyPath: m_StandbyUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494886136321866644, guid: 75e13dd35896d514ca2266148663614f, type: 3}
+      propertyPath: m_XAxis.Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494886136321866644, guid: 75e13dd35896d514ca2266148663614f, type: 3}
+      propertyPath: m_BindingMode
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3333616753070974520, guid: 75e13dd35896d514ca2266148663614f, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -435,6 +448,14 @@ PrefabInstance:
     - target: {fileID: 6849674933423590746, guid: 75e13dd35896d514ca2266148663614f, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.000000044114643
+      objectReference: {fileID: 0}
+    - target: {fileID: 6849674933423590746, guid: 75e13dd35896d514ca2266148663614f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6849674933423590746, guid: 75e13dd35896d514ca2266148663614f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75e13dd35896d514ca2266148663614f, type: 3}
@@ -534,29 +555,9 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3535087549439912584, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 4712335077096741278, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 5004925400194777255, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
-      propertyPath: m_TagString
-      value: Mushroom
-      objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468389, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_Name
       value: Mushroom Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 6284733359925468408, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
-      propertyPath: m_maxHealthPoints
-      value: 250
-      objectReference: {fileID: 0}
-    - target: {fileID: 6284733359925468408, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
-      propertyPath: m_currentHealthPoints
-      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468409, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_LocalPosition.x
