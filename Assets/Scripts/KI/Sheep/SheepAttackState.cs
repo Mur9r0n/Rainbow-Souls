@@ -5,7 +5,7 @@ public class SheepAttackState : ABaseState
     public override bool Enter()
     {
         m_sheepController.m_Agent.isStopped = true;
-        Debug.Log("Hier wäre die Update! SheepAttackState");
+        // Debug.Log("Hier wäre die Update! SheepAttackState");
         return base.Enter();
     }
     

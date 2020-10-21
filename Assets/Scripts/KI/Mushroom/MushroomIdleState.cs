@@ -5,7 +5,7 @@ public class MushroomIdleState : ABaseState
     public override bool Enter()
     {
         //TODO Adjustments todo
-        Debug.Log("Hier wäre die Update! MushroomIdleState");
+        // Debug.Log("Hier wäre die Update! MushroomIdleState");
         return base.Enter();
     }
 

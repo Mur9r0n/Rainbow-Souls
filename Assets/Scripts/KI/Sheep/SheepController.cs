@@ -10,6 +10,8 @@ public class SheepController : MonoBehaviour
     public Quaternion OriginalRotation { get; set; }
     public float OriginalFOVAngle { get; set; }
     public float OriginalFOVDistance { get; set; }
+
+    public Healthbar m_Healthbar;
     
     [SerializeField, Tooltip("Maximum Healthpoints.")]
     private float m_maxHealthPoints;
@@ -36,14 +38,19 @@ public class SheepController : MonoBehaviour
     private ABaseState m_activeState;
     private SheepIdleState m_idleState;
 
-    private void Start()
+    private void Awake()
     {
         m_Agent = GetComponent<NavMeshAgent>();
         OriginalPosition = transform.position;
         OriginalRotation = transform.rotation;
         OriginalFOVAngle = m_FOVAngle;
         OriginalFOVDistance = m_FOVDistance;
-
+        m_Healthbar = GetComponentInChildren<Healthbar>();
+    }
+    
+    private void Start()
+    {
+        GameManager.Instance.m_Enemies.Add(this.gameObject);
         m_idleState = new SheepIdleState();
         SheepAttackState m_attackState = new SheepAttackState();
         SheepResetState m_resetState = new SheepResetState();

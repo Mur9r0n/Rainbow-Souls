@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Transform PlayerTransform { get; private set; }
+    public List<GameObject> m_Enemies = new List<GameObject>();
 
     #region Singleton
     public static GameManager Instance { get; private set; }

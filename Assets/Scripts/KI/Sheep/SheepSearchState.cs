@@ -9,14 +9,14 @@ public class SheepSearchState : ABaseState
     {
         m_Timer = m_sheepController.m_ResetDelay;
         m_sheepController.m_Agent.SetDestination(GameManager.Instance.PlayerTransform.position);
-        Debug.Log("Hier wäre die Update! SheepSearchState");
+        // Debug.Log("Hier wäre die Update! SheepSearchState");
         return base.Enter();
     }
     
     public override void Update()
     {
         m_Timer -= Time.deltaTime;
-        Debug.Log("Searching...");
+        // Debug.Log("Searching...");
 
         if (m_Timer >= 0f)
         {

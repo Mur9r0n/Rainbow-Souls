@@ -9,7 +9,7 @@ public class SheepResetState : ABaseState
     {
         m_sheepController.m_Agent.isStopped = false;
         m_sheepController.m_Agent.SetDestination(m_sheepController.OriginalPosition);
-        Debug.Log("Hier wäre die Update! SheepResetState");
+        // Debug.Log("Hier wäre die Update! SheepResetState");
         return base.Enter();
     }
 
@@ -28,15 +28,14 @@ public class SheepResetState : ABaseState
                 temp = m_sheepController.transform.rotation;
             }
             m_sheepController.m_Agent.enabled = false;
-            // m_controller.transform.rotation = m_controller.OriginalRotation;
             m_sheepController.transform.rotation = Quaternion.Lerp((Quaternion)temp,m_sheepController.OriginalRotation,timer);
             m_sheepController.m_Agent.enabled = true;
-            // IsFinished = true;
         }
     }
 
     public override void Exit()
     {
+        timer = 0;
         m_sheepController.m_FOVAngle = m_sheepController.OriginalFOVAngle;
         m_sheepController.m_FOVDistance = m_sheepController.OriginalFOVDistance;
         base.Exit();

@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Interactable
+  - Sheep
+  - Bee
+  - Mushroom
   layers:
   - Default
   - TransparentFX
