@@ -32,11 +32,11 @@ public class PlayerController : MonoBehaviour
 
     #region Stat Variables
 
-    [Tooltip("Maximum Healthpoints.")] public int m_MaxHealth = 100;
-    [Tooltip("Current Healthpoints.")] public int m_CurrentHealth = 80;
+    [Tooltip("Maximum Healthpoints.")] public float m_MaxHealth = 100;
+    [Tooltip("Current Healthpoints.")] public float m_CurrentHealth = 100;
 
     [SerializeField, Tooltip("Speed in which the Character moves.")]
-    private float m_movementSpeed = 5.0f;
+    private Vector2 m_movementSpeed = new Vector2( 5.0f, 10.0f);
 
     [Tooltip("Amount of Damage dealt to Enemies.")]
     public float m_DamageBase = 10f;
@@ -91,13 +91,16 @@ public class PlayerController : MonoBehaviour
         if (m_useGravity) Gravity();
         LookForInteractables();
 
-        if (m_targetedEnemy ? m_cinemachineFreeLook.LookAt = m_targetedEnemy.transform : m_cinemachineFreeLook.LookAt = transform) ;
+        //While Target selected camera looks at target
+        // if (m_targetedEnemy ? m_cinemachineFreeLook.LookAt = m_targetedEnemy.transform : m_cinemachineFreeLook.LookAt = transform) ;
     }
 
     public void Movement(Vector2 _context)
     {
-        if (!m_targetedEnemy)
+        if (!m_targetedEnemy || isSprinting)
         {
+            m_cinemachineFreeLook.m_RecenterToTargetHeading.m_WaitTime = 0.5f;
+            m_cinemachineFreeLook.m_RecenterToTargetHeading.m_RecenteringTime = 1.0f;
             if (_context != Vector2.zero)
             {
                 m_anim.SetBool(m_walking, true);
@@ -119,9 +122,9 @@ public class PlayerController : MonoBehaviour
                         m_rotationSpeed);
                 }
 
-                float targetSpeed = m_movementSpeed * movementInput.magnitude;
+                float targetSpeed = m_movementSpeed.x * movementInput.magnitude;
                 if (isSprinting)
-                    m_currentSpeed = 10f;
+                    m_currentSpeed = m_movementSpeed.y;
                 else
                     m_currentSpeed = Mathf.SmoothDamp(m_currentSpeed, targetSpeed, ref m_speedSmoothVelocity,
                         m_speedSmoothTime);
@@ -142,6 +145,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (m_targetedEnemy)
         {
+            m_cinemachineFreeLook.m_RecenterToTargetHeading.m_WaitTime = 0;
+            m_cinemachineFreeLook.m_RecenterToTargetHeading.m_RecenteringTime = 0.1f;
             Vector3 desiredMoveDirection = (m_targetedEnemy.transform.position - transform.position).normalized;
 
             if (desiredMoveDirection != Vector3.zero)
@@ -155,11 +160,11 @@ public class PlayerController : MonoBehaviour
                 m_anim.SetBool(m_walking, true);
                 Vector2 movementInput = new Vector2(_context.x, _context.y);
                 
-                float targetSpeed = m_movementSpeed * movementInput.magnitude;
+                float targetSpeed = m_movementSpeed.x * movementInput.magnitude;
 
                 if (isSprinting)
                 {
-                    m_currentSpeed = 10f;
+                    m_currentSpeed = m_movementSpeed.y;
                 }
 
                 else
@@ -234,7 +239,7 @@ public class PlayerController : MonoBehaviour
                     m_targetedEnemy = possibleTarget;
                 }
             }
-
+            
             // m_cinemachineFreeLook.m_BindingMode = CinemachineTransposer.BindingMode.LockToTarget;
         }
         else if (m_targetedEnemy)
@@ -328,20 +333,26 @@ public class PlayerController : MonoBehaviour
                 other.gameObject.GetComponent<MushroomController>().TakeDamage((int) m_attackDamage);
         }
 
-        // else if (other.gameObject.CompareTag("Bee"))
-        // {
-        //     other.gameObject.GetComponent<MushroomController>().TakeDamage(2000);
-        // }
+        else if (other.gameObject.CompareTag("Bee"))
+        {
+            if (other.gameObject.GetComponent<BeeController>())
+                other.gameObject.GetComponent<BeeController>().TakeDamage((int) m_attackDamage);
+        }
         // else if (other.gameObject.CompareTag("Sheep"))
         // {
         //     other.gameObject.GetComponent<MushroomController>().TakeDamage(2000);
         // }
     }
 
-    public void TakeDamage(int _damageAmount)
+    public void TakeDamage(float _damageAmount)
     {
         m_CurrentHealth -= _damageAmount;
         Debug.Log(m_CurrentHealth);
+
+        if (m_CurrentHealth <= 0)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+        }
     }
 
 

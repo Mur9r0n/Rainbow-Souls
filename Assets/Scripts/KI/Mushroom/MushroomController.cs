@@ -6,16 +6,15 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class MushroomController : MonoBehaviour
 {
-    public NavMeshAgent m_Agent = null;
+    [HideInInspector] public NavMeshAgent m_Agent = null;
+    [HideInInspector] public Healthbar m_Healthbar = null;
     private Animator m_anim = null;
+    private PlayerController m_playerController;
+    
     public Vector3 OriginalPosition { get; set; }
     public Quaternion OriginalRotation { get; set; }
     public float OriginalFOVAngle { get; set; }
     public float OriginalFOVDistance { get; set; }
-
-    public Healthbar m_Healthbar;
-
-    private PlayerController m_playerController;
     
     [SerializeField, Tooltip("Maximum Healthpoints.")]
     private float m_maxHealthPoints;
@@ -38,6 +37,7 @@ public class MushroomController : MonoBehaviour
     [SerializeField, Tooltip("Distance at which the GameObject is able to Attack."), Range(1f, 100f)]
     public float m_PoisonDistance = 1f;
 
+    [SerializeField] private float m_attackDamage = 50f;
     [SerializeField] public GameObject m_PoisonCloudPrefab;
 
     private ABaseState m_activeState;
@@ -47,12 +47,13 @@ public class MushroomController : MonoBehaviour
     {
         m_Agent = GetComponent<NavMeshAgent>();
         m_anim = GetComponent<Animator>();
+        m_Healthbar = GetComponentInChildren<Healthbar>();
+        m_playerController = FindObjectOfType<PlayerController>();
+        
         OriginalPosition = transform.position;
         OriginalRotation = transform.rotation;
         OriginalFOVAngle = m_FOVAngle;
         OriginalFOVDistance = m_FOVDistance;
-        m_Healthbar = GetComponentInChildren<Healthbar>();
-        m_playerController = FindObjectOfType<PlayerController>();
     }
 
     private void Start()
@@ -142,8 +143,6 @@ public class MushroomController : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     public bool PlayerInFOV()
@@ -152,7 +151,6 @@ public class MushroomController : MonoBehaviour
         Vector3 origin = transform.position + new Vector3(0, 1, 0);
         Vector3 directionToPlayer = (playerposition + new Vector3(0, 1, 0)) -
                                     origin;
-        // Debug.Log(Vector3.SignedAngle(dir, transform.forward, Vector3.forward));
 
         if (Vector3.SignedAngle(directionToPlayer, transform.forward, Vector3.forward) <= m_FOVAngle &&
             Vector3.SignedAngle(directionToPlayer, transform.forward, Vector3.forward) >= -m_FOVAngle)
@@ -215,11 +213,11 @@ public class MushroomController : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             if (other.gameObject.GetComponent<PlayerController>())
-                other.gameObject.GetComponent<PlayerController>().TakeDamage(50);
+                other.gameObject.GetComponent<PlayerController>().TakeDamage(m_attackDamage);
         }
     }
 
-    public void TakeDamage(int _damageAmount)
+    public void TakeDamage(float _damageAmount)
     {
         m_currentHealthPoints -= _damageAmount;
         m_Healthbar.GetCurrentHealth(m_currentHealthPoints);
@@ -231,6 +229,7 @@ public class MushroomController : MonoBehaviour
             {
                 m_playerController.m_targetedEnemy = null;
             }
+            GameManager.Instance.m_Enemies.Remove(this.gameObject);
             gameObject.SetActive(false);
         }
     }
