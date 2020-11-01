@@ -4,64 +4,19 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class MushroomController : MonoBehaviour
+public class MushroomController : AEnemyController
 {
-    [HideInInspector] public NavMeshAgent m_Agent = null;
-    [HideInInspector] public Healthbar m_Healthbar = null;
-    private Animator m_anim = null;
-    private PlayerController m_playerController;
-    
-    public Vector3 OriginalPosition { get; set; }
-    public Quaternion OriginalRotation { get; set; }
-    public float OriginalFOVAngle { get; set; }
-    public float OriginalFOVDistance { get; set; }
-    
-    [SerializeField, Tooltip("Maximum Healthpoints.")]
-    private float m_maxHealthPoints;
-
-    [SerializeField, Tooltip("Current Healthpoints.")]
-    private float m_currentHealthPoints;
-
-    [SerializeField, Tooltip("Time to pass until resetting."), Range(1f, 20f)]
-    public float m_ResetDelay = 1f;
-
-    [Header("FOV and Range Parameters:")] [SerializeField, Tooltip("Field of View Distance."), Range(1f, 100f)]
-    public float m_FOVDistance = 1f;
-
-    [SerializeField, Tooltip("Field of View Angle."), Range(0f, 90f)]
-    public float m_FOVAngle = 1f;
-
-    [SerializeField, Tooltip("Distance at which the GameObject is able to Attack."), Range(1f, 100f)]
-    public float m_AttackDistance = 2f;
-
     [SerializeField, Tooltip("Distance at which the GameObject is able to Attack."), Range(1f, 100f)]
     public float m_PoisonDistance = 1f;
 
     [SerializeField] private float m_attackDamage = 50f;
     [SerializeField] public GameObject m_PoisonCloudPrefab;
 
-    private ABaseState m_activeState;
-    private MushroomIdleState m_idleState;
-
-    private void Awake()
-    {
-        m_Agent = GetComponent<NavMeshAgent>();
-        m_anim = GetComponent<Animator>();
-        m_Healthbar = GetComponentInChildren<Healthbar>();
-        m_playerController = FindObjectOfType<PlayerController>();
-        
-        OriginalPosition = transform.position;
-        OriginalRotation = transform.rotation;
-        OriginalFOVAngle = m_FOVAngle;
-        OriginalFOVDistance = m_FOVDistance;
-    }
-
     private void Start()
     {
-        GameManager.Instance.m_Enemies.Add(this.gameObject);
-        m_Healthbar.GetMaxHealth(m_maxHealthPoints);
-
-        m_idleState = new MushroomIdleState();
+        base.Start();
+        
+        m_idleState = new EnemyIdleState();
         MushroomAttackState m_attackState = new MushroomAttackState();
         MushroomResetState m_resetState = new MushroomResetState();
         MushroomWalkState m_walkState = new MushroomWalkState();
@@ -69,20 +24,20 @@ public class MushroomController : MonoBehaviour
 
         m_idleState.MushroomInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
-                () => PlayerInFOV() && PlayerInRangeToAttack(), m_attackState
+                () => PlayerInFOV() && PlayerInRangeToAttack(m_PoisonDistance), m_attackState
             ),
             new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
-                () => PlayerInFOV() && !PlayerInRangeToAttack(), m_walkState
+                () => PlayerInFOV() && !PlayerInRangeToAttack(m_PoisonDistance), m_walkState
             ));
 
         m_attackState.MushroomInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
-                () => PlayerInFOV() && !PlayerInRangeToAttack(), m_walkState
+                () => PlayerInFOV() && !PlayerInRangeToAttack(m_PoisonDistance), m_walkState
             ),
             new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
-                () => !PlayerInFOV() && !PlayerInRangeToAttack(), m_searchState
+                () => !PlayerInFOV() && !PlayerInRangeToAttack(m_PoisonDistance), m_searchState
             ));
 
         m_resetState.MushroomInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
@@ -91,20 +46,20 @@ public class MushroomController : MonoBehaviour
             ),
             new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
-                () => PlayerInFOV() && PlayerInRangeToAttack(), m_attackState
+                () => PlayerInFOV() && PlayerInRangeToAttack(m_PoisonDistance), m_attackState
             ),
             new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
-                () => PlayerInFOV() && !PlayerInRangeToAttack(), m_walkState
+                () => PlayerInFOV() && !PlayerInRangeToAttack(m_PoisonDistance), m_walkState
             ));
 
         m_walkState.MushroomInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
-                () => !PlayerInFOV() && !PlayerInRangeToAttack(), m_searchState
+                () => !PlayerInFOV() && !PlayerInRangeToAttack(m_PoisonDistance), m_searchState
             ),
             new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
-                () => PlayerInFOV() && PlayerInRangeToAttack(), m_attackState
+                () => PlayerInFOV() && PlayerInRangeToAttack(m_PoisonDistance), m_attackState
             ));
         m_searchState.MushroomInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
@@ -118,96 +73,6 @@ public class MushroomController : MonoBehaviour
         m_activeState = m_idleState;
     }
 
-    private void Update()
-    {
-        if (m_activeState is object)
-        {
-            m_activeState.Update();
-
-            if (m_activeState.IsFinished)
-            {
-                m_activeState.Exit();
-                m_activeState = m_idleState;
-                m_activeState.Enter();
-            }
-
-            foreach (var keyValuePair in m_activeState.Transitions)
-            {
-                if (keyValuePair.Key())
-                {
-                    m_activeState.Exit();
-                    m_activeState = keyValuePair.Value;
-                    if (!m_activeState.Enter())
-                        // Debug.Log($"Konnte {m_activeState} nicht betretet!");
-                        break;
-                }
-            }
-        }
-    }
-
-    public bool PlayerInFOV()
-    {
-        Vector3 playerposition = GameManager.Instance.PlayerTransform.position;
-        Vector3 origin = transform.position + new Vector3(0, 1, 0);
-        Vector3 directionToPlayer = (playerposition + new Vector3(0, 1, 0)) -
-                                    origin;
-
-        if (Vector3.SignedAngle(directionToPlayer, transform.forward, Vector3.forward) <= m_FOVAngle &&
-            Vector3.SignedAngle(directionToPlayer, transform.forward, Vector3.forward) >= -m_FOVAngle)
-        {
-            // Debug.Log("Player in FOV!");
-            RaycastHit hit;
-            if (Vector3.Distance(origin, playerposition) <= m_FOVDistance)
-            {
-                if (Physics.Raycast(origin, directionToPlayer, out hit, m_FOVDistance))
-                {
-                    if (hit.collider.gameObject.CompareTag("Player"))
-                    {
-                        // Debug.Log("Player hit!");
-                        Debug.DrawRay(origin, directionToPlayer, Color.green,
-                            5f);
-                        return true;
-                    }
-                    else
-                    {
-                        // Debug.Log("Hit something else! ");
-                        Debug.DrawRay(origin, directionToPlayer, Color.red, 5f);
-                        return false;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private bool PlayerInRangeToAttack()
-    {
-        Vector3 playerposition = GameManager.Instance.PlayerTransform.position;
-        Vector3 origin = transform.position + new Vector3(0, 1, 0);
-        Vector3 directionToPlayer = (playerposition + new Vector3(0, 1, 0)) - origin;
-
-        RaycastHit hit;
-        if (Vector3.Distance(origin, playerposition) <= m_PoisonDistance)
-        {
-            if (Physics.Raycast(origin, directionToPlayer, out hit, m_PoisonDistance))
-            {
-                if (hit.collider.gameObject.CompareTag("Player"))
-                {
-                    Debug.DrawRay(origin, directionToPlayer, Color.blue, 5f);
-                    return true;
-                }
-                else
-                {
-                    // Debug.Log("Cant attack player! ");
-                    Debug.DrawRay(origin, directionToPlayer, Color.white, 5f);
-                    return false;
-                }
-            }
-        }
-        return false;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -215,43 +80,5 @@ public class MushroomController : MonoBehaviour
             if (other.gameObject.GetComponent<PlayerController>())
                 other.gameObject.GetComponent<PlayerController>().TakeDamage(m_attackDamage);
         }
-    }
-
-    public void TakeDamage(float _damageAmount)
-    {
-        m_currentHealthPoints -= _damageAmount;
-        m_Healthbar.GetCurrentHealth(m_currentHealthPoints);
-        
-        if (m_currentHealthPoints <= 0)
-        {
-            m_currentHealthPoints = 0;
-            if (m_playerController.m_targetedEnemy == this.gameObject)
-            {
-                m_playerController.m_targetedEnemy = null;
-            }
-            GameManager.Instance.m_Enemies.Remove(this.gameObject);
-            gameObject.SetActive(false);
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Vector3 origin = transform.position + new Vector3(0, 1, 0);
-
-        Vector3 FovLine1 = Quaternion.AngleAxis(m_FOVAngle, transform.up) * transform.forward * m_FOVDistance;
-        Vector3 FovLine2 = Quaternion.AngleAxis(-m_FOVAngle, transform.up) * transform.forward * m_FOVDistance;
-        Vector3 FovLine3 = Quaternion.AngleAxis(m_FOVAngle, transform.right) * transform.forward * m_FOVDistance;
-        Vector3 FovLine4 = Quaternion.AngleAxis(-m_FOVAngle, transform.right) * transform.forward * m_FOVDistance;
-
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawWireSphere(origin, m_FOVDistance);
-        Gizmos.DrawWireSphere(origin, m_AttackDistance);
-        Gizmos.DrawWireSphere(origin, m_PoisonDistance);
-
-        Gizmos.color = Color.black;
-        Gizmos.DrawRay(origin, FovLine1);
-        Gizmos.DrawRay(origin, FovLine2);
-        Gizmos.DrawRay(origin, FovLine3);
-        Gizmos.DrawRay(origin, FovLine4);
     }
 }
