@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Inventory", menuName = "Inventory")]
-public class InventorySystem : ScriptableObject
+public class InventorySystem : MonoBehaviour
 {
     public List<InventorySlot> InventoryContainer = new List<InventorySlot>();
 

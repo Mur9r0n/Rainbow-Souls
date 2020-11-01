@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.4324136, g: 0.47815034, b: 0.3447196, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -854,15 +854,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4813719563666702964, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4813719563666702964, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5921139730103073903, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_Name
       value: Bee Enemy (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5921139730103073903, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6793978411756020504, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1130,15 +1134,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4813719563666702964, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4813719563666702964, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5921139730103073903, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_Name
       value: Bee Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5921139730103073903, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6793978411756020504, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1466,15 +1474,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4813719563666702964, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4813719563666702964, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5921139730103073903, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_Name
       value: Bee Enemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5921139730103073903, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6793978411756020504, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2202,6 +2214,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5e1fcf742d141346ae1c603ba77a361, type: 3}
+--- !u!1 &1930522065 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4684556437170541576, guid: 42e21bff88e1d524bba1b06e2b1d2796, type: 3}
+  m_PrefabInstance: {fileID: 577435412}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1930522071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930522065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fb40ca7f06fa174bbf854c702498b83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InventoryContainer: []
 --- !u!4 &1963513675 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6833913090733130254, guid: 6f0e02db30bcef74881d9db366aa07a0, type: 3}

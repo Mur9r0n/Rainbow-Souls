@@ -62,6 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         m_inputs = new PlayerInputs();
         m_controller = GetComponent<CharacterController>();
+        m_inventorySystem = GetComponent<InventorySystem>();
         m_anim = GetComponent<Animator>();
         m_mainCameraTransform = Camera.main.transform;
 

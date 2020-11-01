@@ -26,6 +26,9 @@ public class InteractableObjects : MonoBehaviour
 
     void Start()
     {
+        m_inventorySystem = FindObjectOfType<InventorySystem>();
+        m_interactableItem = GetComponent<InteractableItem>();
+        
         InteractManager.Instance.AddToList(this);
         if (m_Type == Type.Chest)
         {
