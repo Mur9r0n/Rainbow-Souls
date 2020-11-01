@@ -2,14 +2,16 @@
 
 public class SheepAttackState : ABaseState
 {
+    public override bool Enter()
+    {
+        m_sheepController.m_Agent.isStopped = true;
+        // Debug.Log("Hier wäre die Update! SheepAttackState");
+        return base.Enter();
+    }
+    
     public override void Update()
     {
-        Debug.Log(m_controller);
-        // Debug.Log("Hier wäre die Update! SheepAttackState");
+        Debug.Log("Attack Player!");
+        m_sheepController.transform.LookAt(GameManager.Instance.PlayerTransform.position);
     }
-    // public override bool Enter()
-    // {
-    //     m_controller.m_Agent.SetDestination(GameManager.Instance.PlayerTransform.position);
-    //     return base.Enter();
-    // }
 }
