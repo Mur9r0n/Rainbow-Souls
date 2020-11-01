@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!136 &2192819868532710839
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 39394865109367513}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.9071797
-  m_Height: 2.1044688
-  m_Direction: 1
-  m_Center: {x: -0.09411344, y: 1.2316341, z: 0.4952767}
 --- !u!1 &3202451610747668810
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +200,8 @@ GameObject:
   - component: {fileID: 2780015163308823606}
   - component: {fileID: 4691909068106580584}
   - component: {fileID: 7674545271991295500}
+  - component: {fileID: 3660709986723972663}
+  - component: {fileID: 8559046785867175667}
   m_Layer: 0
   m_Name: Bee Enemy
   m_TagString: Bee
@@ -234,6 +222,7 @@ Transform:
   m_Children:
   - {fileID: 846718268023578723}
   - {fileID: 2169110380573055844}
+  - {fileID: 6455210658773866415}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -254,10 +243,12 @@ MonoBehaviour:
   m_maxHealthPoints: 100
   m_currentHealthPoints: 80
   m_ResetDelay: 8.1
-  m_FOVDistance: 26.5
-  m_FOVAngle: 20.3
+  m_FOVDistance: 25.9
+  m_FOVAngle: 47.4
   m_AttackDistance: 20.3
   m_AttackAngle: 20.4
+  m_StingPrefab: {fileID: 8720102073227275509, guid: 545232ad251eda54388e7f03398fecf5, type: 3}
+  m_StingTransform: {fileID: 6455210658773866415}
 --- !u!195 &4691909068106580584
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -299,6 +290,66 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!54 &3660709986723972663
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5921139730103073903}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &8559046785867175667
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5921139730103073903}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.8207989
+  m_Height: 2.2072983
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.6036491, z: 0.32079887}
+--- !u!1 &6311361522296528274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6455210658773866415}
+  m_Layer: 0
+  m_Name: Sting Transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6455210658773866415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6311361522296528274}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.805, z: 0.407}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6793978411756020504}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8104426335574691891
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,11 +710,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 285c93fd248b752448e47c5033e55197, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4a1ff6e9b15d4147905eab53cfb4abf, type: 3}
---- !u!1 &39394865109367513 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: e4a1ff6e9b15d4147905eab53cfb4abf, type: 3}
-  m_PrefabInstance: {fileID: 885692600095098760}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &846718268023578723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e4a1ff6e9b15d4147905eab53cfb4abf, type: 3}

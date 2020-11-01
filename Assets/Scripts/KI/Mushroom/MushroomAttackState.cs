@@ -16,7 +16,7 @@ public class MushroomAttackState : ABaseState
     public override bool Enter()
     {
         m_anim = m_mushroomController.GetComponent<Animator>();
-        Debug.Log("Hier wäre die Update! MushroomAttackState");
+        // Debug.Log("Hier wäre die Update! MushroomAttackState");
         return base.Enter();
     }
 
