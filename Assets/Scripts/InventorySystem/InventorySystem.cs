@@ -4,6 +4,23 @@ using UnityEngine;
 
 public class InventorySystem : MonoBehaviour
 {
+    #region Singleton
+    public static InventorySystem Instance;
+
+    private void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+    #endregion
+
+    public int m_inventorySpace = 10;
+    
     public List<InventorySlot> InventoryContainer = new List<InventorySlot>();
 
     public void AddItem(Item _item)
@@ -43,3 +60,15 @@ public class InventorySlot
     //     m_amount += _value;
     // }
 }
+
+[System.Serializable]
+public class HelmetSlot
+{
+    public Helmet m_helmet;
+
+    public HelmetSlot(Helmet _helmet)
+    {
+        m_helmet = _helmet;
+    }
+}
+

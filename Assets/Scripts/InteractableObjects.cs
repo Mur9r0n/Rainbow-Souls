@@ -6,9 +6,8 @@ using UnityEngine;
 
 public class InteractableObjects : MonoBehaviour
 {
-    public InventorySystem m_inventorySystem;
     public InteractableItem m_interactableItem;
-    
+
     public enum Type
     {
         Checkpoint,
@@ -26,15 +25,14 @@ public class InteractableObjects : MonoBehaviour
 
     void Start()
     {
-        m_inventorySystem = FindObjectOfType<InventorySystem>();
         m_interactableItem = GetComponent<InteractableItem>();
-        
+
         InteractManager.Instance.AddToList(this);
         if (m_Type == Type.Chest)
         {
             m_Material = GetComponent<Renderer>().material;
         }
-        
+
         //TODO: Löschen beim Builden
         if (m_Type == Type.Item)
         {
@@ -48,7 +46,9 @@ public class InteractableObjects : MonoBehaviour
     private void Update()
     {
         //Still Testing
+
         #region Testing
+
         if (m_Dissolving)
         {
             float temp = m_Material.GetFloat("Vector1_8DEAC01A");
@@ -61,8 +61,8 @@ public class InteractableObjects : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+
         #endregion
-            
     }
 
     public void Use()
@@ -91,7 +91,12 @@ public class InteractableObjects : MonoBehaviour
             case Type.Item:
 
                 InteractManager.Instance.RemoveFromList(this);
-                m_inventorySystem.AddItem(m_interactableItem.m_Item);
+
+                if (InventorySystem.Instance.InventoryContainer.Count <= InventorySystem.Instance.m_inventorySpace)
+                {
+                    InventorySystem.Instance.AddItem(m_interactableItem.m_Item);
+                }
+
                 Debug.Log("Picked up " + m_interactableItem.m_Item.Name);
                 Destroy(gameObject);
                 break;
