@@ -2,6 +2,11 @@
 
 public class BeeAttackState : ABaseState
 {
+    private Vector3 m_playerTransformPosition;
+
+    private float m_shotDelay = 4f;
+    private float m_shotTimer = 0f;
+    
     public override bool Enter()
     {
         m_beeController.m_Agent.isStopped = true;
@@ -11,7 +16,19 @@ public class BeeAttackState : ABaseState
     
     public override void Update()
     {
-        // Debug.Log("Attack Player!");
+        m_playerTransformPosition = GameManager.Instance.PlayerTransform.position;
+
+        if (m_shotTimer > 0)
+        {
+            m_shotTimer -= Time.deltaTime;
+        }
+        
         m_beeController.transform.LookAt(GameManager.Instance.PlayerTransform.position);
+
+        if (m_shotTimer <= 0)
+        {
+            m_shotTimer = m_shotDelay;
+            MonoBehaviour.Instantiate(m_beeController.m_StingPrefab, m_beeController.m_StingTransform.position,Quaternion.identity);
+        }
     }
 }

@@ -6,13 +6,14 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class BeeController : MonoBehaviour
 {
-    public NavMeshAgent m_Agent;
+    [HideInInspector] public NavMeshAgent m_Agent = null;
+    [HideInInspector] public Healthbar m_Healthbar = null;
+    private PlayerController m_playerController;
+    
     public Vector3 OriginalPosition { get; set; }
     public Quaternion OriginalRotation { get; set; }
     public float OriginalFOVAngle { get; set; }
     public float OriginalFOVDistance { get; set; }
-    
-    public Healthbar m_Healthbar;
 
     [SerializeField, Tooltip("Maximum Healthpoints.")]
     private float m_maxHealthPoints;
@@ -35,13 +36,19 @@ public class BeeController : MonoBehaviour
     
     [SerializeField, Tooltip("Angle at which the GameObject is able to Attack."),Range(0f, 90f)]
     public float m_AttackAngle = 1f;
+
+    [SerializeField] public GameObject m_StingPrefab;
+    public Transform m_StingTransform;
     
     private ABaseState m_activeState;
     private BeeIdleState m_idleState;
 
     private void Awake()
     {
-        m_Agent = GetComponent<NavMeshAgent>();
+        m_Agent = GetComponent<NavMeshAgent>();   
+        m_Healthbar = GetComponentInChildren<Healthbar>();
+        m_playerController = FindObjectOfType<PlayerController>();
+
         OriginalPosition = transform.position;
         OriginalRotation = transform.rotation;
         OriginalFOVAngle = m_FOVAngle;
@@ -52,6 +59,8 @@ public class BeeController : MonoBehaviour
     private void Start()
     {
         GameManager.Instance.m_Enemies.Add(this.gameObject);
+        m_Healthbar.GetMaxHealth(m_maxHealthPoints);
+
         m_idleState = new BeeIdleState();
         BeeAttackState m_attackState = new BeeAttackState();
         BeeResetState m_resetState = new BeeResetState();
@@ -139,10 +148,9 @@ public class BeeController : MonoBehaviour
     public bool PlayerInFOV()
     {
         Vector3 playerposition = GameManager.Instance.PlayerTransform.position;
-        Vector3 origin = transform.position + new Vector3(0, 1, 0);
+        Vector3 origin = transform.position + new Vector3(0, 1.5f, 0);
         Vector3 directionToPlayer = (playerposition + new Vector3(0, 1, 0)) -
                                     origin;
-        // Debug.Log(Vector3.SignedAngle(dir, transform.forward, Vector3.forward));
 
         if (Vector3.SignedAngle(directionToPlayer, transform.forward, Vector3.forward) <= m_FOVAngle &&
             Vector3.SignedAngle(directionToPlayer, transform.forward, Vector3.forward) >= -m_FOVAngle)
@@ -179,7 +187,6 @@ public class BeeController : MonoBehaviour
         Vector3 origin = transform.position + new Vector3(0, 1, 0);
         Vector3 directionToPlayer = (playerposition + new Vector3(0, 1, 0)) -
                                     origin;
-        // Debug.Log(Vector3.SignedAngle(dir, transform.forward, Vector3.forward));
 
         if (Vector3.SignedAngle(directionToPlayer, transform.forward, Vector3.forward) <= m_AttackAngle &&
             Vector3.SignedAngle(directionToPlayer, transform.forward, Vector3.forward) >= -m_AttackAngle)
@@ -193,8 +200,7 @@ public class BeeController : MonoBehaviour
                     if (hit.collider.gameObject.CompareTag("Player"))
                     {
                         // Debug.Log("Able to Attack!");
-                        Debug.DrawRay(origin, directionToPlayer, Color.blue,
-                            5f);
+                        Debug.DrawRay(origin, directionToPlayer, Color.blue, 5f);
                         return true;
                     }
                     else
@@ -210,18 +216,32 @@ public class BeeController : MonoBehaviour
         return false;
     }
 
+    public void TakeDamage(float _damageAmount)
+    {
+        m_currentHealthPoints -= _damageAmount;
+        m_Healthbar.GetCurrentHealth(m_currentHealthPoints);
+
+        if (m_currentHealthPoints <= 0)
+        {
+            m_currentHealthPoints = 0;
+            if (m_playerController.m_targetedEnemy == this.gameObject)
+            {
+                m_playerController.m_targetedEnemy = null;
+            }
+
+            GameManager.Instance.m_Enemies.Remove(this.gameObject);
+            gameObject.SetActive(false);
+        }
+    }
+
     private void OnDrawGizmos()
     {
-        Vector3 origin = transform.position + new Vector3(0, 1, 0);
+        Vector3 origin = transform.position + new Vector3(0, 1.5f, 0);
         
         Vector3 FovLine1 = Quaternion.AngleAxis(m_FOVAngle, transform.up) * transform.forward * m_FOVDistance;
         Vector3 FovLine2 = Quaternion.AngleAxis(-m_FOVAngle, transform.up) * transform.forward * m_FOVDistance;        
         Vector3 FovLine3 = Quaternion.AngleAxis(m_FOVAngle, transform.right) * transform.forward * m_FOVDistance;
         Vector3 FovLine4 = Quaternion.AngleAxis(-m_FOVAngle, transform.right) * transform.forward * m_FOVDistance;
-
-
-        Vector3 AttackLine1 = Quaternion.AngleAxis(m_AttackAngle, transform.up) * transform.forward * m_AttackDistance;
-        Vector3 AttackLine2 = Quaternion.AngleAxis(-m_AttackAngle, transform.up) * transform.forward * m_AttackDistance;
 
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(origin, m_FOVDistance);
@@ -232,10 +252,5 @@ public class BeeController : MonoBehaviour
         Gizmos.DrawRay(origin, FovLine2);
         Gizmos.DrawRay(origin, FovLine3);        
         Gizmos.DrawRay(origin, FovLine4);
-        
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(origin, AttackLine1);
-        Gizmos.DrawRay(origin, AttackLine2);
-
     }
 }

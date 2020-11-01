@@ -22,6 +22,8 @@ public class InteractableObjects : MonoBehaviour
     public bool m_Dissolving = false;
     public Material m_Material;
 
+    [SerializeField] private GameObject m_lootPrefab;
+
     void Start()
     {
         InteractManager.Instance.AddToList(this);
@@ -73,6 +75,7 @@ public class InteractableObjects : MonoBehaviour
             case Type.Chest:
 
                 Debug.Log("Open Chest");
+                Instantiate(m_lootPrefab, transform.position, Quaternion.identity);
                 InteractManager.Instance.RemoveFromList(this);
                 m_Dissolving = true;
                 break;
