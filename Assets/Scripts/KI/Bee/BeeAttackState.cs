@@ -3,14 +3,15 @@
 public class BeeAttackState : ABaseState
 {
     private Vector3 m_playerTransformPosition;
+    private BeeController m_beeController;
 
     private float m_shotDelay = 4f;
     private float m_shotTimer = 0f;
     
     public override bool Enter()
     {
-        m_beeController.m_Agent.isStopped = true;
-        // Debug.Log("Hier wäre die Update! BeeAttackState");
+        m_beeController = m_controller.GetComponent<BeeController>();
+        m_controller.m_Agent.isStopped = true;
         return base.Enter();
     }
     
@@ -23,7 +24,7 @@ public class BeeAttackState : ABaseState
             m_shotTimer -= Time.deltaTime;
         }
         
-        m_beeController.transform.LookAt(GameManager.Instance.PlayerTransform.position);
+        m_controller.transform.LookAt(GameManager.Instance.PlayerTransform.position);
 
         if (m_shotTimer <= 0)
         {

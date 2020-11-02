@@ -327,20 +327,43 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log(other);
-        if (other.gameObject.CompareTag("Mushroom"))
-        {
-            if (other.gameObject.GetComponent<MushroomController>())
-                other.gameObject.GetComponent<MushroomController>().TakeDamage((int) m_attackDamage);
-        }
+        string hit = other.gameObject.tag;
 
-        else if (other.gameObject.CompareTag("Bee"))
+        switch (hit)
         {
-            if (other.gameObject.GetComponent<BeeController>())
-                other.gameObject.GetComponent<BeeController>().TakeDamage((int) m_attackDamage);
+            case "Mushroom":
+                if (other.gameObject.GetComponent<MushroomController>())
+                {
+                    other.gameObject.GetComponent<MushroomController>().TakeDamage((int) m_attackDamage);
+                }
+                break;
+            case "Bee":
+                if (other.gameObject.GetComponent<BeeController>())
+                {
+                    other.gameObject.GetComponent<BeeController>().TakeDamage((int) m_attackDamage);
+                }
+                break;
+            case "Sheep":
+                if (other.gameObject.GetComponent<SheepController>())
+                {
+                    other.gameObject.GetComponent<SheepController>().TakeDamage((int) m_attackDamage);
+                }
+                break;
         }
+        // {
+        //     
+        // }
+        // if (other.gameObject.CompareTag("Mushroom"))
+        // {
+        //     
+        // }
+        // else if (other.gameObject.CompareTag("Bee"))
+        // {
+        //     
+        // }
         // else if (other.gameObject.CompareTag("Sheep"))
         // {
-        //     other.gameObject.GetComponent<MushroomController>().TakeDamage(2000);
+        //     
         // }
     }
 
