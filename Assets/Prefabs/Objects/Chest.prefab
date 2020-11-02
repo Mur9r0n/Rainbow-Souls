@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Type: 1
   m_Dissolving: 0
   m_Material: {fileID: 2100000, guid: 10a8bcb24a70aaa42ba4e752f2ce196d, type: 2}
+  m_lootPrefab: {fileID: 5902159599524492826, guid: b0950da00337718478028abac4f314c4, type: 3}
 --- !u!65 &1191921776385659885
 BoxCollider:
   m_ObjectHideFlags: 0

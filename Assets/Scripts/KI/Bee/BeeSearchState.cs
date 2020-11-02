@@ -7,8 +7,8 @@ public class BeeSearchState : ABaseState
     
     public override bool Enter()
     {
-        m_Timer = m_beeController.m_ResetDelay;
-        m_beeController.m_Agent.SetDestination(GameManager.Instance.PlayerTransform.position);
+        m_Timer = m_controller.m_ResetDelay;
+        m_controller.m_Agent.SetDestination(GameManager.Instance.PlayerTransform.position);
         // Debug.Log("Hier wäre die Update! SheepSearchState");
         return base.Enter();
     }
@@ -37,7 +37,7 @@ public class BeeSearchState : ABaseState
 
     public void SearchForPlayer()
     {
-        if (m_beeController.PlayerInFOV())
+        if (m_controller.PlayerInFOV())
             m_Playerfound = true;
     }
 }

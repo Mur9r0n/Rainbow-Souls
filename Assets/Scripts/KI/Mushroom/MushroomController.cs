@@ -16,7 +16,6 @@ public class MushroomController : AEnemyController
     {
         base.Start();
         
-        m_idleState = new EnemyIdleState();
         MushroomAttackState m_attackState = new MushroomAttackState();
         MushroomResetState m_resetState = new MushroomResetState();
         MushroomWalkState m_walkState = new MushroomWalkState();
@@ -80,5 +79,14 @@ public class MushroomController : AEnemyController
             if (other.gameObject.GetComponent<PlayerController>())
                 other.gameObject.GetComponent<PlayerController>().TakeDamage(m_attackDamage);
         }
+    }
+
+    public override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+        
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0,1,0), m_PoisonDistance);
+
     }
 }

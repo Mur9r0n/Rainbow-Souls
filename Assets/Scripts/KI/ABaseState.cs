@@ -15,13 +15,14 @@ public abstract class ABaseState
         }
     }
 
-    protected SheepController m_sheepController;
-    protected BeeController m_beeController;
-    protected MushroomController m_mushroomController;
+    protected AEnemyController m_controller;
+    // protected SheepController m_sheepController;
+    // protected BeeController m_beeController;
+    // protected MushroomController m_mushroomController;
 
     private Dictionary<TransitionDelegate, ABaseState> m_transitions;
 
-    public virtual void SheepInit(SheepController _controller,params KeyValuePair<TransitionDelegate, ABaseState>[] _transitions)
+    public virtual void SheepInit(AEnemyController _controller,params KeyValuePair<TransitionDelegate, ABaseState>[] _transitions)
     {
         m_transitions = new Dictionary<TransitionDelegate, ABaseState>();
         foreach (var keyValuePair in _transitions)
@@ -29,10 +30,10 @@ public abstract class ABaseState
             m_transitions.Add(keyValuePair.Key, keyValuePair.Value);
         }
 
-        m_sheepController = _controller;
+        m_controller = _controller;
     }
 
-    public virtual void BeeInit(BeeController _controller,
+    public virtual void BeeInit(AEnemyController _controller,
         params KeyValuePair<TransitionDelegate, ABaseState>[] _transitions)
     {
         m_transitions = new Dictionary<TransitionDelegate, ABaseState>();
@@ -41,10 +42,10 @@ public abstract class ABaseState
             m_transitions.Add(keyValuePair.Key, keyValuePair.Value);
         }
     
-        m_beeController = _controller;
+        m_controller = _controller;
     }
     
-    public virtual void MushroomInit(MushroomController _controller,
+    public virtual void MushroomInit(AEnemyController _controller,
         params KeyValuePair<TransitionDelegate, ABaseState>[] _transitions)
     {
         m_transitions = new Dictionary<TransitionDelegate, ABaseState>();
@@ -53,7 +54,7 @@ public abstract class ABaseState
             m_transitions.Add(keyValuePair.Key, keyValuePair.Value);
         }
     
-        m_mushroomController = _controller;
+        m_controller = _controller;
     }
 
     public virtual bool Enter()

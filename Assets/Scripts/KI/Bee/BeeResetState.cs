@@ -7,37 +7,37 @@ public class BeeResetState : ABaseState
     private float timer = 0;
     public override bool Enter()
     {
-        m_beeController.m_Agent.isStopped = false;
-        m_beeController.m_Agent.SetDestination(m_beeController.OriginalPosition);
+        m_controller.m_Agent.isStopped = false;
+        m_controller.m_Agent.SetDestination(m_controller.OriginalPosition);
         // Debug.Log("Hier wäre die Update! SheepResetState");
         return base.Enter();
     }
 
     public override void Update()
     {
-        if (Vector3.Distance(m_beeController.transform.position, m_beeController.OriginalPosition) <= .2f)
+        if (Vector3.Distance(m_controller.transform.position, m_controller.OriginalPosition) <= .2f)
         {
             timer += Time.deltaTime;
             if (timer > 1)
             {
-                m_beeController.transform.rotation = m_beeController.OriginalRotation;
+                m_controller.transform.rotation = m_controller.OriginalRotation;
                 IsFinished = true;
             }
             if (temp == null)
             {
-                temp = m_beeController.transform.rotation;
+                temp = m_controller.transform.rotation;
             }
-            m_beeController.m_Agent.enabled = false;
-            m_beeController.transform.rotation = Quaternion.Lerp((Quaternion)temp,m_beeController.OriginalRotation,timer);
-            m_beeController.m_Agent.enabled = true;
+            m_controller.m_Agent.enabled = false;
+            m_controller.transform.rotation = Quaternion.Lerp((Quaternion)temp,m_controller.OriginalRotation,timer);
+            m_controller.m_Agent.enabled = true;
         }
     }
 
     public override void Exit()
     {
         timer = 0;
-        m_beeController.m_FOVAngle = m_beeController.OriginalFOVAngle;
-        m_beeController.m_FOVDistance = m_beeController.OriginalFOVDistance;
+        m_controller.m_FOVAngle = m_controller.OriginalFOVAngle;
+        m_controller.m_FOVDistance = m_controller.OriginalFOVDistance;
         base.Exit();
     }
 }

@@ -7,8 +7,8 @@ public class MushroomSearchState : ABaseState
     
     public override bool Enter()
     {
-        m_Timer = m_mushroomController.m_ResetDelay;
-        m_mushroomController.m_Agent.SetDestination(GameManager.Instance.PlayerTransform.position);
+        m_Timer = m_controller.m_ResetDelay;
+        m_controller.m_Agent.SetDestination(GameManager.Instance.PlayerTransform.position);
         // Debug.Log("Hier wäre die Update! MushroomSearchState");
         return base.Enter();
     }
@@ -37,7 +37,7 @@ public class MushroomSearchState : ABaseState
 
     public void SearchForPlayer()
     {
-        if (m_mushroomController.PlayerInFOV())
+        if (m_controller.PlayerInFOV())
             m_Playerfound = true;
     }
 }

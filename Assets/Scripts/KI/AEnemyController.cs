@@ -56,6 +56,8 @@ public abstract class AEnemyController : MonoBehaviour
     {
         GameManager.Instance.m_Enemies.Add(this.gameObject);
         m_Healthbar.GetMaxHealth(m_maxHealthPoints);
+        
+        m_idleState = new EnemyIdleState();
     }
 
     
