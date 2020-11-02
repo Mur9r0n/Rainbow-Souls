@@ -54,7 +54,7 @@ MonoBehaviour:
   m_anim: {fileID: 0}
   m_playerController: {fileID: 0}
   m_maxHealthPoints: 100
-  m_currentHealthPoints: 80
+  m_currentHealthPoints: 100
   m_ResetDelay: 5.75
   m_FOVDistance: 11.5
   m_FOVAngle: 30

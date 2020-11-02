@@ -10,11 +10,11 @@ public class SheepController : AEnemyController
         base.Start();
 
         SheepAttackState m_attackState = new SheepAttackState();
-        SheepResetState m_resetState = new SheepResetState();
-        SheepWalkState m_walkState = new SheepWalkState();
-        SheepSearchState m_searchState = new SheepSearchState();
+        EnemyResetState m_resetState = new EnemyResetState();
+        EnemyWalkState m_walkState = new EnemyWalkState();
+        EnemySearchState m_searchState = new EnemySearchState();
 
-        m_idleState.SheepInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_idleState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => PlayerInFOV() && PlayerInRangeToAttack(m_AttackDistance), m_attackState
             ),
@@ -23,7 +23,7 @@ public class SheepController : AEnemyController
                 () => PlayerInFOV() && !PlayerInRangeToAttack(m_AttackDistance), m_walkState
             ));
 
-        m_attackState.SheepInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_attackState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => PlayerInFOV() && !PlayerInRangeToAttack(m_AttackDistance), m_walkState
             ),
@@ -32,7 +32,7 @@ public class SheepController : AEnemyController
                 () => !PlayerInFOV() && !PlayerInRangeToAttack(m_AttackDistance), m_searchState
             ));
 
-        m_resetState.SheepInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_resetState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => m_resetState.IsFinished, m_idleState
             ),
@@ -45,7 +45,7 @@ public class SheepController : AEnemyController
                 () => PlayerInFOV() && !PlayerInRangeToAttack(m_AttackDistance), m_walkState
             ));
 
-        m_walkState.SheepInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_walkState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => !PlayerInFOV() && !PlayerInRangeToAttack(m_AttackDistance), m_searchState
             ),
@@ -53,7 +53,7 @@ public class SheepController : AEnemyController
             (
                 () => PlayerInFOV() && PlayerInRangeToAttack(m_AttackDistance), m_attackState
             ));
-        m_searchState.SheepInit(this,new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_searchState.Init(this,new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => m_searchState.m_Playerfound, m_walkState
             ),

@@ -240,13 +240,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Agent: {fileID: 0}
   m_Healthbar: {fileID: 0}
+  m_anim: {fileID: 0}
+  m_playerController: {fileID: 0}
   m_maxHealthPoints: 100
-  m_currentHealthPoints: 80
+  m_currentHealthPoints: 100
   m_ResetDelay: 8.1
   m_FOVDistance: 25.9
   m_FOVAngle: 47.4
   m_AttackDistance: 20.3
-  m_AttackAngle: 20.4
   m_StingPrefab: {fileID: 8720102073227275509, guid: 545232ad251eda54388e7f03398fecf5, type: 3}
   m_StingTransform: {fileID: 6455210658773866415}
 --- !u!195 &4691909068106580584

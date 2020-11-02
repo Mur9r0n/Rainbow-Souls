@@ -14,11 +14,11 @@ public class BeeController : AEnemyController
         base.Start();
         
         BeeAttackState m_attackState = new BeeAttackState();
-        BeeResetState m_resetState = new BeeResetState();
-        BeeWalkState m_walkState = new BeeWalkState();
-        BeeSearchState m_searchState = new BeeSearchState();
+        EnemyResetState m_resetState = new EnemyResetState();
+        EnemyWalkState m_walkState = new EnemyWalkState();
+        EnemySearchState m_searchState = new EnemySearchState();
 
-        m_idleState.BeeInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_idleState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => PlayerInFOV() && PlayerInRangeToAttack(m_AttackDistance), m_attackState
             ),
@@ -27,7 +27,7 @@ public class BeeController : AEnemyController
                 () => PlayerInFOV() && !PlayerInRangeToAttack(m_AttackDistance), m_walkState
             ));
 
-        m_attackState.BeeInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_attackState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => PlayerInFOV() && !PlayerInRangeToAttack(m_AttackDistance), m_walkState
             ),
@@ -36,7 +36,7 @@ public class BeeController : AEnemyController
                 () => !PlayerInFOV() && !PlayerInRangeToAttack(m_AttackDistance), m_searchState
             ));
 
-        m_resetState.BeeInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_resetState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => m_resetState.IsFinished, m_idleState
             ),
@@ -49,7 +49,7 @@ public class BeeController : AEnemyController
                 () => PlayerInFOV() && !PlayerInRangeToAttack(m_AttackDistance), m_walkState
             ));
 
-        m_walkState.BeeInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_walkState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => !PlayerInFOV() && !PlayerInRangeToAttack(m_AttackDistance), m_searchState
             ),
@@ -57,7 +57,7 @@ public class BeeController : AEnemyController
             (
                 () => PlayerInFOV() && PlayerInRangeToAttack(m_AttackDistance), m_attackState
             ));
-        m_searchState.BeeInit(this,new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_searchState.Init(this,new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => m_searchState.m_Playerfound, m_walkState
             ),

@@ -1,14 +1,16 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class BeeWalkState : ABaseState
+public class EnemyWalkState : ABaseState
 {
-    private float angle;
-    private float distance;
+    private float m_angle;
+    private float m_distance;
     public override bool Enter()
     {
-        angle = m_controller.m_FOVAngle;
-        distance = m_controller.m_FOVDistance;
-        
+        m_angle = m_controller.m_FOVAngle;
+        m_distance = m_controller.m_FOVDistance;
+
         m_controller.m_Agent.isStopped = false;
         m_controller.m_FOVAngle *= 1.5f;
         m_controller.m_FOVDistance *= 1.25f;
@@ -22,8 +24,8 @@ public class BeeWalkState : ABaseState
 
     public override void Exit()
     {
-        m_controller.m_FOVAngle = angle;
-        m_controller.m_FOVDistance = distance;
+        m_controller.m_FOVAngle = m_angle;
+        m_controller.m_FOVDistance = m_distance;
         base.Exit();
     }
 }

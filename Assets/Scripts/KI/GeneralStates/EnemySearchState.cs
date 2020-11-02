@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class MushroomSearchState : ABaseState
+public class EnemySearchState : ABaseState
 {
     public float m_Timer;
     public bool m_Playerfound;
@@ -9,14 +11,12 @@ public class MushroomSearchState : ABaseState
     {
         m_Timer = m_controller.m_ResetDelay;
         m_controller.m_Agent.SetDestination(GameManager.Instance.PlayerTransform.position);
-        // Debug.Log("Hier wäre die Update! MushroomSearchState");
         return base.Enter();
     }
     
     public override void Update()
     {
         m_Timer -= Time.deltaTime;
-        // Debug.Log("Searching...");
 
         if (m_Timer >= 0f)
         {
@@ -26,7 +26,6 @@ public class MushroomSearchState : ABaseState
         {
             m_Playerfound = false;
         }
-        
     }
 
     public override void Exit()
@@ -38,6 +37,8 @@ public class MushroomSearchState : ABaseState
     public void SearchForPlayer()
     {
         if (m_controller.PlayerInFOV())
+        {
             m_Playerfound = true;
+        }
     }
 }

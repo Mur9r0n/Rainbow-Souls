@@ -17,11 +17,11 @@ public class MushroomController : AEnemyController
         base.Start();
         
         MushroomAttackState m_attackState = new MushroomAttackState();
-        MushroomResetState m_resetState = new MushroomResetState();
-        MushroomWalkState m_walkState = new MushroomWalkState();
-        MushroomSearchState m_searchState = new MushroomSearchState();
+        EnemyResetState m_resetState = new EnemyResetState();
+        EnemyWalkState m_walkState = new EnemyWalkState();
+        EnemySearchState m_searchState = new EnemySearchState();
 
-        m_idleState.MushroomInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_idleState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => PlayerInFOV() && PlayerInRangeToAttack(m_PoisonDistance), m_attackState
             ),
@@ -30,7 +30,7 @@ public class MushroomController : AEnemyController
                 () => PlayerInFOV() && !PlayerInRangeToAttack(m_PoisonDistance), m_walkState
             ));
 
-        m_attackState.MushroomInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_attackState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => PlayerInFOV() && !PlayerInRangeToAttack(m_PoisonDistance), m_walkState
             ),
@@ -39,7 +39,7 @@ public class MushroomController : AEnemyController
                 () => !PlayerInFOV() && !PlayerInRangeToAttack(m_PoisonDistance), m_searchState
             ));
 
-        m_resetState.MushroomInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_resetState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => m_resetState.IsFinished, m_idleState
             ),
@@ -52,7 +52,7 @@ public class MushroomController : AEnemyController
                 () => PlayerInFOV() && !PlayerInRangeToAttack(m_PoisonDistance), m_walkState
             ));
 
-        m_walkState.MushroomInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_walkState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => !PlayerInFOV() && !PlayerInRangeToAttack(m_PoisonDistance), m_searchState
             ),
@@ -60,7 +60,7 @@ public class MushroomController : AEnemyController
             (
                 () => PlayerInFOV() && PlayerInRangeToAttack(m_PoisonDistance), m_attackState
             ));
-        m_searchState.MushroomInit(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
+        m_searchState.Init(this, new KeyValuePair<ABaseState.TransitionDelegate, ABaseState>
             (
                 () => m_searchState.m_Playerfound, m_walkState
             ),
