@@ -7,7 +7,8 @@ using UnityEngine.Rendering;
 
 public class UIObjects : MonoBehaviour
 {
-    public CanvasGroup m_InventoryPanel;
+    public GameObject m_InventoryPanel;
+    public GameObject m_HUDPanel;
 
     private void Start()
     {
