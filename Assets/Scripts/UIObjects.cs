@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,11 +7,25 @@ using UnityEngine.Rendering;
 
 public class UIObjects : MonoBehaviour
 {
-    public GameObject m_InventoryPanel;
+    public CanvasGroup m_InventoryPanel;
     public GameObject m_HUDPanel;
 
-    public void Show(GameObject _uiGameObject,bool _isShown)
+    private void Start()
     {
-        _uiGameObject.SetActive(_isShown);
+        m_InventoryPanel = GetComponentInChildren<CanvasGroup>();
+    }
+
+    public void ShowInventory()
+    {
+        if (m_InventoryPanel.alpha ==0)
+        {
+            m_InventoryPanel.alpha = 1;
+            m_InventoryPanel.interactable = true;
+        }
+        else
+        {
+            m_InventoryPanel.alpha = 0;
+            m_InventoryPanel.interactable = false;
+        }
     }
 }

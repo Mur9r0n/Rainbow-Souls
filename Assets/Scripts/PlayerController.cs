@@ -307,7 +307,7 @@ public class PlayerController : MonoBehaviour
 
     public void OpenInventory()
     {
-        m_uiObjects.Show(m_uiObjects.m_InventoryPanel, !m_uiObjects.m_InventoryPanel.activeSelf);
+        m_uiObjects.ShowInventory();
         Debug.Log("Open Inventory");
     }
 
