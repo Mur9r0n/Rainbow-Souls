@@ -6,8 +6,12 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class MushroomController : AEnemyController
 {
+    [Header("Poison Cloud Attack Parameters:")]
     [SerializeField, Tooltip("Distance at which the GameObject is able to Attack."), Range(1f, 100f)]
     public float m_PoisonDistance = 1f;
+
+    [SerializeField, Tooltip("Time between PoisonCloud Spawn.")]
+    public float m_PoisonCloudDelay = 10f;
 
     [SerializeField] private float m_attackDamage = 50f;
     [SerializeField] public GameObject m_PoisonCloudPrefab;
