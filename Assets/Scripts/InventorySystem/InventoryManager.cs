@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventorySystem : MonoBehaviour
+public class InventoryManager : MonoBehaviour
 {
+    public static InventoryManager Instance { get; private set; }
+
     #region Singleton
-    public static InventorySystem Instance;
 
     private void Awake()
     {
@@ -19,9 +20,9 @@ public class InventorySystem : MonoBehaviour
     }
     #endregion
 
-    public int m_inventorySpace = 10;
+    public int m_inventorySpace = 50;
     
-    public List<InventorySlot> InventoryContainer = new List<InventorySlot>();
+    public List<InventorySlot> Inventory = new List<InventorySlot>();
 
     public void AddItem(Item _item)
     {
@@ -39,7 +40,7 @@ public class InventorySystem : MonoBehaviour
         //     {
         //     }
         // }
-                InventoryContainer.Add(new InventorySlot(_item));
+                Inventory.Add(new InventorySlot(_item));
     }
 }
 
