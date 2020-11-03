@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
 {
     #region Private Variables
 
+    [SerializeField, Tooltip("Inventory of the Player")]
+    private InventorySystem m_inventorySystem;
     private InteractableObjects m_interactableObject = null;
     private CharacterController m_controller = null;
     private Animator m_anim = null;
@@ -60,6 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         m_inputs = new PlayerInputs();
         m_controller = GetComponent<CharacterController>();
+        m_inventorySystem = GetComponent<InventorySystem>();
         m_anim = GetComponent<Animator>();
         m_mainCameraTransform = Camera.main.transform;
 
@@ -83,6 +86,7 @@ public class PlayerController : MonoBehaviour
     {
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
+        m_inventorySystem.InventoryContainer.Clear();
     }
 
     private void Update()
