@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class InteractableObjects : MonoBehaviour
 {
+    public InteractableItem m_interactableItem;
+
     public enum Type
     {
         Checkpoint,
@@ -18,19 +21,34 @@ public class InteractableObjects : MonoBehaviour
     public bool m_Dissolving = false;
     public Material m_Material;
 
+    [SerializeField] private GameObject m_lootPrefab;
+
     void Start()
     {
+        m_interactableItem = GetComponent<InteractableItem>();
+
         InteractManager.Instance.AddToList(this);
         if (m_Type == Type.Chest)
         {
             m_Material = GetComponent<Renderer>().material;
+        }
+
+        //TODO: Löschen beim Builden
+        if (m_Type == Type.Item)
+        {
+            if (!gameObject.TryGetComponent(out InteractableItem interactableItem))
+            {
+                throw new MissingComponentException("You forgot the InteractableItems Component in " + gameObject.name);
+            }
         }
     }
 
     private void Update()
     {
         //Still Testing
+
         #region Testing
+
         if (m_Dissolving)
         {
             float temp = m_Material.GetFloat("Vector1_8DEAC01A");
@@ -43,8 +61,8 @@ public class InteractableObjects : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+
         #endregion
-            
     }
 
     public void Use()
@@ -60,6 +78,7 @@ public class InteractableObjects : MonoBehaviour
             case Type.Chest:
 
                 Debug.Log("Open Chest");
+                Instantiate(m_lootPrefab, transform.position, Quaternion.identity);
                 InteractManager.Instance.RemoveFromList(this);
                 m_Dissolving = true;
                 break;
@@ -71,8 +90,15 @@ public class InteractableObjects : MonoBehaviour
 
             case Type.Item:
 
-                Debug.Log("Pick up Item");
                 InteractManager.Instance.RemoveFromList(this);
+
+                if (InventoryManager.Instance.Inventory.Count <= InventoryManager.Instance.m_inventorySpace)
+                {
+                    InventoryManager.Instance.AddItem(m_interactableItem.m_Item);
+                }
+
+                Debug.Log("Picked up " + m_interactableItem.m_Item.Name);
+                Destroy(gameObject);
                 break;
 
             case Type.NPC:
