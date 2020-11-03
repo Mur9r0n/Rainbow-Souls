@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e527c1812928e4692ed8aafc1763d6, type: 3}
+  m_Name: Armor of the Velvet Prince
+  m_EditorClassIdentifier: 
+  m_name: Armor of the Velvet Prince
+  m_ID: 500
+  m_description: "Armor consisting of Velvet\n\n\"This very Rare Armor-piece belongs
+    to the Gaylord called `the Velvet Prince\xB4 \""
+  m_pigmentValue: 560
+  m_icon: {fileID: 0}
+  m_ItemType: 0
+  m_armorValue: 69
+  m_bleedingResistance: -1
+  m_poisonResistance: 0
