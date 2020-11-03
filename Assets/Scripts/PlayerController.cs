@@ -11,9 +11,9 @@ public class PlayerController : MonoBehaviour
     #region Private Variables
 
     [SerializeField, Tooltip("Inventory of the Player")]
-    private InventorySystem m_inventorySystem;
-    private InteractableObjects m_interactableObject = null;
     private CharacterController m_controller = null;
+    private InteractableObjects m_interactableObject = null;
+    private UIObjects m_uiObjects;
     private Animator m_anim = null;
     private PlayerInputs m_inputs = null;
     private Transform m_mainCameraTransform = null;
@@ -62,8 +62,8 @@ public class PlayerController : MonoBehaviour
     {
         m_inputs = new PlayerInputs();
         m_controller = GetComponent<CharacterController>();
-        m_inventorySystem = GetComponent<InventorySystem>();
         m_anim = GetComponent<Animator>();
+        m_uiObjects = FindObjectOfType<UIObjects>();
         m_mainCameraTransform = Camera.main.transform;
 
         #region Input Action
@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour
     {
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
-        m_inventorySystem.InventoryContainer.Clear();
+        InventoryManager.Instance.Inventory.Clear();
     }
 
     private void Update()
@@ -283,6 +283,7 @@ public class PlayerController : MonoBehaviour
 
     public void OpenInventory()
     {
+        m_uiObjects.Show(m_uiObjects.m_InventoryPanel, !m_uiObjects.m_InventoryPanel.activeSelf);
         Debug.Log("Open Inventory");
     }
 

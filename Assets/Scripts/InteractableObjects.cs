@@ -92,9 +92,9 @@ public class InteractableObjects : MonoBehaviour
 
                 InteractManager.Instance.RemoveFromList(this);
 
-                if (InventorySystem.Instance.InventoryContainer.Count <= InventorySystem.Instance.m_inventorySpace)
+                if (InventoryManager.Instance.Inventory.Count <= InventoryManager.Instance.m_inventorySpace)
                 {
-                    InventorySystem.Instance.AddItem(m_interactableItem.m_Item);
+                    InventoryManager.Instance.AddItem(m_interactableItem.m_Item);
                 }
 
                 Debug.Log("Picked up " + m_interactableItem.m_Item.Name);
