@@ -6,7 +6,14 @@ using UnityEngine;
 
 public class InteractableObjects : MonoBehaviour
 {
+    [SerializeField] private GameObject m_lootPrefab;
+    private InventoryManager m_inventoryManager;
+    private InteractManager m_interactManager;
+    
     public InteractableItem m_interactableItem;
+    public Type m_Type;
+    public bool m_Dissolving = false;
+    public Material m_Material;
 
     public enum Type
     {
@@ -17,17 +24,19 @@ public class InteractableObjects : MonoBehaviour
         NPC
     };
 
-    public Type m_Type;
-    public bool m_Dissolving = false;
-    public Material m_Material;
+    private void Awake()
+    {
+    }
 
-    [SerializeField] private GameObject m_lootPrefab;
 
     void Start()
     {
+        m_inventoryManager = InventoryManager.Instance;
+        m_interactManager = InteractManager.Instance;
+        
         m_interactableItem = GetComponent<InteractableItem>();
 
-        InteractManager.Instance.AddToList(this);
+        m_interactManager.AddToList(this);
         if (m_Type == Type.Chest)
         {
             m_Material = GetComponent<Renderer>().material;
@@ -79,7 +88,7 @@ public class InteractableObjects : MonoBehaviour
 
                 Debug.Log("Open Chest");
                 Instantiate(m_lootPrefab, transform.position, Quaternion.identity);
-                InteractManager.Instance.RemoveFromList(this);
+                m_interactManager.RemoveFromList(this);
                 m_Dissolving = true;
                 break;
 
@@ -90,14 +99,11 @@ public class InteractableObjects : MonoBehaviour
 
             case Type.Item:
 
-                InteractManager.Instance.RemoveFromList(this);
+                m_interactManager.RemoveFromList(this);
 
-                if (InventoryManager.Instance.Inventory.Count <= InventoryManager.Instance.m_inventorySpace)
-                {
-                    InventoryManager.Instance.AddItem(m_interactableItem.m_Item);
-                }
-
+                m_inventoryManager.AddItem(m_interactableItem.m_Item);
                 Debug.Log("Picked up " + m_interactableItem.m_Item.Name);
+                
                 Destroy(gameObject);
                 break;
 

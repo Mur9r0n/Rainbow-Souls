@@ -40,7 +40,7 @@ public abstract class Item : ScriptableObject
 
     public virtual void Use()
     {
-        
+        Debug.Log("Used" + Name);
     }
 
     public string Name

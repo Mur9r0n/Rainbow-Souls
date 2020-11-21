@@ -12,11 +12,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField, Tooltip("Inventory of the Player")]
     private CharacterController m_controller = null;
-    private InteractableObjects m_interactableObject = null;
-    private UIObjects m_uiObjects;
+
     private Animator m_anim = null;
     private PlayerInputs m_inputs = null;
+    private PlayerStats m_playerStats = null;
     private Transform m_mainCameraTransform = null;
+    private UIObjects m_uiObjects;
+    private InteractableObjects m_interactableObject = null;
 
     private float m_currentSpeed = 0f;
     private float m_speedSmoothVelocity = 0f;
@@ -34,11 +36,8 @@ public class PlayerController : MonoBehaviour
 
     #region Stat Variables
 
-    [Tooltip("Maximum Healthpoints.")] public float m_MaxHealth = 100;
-    [Tooltip("Current Healthpoints.")] public float m_CurrentHealth = 100;
-
     [SerializeField, Tooltip("Speed in which the Character moves.")]
-    private Vector2 m_movementSpeed = new Vector2( 5.0f, 10.0f);
+    private Vector2 m_movementSpeed = new Vector2(5.0f, 10.0f);
 
     [Tooltip("Amount of Damage dealt to Enemies.")]
     public float m_DamageBase = 10f;
@@ -61,6 +60,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         m_inputs = new PlayerInputs();
+        m_playerStats = GetComponent<PlayerStats>();
         m_controller = GetComponent<CharacterController>();
         m_anim = GetComponent<Animator>();
         m_uiObjects = FindObjectOfType<UIObjects>();
@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
         InventoryManager.Instance.Inventory.Clear();
+        UIManager.Instance.UpdatePigmentCounter(m_playerStats.m_Pigments);
     }
 
     private void Update()
@@ -163,7 +164,7 @@ public class PlayerController : MonoBehaviour
             {
                 m_anim.SetBool(m_walking, true);
                 Vector2 movementInput = new Vector2(_context.x, _context.y);
-                
+
                 float targetSpeed = m_movementSpeed.x * movementInput.magnitude;
 
                 if (isSprinting)
@@ -178,7 +179,7 @@ public class PlayerController : MonoBehaviour
                 }
 
                 Vector3 movement = transform.forward * movementInput.y + transform.right * movementInput.x;
-                m_controller.Move(movement* Time.deltaTime * m_currentSpeed );
+                m_controller.Move(movement * Time.deltaTime * m_currentSpeed);
 
                 if (!m_cinemachineFreeLook.m_RecenterToTargetHeading.m_enabled)
                 {
@@ -207,14 +208,37 @@ public class PlayerController : MonoBehaviour
 
     public void Dodge()
     {
+        if (m_playerStats.m_CurrentStaminaPoints >= 20f)
+        {
+            if (m_inputs.Player.Movement.ReadValue<Vector2>() != Vector2.zero)
+            {
+                Vector2 movementInput = new Vector2(m_inputs.Player.Movement.ReadValue<Vector2>().x, m_inputs.Player.Movement.ReadValue<Vector2>().y);
+                Vector3 desiredMoveDirection =
+                    (m_mainCameraTransform.forward * movementInput.y + m_mainCameraTransform.right * movementInput.x).normalized;
+
+                m_controller.Move(desiredMoveDirection * 4f);
+            }
+            else
+            {
+                m_controller.Move(transform.forward * -4f);
+            }
+
+            m_playerStats.m_CurrentStaminaPoints -= 20f;
+        }
+
         Debug.Log("Dodge");
     }
 
+    //TODO Can consume Stamina while Attacking -> Loss of Stamina with additional Attack
     public void LightAttack()
     {
-        m_anim.SetTrigger(m_lightAttack);
-        m_attackDamage = m_DamageBase;
-        Debug.Log("Light Attack");
+        if (m_playerStats.m_CurrentStaminaPoints >= 30f)
+        {
+            m_playerStats.m_CurrentStaminaPoints -= 30f;
+            m_anim.SetTrigger(m_lightAttack);
+            m_attackDamage = m_DamageBase;
+            Debug.Log("Light Attack");
+        }
     }
 
     public void HeavyAttack()
@@ -243,7 +267,7 @@ public class PlayerController : MonoBehaviour
                     m_targetedEnemy = possibleTarget;
                 }
             }
-            
+
             // m_cinemachineFreeLook.m_BindingMode = CinemachineTransposer.BindingMode.LockToTarget;
         }
         else if (m_targetedEnemy)
@@ -283,7 +307,7 @@ public class PlayerController : MonoBehaviour
 
     public void OpenInventory()
     {
-        m_uiObjects.Show(m_uiObjects.m_InventoryPanel, !m_uiObjects.m_InventoryPanel.activeSelf);
+        m_uiObjects.ShowInventory();
         Debug.Log("Open Inventory");
     }
 
@@ -341,59 +365,47 @@ public class PlayerController : MonoBehaviour
                 {
                     other.gameObject.GetComponent<MushroomController>().TakeDamage((int) m_attackDamage);
                 }
+
                 break;
             case "Bee":
                 if (other.gameObject.GetComponent<BeeController>())
                 {
                     other.gameObject.GetComponent<BeeController>().TakeDamage((int) m_attackDamage);
                 }
+
                 break;
             case "Sheep":
                 if (other.gameObject.GetComponent<SheepController>())
                 {
                     other.gameObject.GetComponent<SheepController>().TakeDamage((int) m_attackDamage);
                 }
+
                 break;
         }
-        // {
-        //     
-        // }
-        // if (other.gameObject.CompareTag("Mushroom"))
-        // {
-        //     
-        // }
-        // else if (other.gameObject.CompareTag("Bee"))
-        // {
-        //     
-        // }
-        // else if (other.gameObject.CompareTag("Sheep"))
-        // {
-        //     
-        // }
     }
 
     public void TakeDamage(float _damageAmount)
     {
-        m_CurrentHealth -= _damageAmount;
-        Debug.Log(m_CurrentHealth);
+        m_playerStats.m_CurrentHealthPoints -= _damageAmount;
+        UIManager.Instance.UpdateHealthBar(m_playerStats.m_MaxHealthPoints, m_playerStats.m_CurrentHealthPoints);
+        Debug.Log(m_playerStats.m_CurrentHealthPoints);
 
-        if (m_CurrentHealth <= 0)
+        if (m_playerStats.m_CurrentHealthPoints <= 0)
         {
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
     }
 
-
     private void OnGUI()
     {
         if (GUI.Button(new Rect(10, 10, 150, 100), "Damage"))
         {
-            m_CurrentHealth -= 10;
+            m_playerStats.m_CurrentHealthPoints -= 10;
         }
 
         if (GUI.Button(new Rect(10, 150, 150, 100), "Save"))
         {
-            DataManager.Instance.SavePlayer(this);
+            DataManager.Instance.SavePlayer(m_playerStats);
             Debug.Log("Saved");
         }
 
@@ -401,8 +413,19 @@ public class PlayerController : MonoBehaviour
         {
             PlayerData temp = DataManager.Instance.LoadPlayer();
 
-            m_CurrentHealth = temp.m_CurrentHealth;
-            m_MaxHealth = temp.m_MaxHealth;
+            m_playerStats.m_MaxHealthPoints = temp.m_MaxHealth;
+            m_playerStats.m_CurrentHealthPoints = temp.m_CurrentHealth;
+
+            m_playerStats.m_MaxStaminaPoints = temp.m_MaxStamina;
+            m_playerStats.m_CurrentStaminaPoints = temp.m_CurrentStamina;
+
+            m_playerStats.m_Level = temp.m_Level;
+            m_playerStats.m_Pigments = temp.m_Pigments;
+
+            m_playerStats.m_Vitality = temp.m_Vitality;
+            m_playerStats.m_Constitution = temp.m_Constitution;
+            m_playerStats.m_Strength = temp.m_Strength;
+            m_playerStats.m_Dexterity = temp.m_Dexterity;
 
             Vector3 temppos = new Vector3(temp.m_Position[0], temp.m_Position[1], temp.m_Position[2]);
             m_controller.enabled = false;
