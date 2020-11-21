@@ -39,4 +39,12 @@ public class UIManager : MonoBehaviour
     {
         m_Pigment.text = _pigmentAmount.ToString();
     }
+    
+    public void RefreshUI(float _maxHealth, float _currentHealth,float _maxStamina, float _currentStamina, int _pigmentAmount)
+    {
+        UpdateHealthBar(_maxHealth, _currentHealth);
+        UpdateStaminaBar(_maxStamina,_currentStamina);
+        UpdatePigmentCounter(_pigmentAmount);
+    }
+    
 }
