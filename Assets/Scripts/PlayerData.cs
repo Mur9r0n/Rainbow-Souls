@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class PlayerData
 {
-    public int m_CurrentHealth;
-    public int m_MaxHealth;
+    public float m_CurrentHealth;
+    public float m_MaxHealth;
     public float[] m_Position;
 
     public PlayerData(PlayerController _controller)

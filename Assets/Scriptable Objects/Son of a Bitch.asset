@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2e1f0d58641bad4fae3797beb0b5f2b, type: 3}
+  m_Name: Son of a Bitch
+  m_EditorClassIdentifier: 
+  m_name: Son of a Bitch
+  m_ID: 400
+  m_description: 'Cuts through your Enemies.
+
+
+    "A forgotten Relict with a dubious
+    name, found in the old Tombs of Wobniar"'
+  m_pigmentValue: 420
+  m_icon: {fileID: 0}
+  m_ItemType: 0
+  m_damage: 69
