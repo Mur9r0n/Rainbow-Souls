@@ -18,7 +18,6 @@ public class PlayerController : MonoBehaviour
     private PlayerStats m_playerStats = null;
     private Transform m_mainCameraTransform = null;
     private UIObjects m_uiObjects;
-    private InteractableObjects m_interactableObject = null;
 
     private float m_currentSpeed = 0f;
     private float m_speedSmoothVelocity = 0f;
@@ -94,7 +93,6 @@ public class PlayerController : MonoBehaviour
     {
         Movement(m_inputs.Player.Movement.ReadValue<Vector2>());
         if (m_useGravity) Gravity();
-        LookForInteractables();
 
         //While Target selected camera looks at target
         // if (m_targetedEnemy ? m_cinemachineFreeLook.LookAt = m_targetedEnemy.transform : m_cinemachineFreeLook.LookAt = transform) ;
@@ -293,11 +291,7 @@ public class PlayerController : MonoBehaviour
 
     public void Interaction()
     {
-        if (m_interactableObject != null)
-        {
-            m_interactableObject.Use();
-            m_interactableObject = null;
-        }
+
     }
 
     public void SwitchItems(float _context)
@@ -329,29 +323,6 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-
-    private void LookForInteractables()
-    {
-        //TODO: UI for Chest, Door, NPC
-        if (InteractManager.Instance.interactables.Count > 0)
-        {
-            foreach (InteractableObjects _object in InteractManager.Instance.interactables)
-            {
-                if (Vector3.Distance(transform.position, _object.transform.position) <= 2.5f)
-                {
-                    m_interactableObject = _object;
-                }
-            }
-        }
-
-        if (m_interactableObject != null)
-        {
-            if (Vector3.Distance(transform.position, m_interactableObject.gameObject.transform.position) > 2.5f)
-            {
-                m_interactableObject = null;
-            }
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
