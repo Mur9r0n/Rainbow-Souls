@@ -26,15 +26,19 @@ public abstract class AEnemyController : MonoBehaviour
     [SerializeField, Tooltip("Time to pass until resetting."), Range(1f, 20f)]
     public float m_ResetDelay = 1f;
     
-    [Header("FOV and Range Parameters:")]
+    [Header("FOV Parameters:")]
     [SerializeField, Tooltip("Field of View Distance."), Range(1f, 100f)]
     public float m_FOVDistance = 1f;
 
     [SerializeField, Tooltip("Field of View Angle."), Range(0f, 90f)]
     public float m_FOVAngle = 1f; 
     
+    [Header("Attack Parameters:")]
     [SerializeField, Tooltip("Distance at which the GameObject is able to Attack."),Range(1f, 100f)]
     public float m_AttackDistance = 1f;
+
+    [SerializeField, Tooltip("Time between Attacks.")]
+    public float m_AttackDelay = 1f;
     
     public ABaseState m_activeState;
     public EnemyIdleState m_idleState;

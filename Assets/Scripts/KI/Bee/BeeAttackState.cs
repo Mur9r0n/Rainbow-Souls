@@ -5,7 +5,6 @@ public class BeeAttackState : ABaseState
     private Vector3 m_playerTransformPosition;
     private BeeController m_beeController;
 
-    private float m_shotDelay = 4f;
     private float m_shotTimer = 0f;
     
     public override bool Enter()
@@ -28,7 +27,7 @@ public class BeeAttackState : ABaseState
 
         if (m_shotTimer <= 0)
         {
-            m_shotTimer = m_shotDelay;
+            m_shotTimer = m_controller.m_AttackDelay;
             MonoBehaviour.Instantiate(m_beeController.m_StingPrefab, m_beeController.m_StingTransform.position,Quaternion.identity);
         }
     }
