@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -6,6 +7,8 @@ using UnityEngine.EventSystems;
 
 public class MainMenuBehaviours : MonoBehaviour
 {
+    [SerializeField] private Button m_continueButton;
+    
     [SerializeField] private GameObject m_mainMenuPanel;
     [SerializeField] private GameObject m_videoSettingsPanel;
     [SerializeField] private GameObject m_audioSettingsPanel;
@@ -19,6 +22,17 @@ public class MainMenuBehaviours : MonoBehaviour
     [SerializeField] private GameObject m_quitGamePanelFirstSelectedButton;
     [SerializeField] private GameObject m_selectedButton;
 
+    [Header("Audio Sliders")] 
+    [SerializeField] private Slider m_masterVolumeSlider;
+    [SerializeField] private Slider m_musicVolumeSlider;
+    [SerializeField] private Slider m_effectsVolumeSlider;
+
+    private bool m_saveFileExists = false;
+
+    public void Awake()
+    {
+        m_saveFileExists = DataManager.Instance.CheckForSaveFile();
+    }
 
     private void Start()
     {
@@ -27,9 +41,18 @@ public class MainMenuBehaviours : MonoBehaviour
         m_audioSettingsPanel.SetActive(false);
         m_creditsPanel.SetActive(false);
         m_quitGamePanel.SetActive(false);
-        EventSystem.current.firstSelectedGameObject = null;
-        EventSystem.current.firstSelectedGameObject = m_mainMenuPanelFirstSelectedButton;
-
+        m_continueButton.interactable = m_saveFileExists;
+        
+        if (m_saveFileExists)
+        {
+            EventSystem.current.firstSelectedGameObject = null;
+            EventSystem.current.firstSelectedGameObject = m_continueButton.gameObject;
+        }
+        else
+        {
+            EventSystem.current.firstSelectedGameObject = null;
+            EventSystem.current.firstSelectedGameObject = m_mainMenuPanelFirstSelectedButton;
+        }
     }
 
     public void ContinueGame()
@@ -82,6 +105,7 @@ public class MainMenuBehaviours : MonoBehaviour
     {
         if (m_audioSettingsPanel.activeInHierarchy) {m_audioSettingsPanel.SetActive(false);}
         if (m_videoSettingsPanel.activeInHierarchy) {m_videoSettingsPanel.SetActive(false);}
+        if (m_creditsPanel.activeInHierarchy) {m_creditsPanel.SetActive(false);}
 
         m_mainMenuPanel.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
@@ -90,7 +114,14 @@ public class MainMenuBehaviours : MonoBehaviour
 
     public void ShowCredits()
     {
-        Debug.Log("Show Credits!");
+        if (!m_creditsPanel.activeInHierarchy)
+        {
+            m_selectedButton = EventSystem.current.currentSelectedGameObject;
+            m_creditsPanel.SetActive(true);
+            m_mainMenuPanel.SetActive(false);
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(m_creditsPanelFirstSelectedButton);
+        }
     }
 
     public void QuitGame()
@@ -110,5 +141,21 @@ public class MainMenuBehaviours : MonoBehaviour
     {
         m_quitGamePanel.SetActive(false);
         EventSystem.current.SetSelectedGameObject(m_selectedButton);
+    }
+
+    public void IncreaseVolume(Slider _slider)
+    {
+        if (_slider.value != _slider.maxValue)
+        {
+            _slider.value += 1f;
+        }
+    }
+
+    public void DecreaseVolume(Slider _slider)
+    {
+        if (_slider.value != _slider.minValue)
+        {
+            _slider.value -= 1f;
+        }
     }
 }
