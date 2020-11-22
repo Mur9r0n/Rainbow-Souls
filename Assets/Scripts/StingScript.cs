@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class StingScript : MonoBehaviour
 {
-    private PlayerController m_playerController;
+    private PlayerCombat m_playerController;
     private Rigidbody m_rb = null;
     
     public float m_Force = 500f;
@@ -14,7 +14,7 @@ public class StingScript : MonoBehaviour
     private float m_angle = 1f;
     void Start()
     {
-        m_playerController = FindObjectOfType<PlayerController>();
+        m_playerController = FindObjectOfType<PlayerCombat>();
         m_rb = GetComponent<Rigidbody>();
         m_angle = Vector3.Distance(m_playerController.transform.position, transform.position) *0.4f;
 

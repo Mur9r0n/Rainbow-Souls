@@ -80,8 +80,8 @@ public class MushroomController : AEnemyController
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if (other.gameObject.GetComponent<PlayerController>())
-                other.gameObject.GetComponent<PlayerController>().TakeDamage(m_attackDamage);
+            if (other.gameObject.GetComponent<PlayerCombat>())
+                other.gameObject.GetComponent<PlayerCombat>().TakeDamage(m_attackDamage);
         }
     }
 
