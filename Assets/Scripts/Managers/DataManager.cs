@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour
 {
@@ -50,5 +51,17 @@ public class DataManager : MonoBehaviour
 
             return null;
         }
+    }
+
+    public bool CheckForSaveFile()
+    {
+        string path = Application.persistentDataPath + "/PlayerData.pyd";
+
+        if (File.Exists(path))
+        {
+            return true;
+        }
+
+        return false;
     }
 }
