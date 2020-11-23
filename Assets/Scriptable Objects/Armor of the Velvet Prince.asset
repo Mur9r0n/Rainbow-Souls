@@ -18,7 +18,7 @@ MonoBehaviour:
     to the Gaylord called `the Velvet Prince\xB4 \""
   m_pigmentValue: 560
   m_icon: {fileID: 0}
-  m_ItemType: 0
+  m_ItemType: 4
   m_armorValue: 69
   m_bleedingResistance: -1
   m_poisonResistance: 0

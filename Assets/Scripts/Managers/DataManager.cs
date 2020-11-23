@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour
 {
     public static DataManager Instance { get; private set; }
 
+    #region Singleton
     private void Awake()
     {
         if (Instance != null)
@@ -15,14 +17,15 @@ public class DataManager : MonoBehaviour
         }
         Instance = this;
     }
+    #endregion
 
-    public void SavePlayer(PlayerController _controller)
+    public void SavePlayer(PlayerStats _playerStats)
     {
         BinaryFormatter bf = new BinaryFormatter();
         string path = Application.persistentDataPath + "/PlayerData.pyd";
         FileStream fs = new FileStream(path, FileMode.Create);
 
-        PlayerData data = new PlayerData(_controller);
+        PlayerData data = new PlayerData(_playerStats);
 
         bf.Serialize(fs, data);
         fs.Close();
@@ -48,5 +51,17 @@ public class DataManager : MonoBehaviour
 
             return null;
         }
+    }
+
+    public bool CheckForSaveFile()
+    {
+        string path = Application.persistentDataPath + "/PlayerData.pyd";
+
+        if (File.Exists(path))
+        {
+            return true;
+        }
+
+        return false;
     }
 }

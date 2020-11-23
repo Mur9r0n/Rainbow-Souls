@@ -10,13 +10,13 @@ public class PoisonCloudBehaviour : MonoBehaviour
     [SerializeField] private float m_duration;
     [SerializeField] private float m_dps;
     private VisualEffect m_vfx = null;
-    private PlayerController m_playerController = null;
+    private PlayerCombat m_playerController = null;
     private bool m_expending = false;
     
     private void Awake()
     {
         m_vfx = GetComponentInChildren<VisualEffect>();
-        m_playerController = FindObjectOfType<PlayerController>();
+        m_playerController = FindObjectOfType<PlayerCombat>();
         m_expending = true;
         Invoke("DeactivateYourSelf", m_duration * 0.5f);
     }

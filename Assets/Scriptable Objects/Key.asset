@@ -17,5 +17,5 @@ MonoBehaviour:
   m_description: Opens a Door obviously.
   m_pigmentValue: 0
   m_icon: {fileID: 0}
-  m_ItemType: 0
+  m_ItemType: 2
   m_unlock: {fileID: 0}
