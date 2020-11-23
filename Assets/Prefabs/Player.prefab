@@ -22,8 +22,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4684556437170541583}
-  - component: {fileID: 4684556437170541582}
+  - component: {fileID: 6686666210007611579}
   - component: {fileID: 5574989309306817834}
+  - component: {fileID: 4072996172647157554}
+  - component: {fileID: 2816656091780179563}
   - component: {fileID: 4684556437170541577}
   - component: {fileID: 831490500460061521}
   - component: {fileID: 4684556437170541581}
@@ -50,7 +52,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4684556437170541582
+--- !u!114 &6686666210007611579
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,15 +61,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4684556437170541576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89bf965063b33074c8de4de6fb06b028, type: 3}
+  m_Script: {fileID: 11500000, guid: 55596417bf2ac69469c84e2d3516273f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_controller: {fileID: 0}
-  m_targetedEnemy: {fileID: 0}
   m_cinemachineFreeLook: {fileID: 0}
-  m_useGravity: 1
-  m_movementSpeed: {x: 5, y: 10}
-  m_DamageBase: 50
 --- !u!114 &5574989309306817834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,8 +77,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5772f84fd635734cb9a576ddb3d581e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CurrentHealthPoints: 100
   m_MaxHealthPoints: 100
+  m_CurrentHealthPoints: 100
   m_MaxStaminaPoints: 100
   m_CurrentStaminaPoints: 100
   m_Level: 1
@@ -90,6 +87,36 @@ MonoBehaviour:
   m_Constitution: 10
   m_Strength: 10
   m_Dexterity: 10
+  m_MovementSpeed: {x: 5, y: 10}
+  m_isSprinting: 0
+  m_BaseDamage: 50
+  m_ActualDamage: 0
+  m_targetEnemy: {fileID: 0}
+--- !u!114 &4072996172647157554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4684556437170541576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aa4fb5ebe71c0d46a0e654b95f58ca1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_playerStats: {fileID: 0}
+--- !u!114 &2816656091780179563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4684556437170541576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0e57dbfdac1df4fa833cb7f1bd1358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4684556437170541577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,7 +152,7 @@ MonoBehaviour:
     m_ActionName: Player/Look[/Mouse/scroll/y,/Mouse/scroll/y,/Mouse/scroll/x,/Mouse/scroll/x]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4684556437170541582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
@@ -141,7 +168,7 @@ MonoBehaviour:
     m_ActionName: Player/Dodge[/Keyboard/space,/DualShock4GamepadHID/buttonEast]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4684556437170541582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
@@ -157,7 +184,7 @@ MonoBehaviour:
     m_ActionName: Player/LightAttack[/Mouse/leftButton,/DualShock4GamepadHID/rightShoulder]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4684556437170541582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
@@ -173,7 +200,7 @@ MonoBehaviour:
     m_ActionName: Player/HeavyAttack[/Mouse/rightButton,/DualShock4GamepadHID/rightTrigger]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4684556437170541582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
@@ -189,7 +216,7 @@ MonoBehaviour:
     m_ActionName: Player/TargetSystem[/Keyboard/leftCtrl,/DualShock4GamepadHID/rightStickPress]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4684556437170541582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
@@ -205,7 +232,7 @@ MonoBehaviour:
     m_ActionName: Player/Sprint[/Keyboard/leftShift,/DualShock4GamepadHID/leftShoulder,/DualShock4GamepadHID/leftStickPress]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4684556437170541582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
@@ -221,7 +248,7 @@ MonoBehaviour:
     m_ActionName: Player/Use[/Keyboard/q,/DualShock4GamepadHID/buttonWest]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4684556437170541582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
@@ -237,7 +264,7 @@ MonoBehaviour:
     m_ActionName: Player/Interaction[/Keyboard/e,/DualShock4GamepadHID/buttonSouth]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4684556437170541582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
@@ -253,7 +280,7 @@ MonoBehaviour:
     m_ActionName: Player/Switch Items[/Keyboard/1,/Keyboard/2,/DualShock4GamepadHID/dpad/left,/DualShock4GamepadHID/dpad/right]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4684556437170541582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
@@ -269,7 +296,7 @@ MonoBehaviour:
     m_ActionName: Player/Open Inventory[/Keyboard/c,/Keyboard/tab,/DualShock4GamepadHID/select]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4684556437170541582}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
