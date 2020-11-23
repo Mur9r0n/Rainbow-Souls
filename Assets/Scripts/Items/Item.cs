@@ -29,13 +29,13 @@ public abstract class Item : ScriptableObject
 
     public enum ItemType
     {
-        Consumables,   //ID Prefix 100
-        Undefined,     //ID Prefix 200
-        KeyItem,       //ID Prefix 300
-        Weapon,        //ID Prefix 400
-        Armor,         //ID Prefix 500
-        Helmet,        //ID Prefix 600
-        Cape,          //ID Prefix 700
+        Weapon,        //ID Prefix 10XXX
+        Helmet,        //ID Prefix 20XXX
+        Armor,         //ID Prefix 30XXX
+        Cape,          //ID Prefix 40XXX
+        Consumables,   //ID Prefix 50XXX
+        Undefined,     //ID Prefix 70XXX
+        KeyItem,       //ID Prefix 90XXX
     }
 
     public virtual void Use()

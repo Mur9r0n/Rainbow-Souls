@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Helmet of Doom
   m_EditorClassIdentifier: 
   m_name: Helmet of Doom
-  m_ID: 600
+  m_ID: 20000
   m_description: "A nice and pointy Hat for your Head.\n\n\"The Helmet of Doom was
     created by Sauron to Enslave those who don\xB4t have been already mesmerized
     from the Rings of Power \""

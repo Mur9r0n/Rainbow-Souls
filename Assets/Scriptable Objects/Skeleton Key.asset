@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3a367d7c8540b9940bf2d6110bcd3f98, type: 3}
-  m_Name: Key
+  m_Name: Skeleton Key
   m_EditorClassIdentifier: 
-  m_name: Key for Door
-  m_ID: 300
-  m_description: Opens a Door obviously.
+  m_name: Tutorial Key
+  m_ID: 90000
+  m_description: Opens the Tutorial Area
   m_pigmentValue: 0
-  m_icon: {fileID: 0}
+  m_icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
   m_ItemType: 2
   m_unlock: {fileID: 0}

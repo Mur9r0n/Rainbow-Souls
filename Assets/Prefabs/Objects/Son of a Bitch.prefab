@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3973453570262027673}
-  - component: {fileID: 4556490533730420043}
   - component: {fileID: 5553391081127741400}
+  - component: {fileID: 1987385145}
   m_Layer: 0
-  m_Name: Item
+  m_Name: Son of a Bitch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,24 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4556490533730420043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5902159599524492826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c39f8b612213a14abef65e620e7a5a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_inventorySystem: {fileID: 0}
-  m_interactableItem: {fileID: 5553391081127741400}
-  m_Type: 3
-  m_Dissolving: 0
-  m_Material: {fileID: 0}
-  m_lootPrefab: {fileID: 0}
 --- !u!114 &5553391081127741400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,6 +46,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Item: {fileID: 11400000, guid: 8012702511da7684e9c3a16cf1db60f1, type: 2}
+--- !u!114 &1987385145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5902159599524492826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb6eb8c33939c8d4a9b93e19aa10800c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_interactmanager: {fileID: 0}
+  ID: 0
+  m_IsInteractable: 0
 --- !u!1001 &5943030261247228700
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,6 +7,9 @@ public class PlayerInteraction : MonoBehaviour
     private PlayerInputs m_playerInputs = null;
     private PlayerStats m_playerStats = null;
     private CharacterController m_controller = null;
+    private InteractManager m_interactManager;
+    private Interactables m_interactable;
+    private UIManager m_uiManager;
 
     void Awake()
     {
@@ -29,6 +32,9 @@ public class PlayerInteraction : MonoBehaviour
                                         m_playerStats.m_MaxStaminaPoints,
                                         m_playerStats.m_CurrentStaminaPoints,
                                         m_playerStats.m_Pigments);
+        
+        m_interactManager = InteractManager.Instance;
+        m_uiManager = UIManager.Instance;
     }
     
     public void Use()
@@ -38,7 +44,16 @@ public class PlayerInteraction : MonoBehaviour
     
     public void Interact()
     {
-
+        if (m_interactManager.m_interactables.Count > 0)
+        {
+            m_interactable = m_interactManager.LookForClosestInteraction();
+            m_interactable.Interact();
+            UIManager.Instance.HideInteractionTooltip();
+        }
+        else if (m_interactManager.m_interactables.Count == 0)
+        {
+            Debug.Log("Interactable List is Empty");
+        }
     }
 
     public void SwitchItems(float _context)
@@ -48,7 +63,8 @@ public class PlayerInteraction : MonoBehaviour
 
     public void OpenInventory()
     {
-        Debug.Log("Open Inventory");
+        m_uiManager.ShowInventory();
+        m_uiManager.UpdateSlotsUI();
     }
 
     public void OpenMenu()

@@ -24,7 +24,6 @@ public class InventoryManager : MonoBehaviour
     private int m_inventorySpace = 50;
 
     public delegate void ItemPickedup();
-    public ItemPickedup itemPickedupcallback;
 
     public List<Item> Inventory = new List<Item>();
     // public List<EquipmentSlot> Equipment = new List<EquipmentSlot>();
@@ -34,8 +33,6 @@ public class InventoryManager : MonoBehaviour
         if (Inventory.Count < m_inventorySpace)
         {
             Inventory.Add(_item);
-            if (itemPickedupcallback != null)
-                itemPickedupcallback.Invoke();
         }
     }
 
