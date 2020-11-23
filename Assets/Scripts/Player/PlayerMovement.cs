@@ -42,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
-        Debug.Log(m_playerInputs.Player.Movement.ReadValue<Vector2>());
         Movement(m_playerInputs.Player.Movement.ReadValue<Vector2>());
         if (m_useGravity) Gravity();
     }
