@@ -19,10 +19,10 @@ public class DataManager : MonoBehaviour
     }
     #endregion
 
-    public void SavePlayer(PlayerStats _playerStats)
+    public void SavePlayer(PlayerStats _playerStats, int _saveSlot)
     {
         BinaryFormatter bf = new BinaryFormatter();
-        string path = Application.persistentDataPath + "/PlayerData.pyd";
+        string path = Application.persistentDataPath + "/PlayerData"+_saveSlot+".pyd";
         FileStream fs = new FileStream(path, FileMode.Create);
 
         PlayerData data = new PlayerData(_playerStats);
@@ -31,9 +31,9 @@ public class DataManager : MonoBehaviour
         fs.Close();
     }
 
-    public PlayerData LoadPlayer()
+    public PlayerData LoadPlayer(int _saveSlot)
     {
-        string path = Application.persistentDataPath + "/PlayerData.pyd";
+        string path = Application.persistentDataPath + "/PlayerData"+_saveSlot+".pyd";
 
         if (File.Exists(path))
         {
@@ -53,14 +53,32 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public bool CheckForSaveFile()
+    //TODO Most Recent File to continue
+    public bool CheckForSaveFile(string _pathSlot1, string _pathSlot2, string _pathSlot3)
     {
-        string path = Application.persistentDataPath + "/PlayerData.pyd";
+        string path = Application.persistentDataPath + "/PlayerData1.pyd";
+
+        // System.DateTime recentSave = File.GetLastWriteTime(path);
 
         if (File.Exists(path))
         {
             return true;
         }
+        
+        path = Application.persistentDataPath + "/PlayerData2.pyd";
+
+        if (File.Exists(path))
+        {
+            return true;
+        }
+        
+        path = Application.persistentDataPath + "/PlayerData3.pyd";
+
+        if (File.Exists(path))
+        {
+            return true;
+        }
+        
 
         return false;
     }
