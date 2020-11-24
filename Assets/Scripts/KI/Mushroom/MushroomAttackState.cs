@@ -8,9 +8,6 @@ public class MushroomAttackState : ABaseState
     private Vector3 m_transformPosition;
     private Vector3 m_playerTransformPosition;
 
-    private float m_cloudDelay = 10f;
-    private float m_attackDelay = 4f;
-
     private float m_cloudTimer = 0;
     private float m_attackTimer = 0;
 
@@ -46,7 +43,7 @@ public class MushroomAttackState : ABaseState
             if (m_cloudTimer <= 0)
             {
                 MonoBehaviour.Instantiate(m_mushroomController.m_PoisonCloudPrefab, m_transformPosition, Quaternion.identity);
-                m_cloudTimer = m_cloudDelay;
+                m_cloudTimer = m_mushroomController.m_PoisonCloudDelay;
             }
         }
 
@@ -57,7 +54,7 @@ public class MushroomAttackState : ABaseState
             if (m_attackTimer <= 0)
             {
                     m_anim.SetTrigger(m_attack);
-                    m_attackTimer = m_attackDelay;
+                    m_attackTimer = m_controller.m_AttackDelay;
             }
         }
     }

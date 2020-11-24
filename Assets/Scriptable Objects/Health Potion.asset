@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Health Potion
   m_EditorClassIdentifier: 
   m_name: Health Potion
-  m_ID: 100
+  m_ID: 50000
   m_description: 'Heals the User.
 
 

@@ -18,58 +18,37 @@ public class InventoryManager : MonoBehaviour
 
         Instance = this;
     }
+
     #endregion
 
-    public int m_inventorySpace = 50;
-    
-    public List<InventorySlot> Inventory = new List<InventorySlot>();
+    private int m_inventorySpace = 50;
+
+    public delegate void ItemPickedup();
+
+    public List<Item> Inventory = new List<Item>();
+    // public List<EquipmentSlot> Equipment = new List<EquipmentSlot>();
 
     public void AddItem(Item _item)
     {
-        // bool hasItem = false;
-        // for (int i = 0; i < InventoryContainer.Count; i++)
-        // {
-        //     if (InventoryContainer[i].m_item == _item )
-        //     {
-        //         InventoryContainer[i].AddAmount(_amount);
-        //         hasItem = true;
-        //         break;
-        //     }
-        //
-        //     if (!hasItem)
-        //     {
-        //     }
-        // }
-                Inventory.Add(new InventorySlot(_item));
+        if (Inventory.Count < m_inventorySpace)
+        {
+            Inventory.Add(_item);
+        }
     }
-}
 
-[System.Serializable]
-public class InventorySlot
-{
-    public Item m_item;
-    //public int m_amount;
-
-    public InventorySlot(Item _item)
+    public void RemoveItem(Item _item)
     {
-        m_item = _item;
-        //m_amount = _amount;
-    }
-
-    // public void AddAmount(int _value)
-    // {
-    //     m_amount += _value;
-    // }
-}
-
-[System.Serializable]
-public class HelmetSlot
-{
-    public Helmet m_helmet;
-
-    public HelmetSlot(Helmet _helmet)
-    {
-        m_helmet = _helmet;
+        Inventory.Remove(_item);
     }
 }
 
+// [System.Serializable]
+// public class EquipmentSlot
+// {
+//     public Helmet m_helmet;
+//
+//     public EquipmentSlot(Helmet _helmet)
+//     {
+//         m_helmet = _helmet;
+//     }
+// }

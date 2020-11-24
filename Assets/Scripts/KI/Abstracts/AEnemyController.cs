@@ -10,7 +10,7 @@ public abstract class AEnemyController : MonoBehaviour
     [HideInInspector] public NavMeshAgent m_Agent = null;
     [HideInInspector] public Healthbar m_Healthbar = null;
     [HideInInspector] public Animator m_anim = null;
-    [HideInInspector] public PlayerController m_playerController = null;
+    [HideInInspector] public PlayerCombat m_PlayerController = null;
 
     public Vector3 OriginalPosition { get; set; }
     public Quaternion OriginalRotation { get; set; }
@@ -26,15 +26,19 @@ public abstract class AEnemyController : MonoBehaviour
     [SerializeField, Tooltip("Time to pass until resetting."), Range(1f, 20f)]
     public float m_ResetDelay = 1f;
     
-    [Header("FOV and Range Parameters:")]
+    [Header("FOV Parameters:")]
     [SerializeField, Tooltip("Field of View Distance."), Range(1f, 100f)]
     public float m_FOVDistance = 1f;
 
     [SerializeField, Tooltip("Field of View Angle."), Range(0f, 90f)]
     public float m_FOVAngle = 1f; 
     
+    [Header("Attack Parameters:")]
     [SerializeField, Tooltip("Distance at which the GameObject is able to Attack."),Range(1f, 100f)]
     public float m_AttackDistance = 1f;
+
+    [SerializeField, Tooltip("Time between Attacks.")]
+    public float m_AttackDelay = 1f;
     
     public ABaseState m_activeState;
     public EnemyIdleState m_idleState;
@@ -44,7 +48,7 @@ public abstract class AEnemyController : MonoBehaviour
         m_Agent = GetComponent<NavMeshAgent>();
         m_anim = GetComponent<Animator>();
         m_Healthbar = GetComponentInChildren<Healthbar>();
-        m_playerController = FindObjectOfType<PlayerController>();
+        m_PlayerController = FindObjectOfType<PlayerCombat>();
         
         OriginalPosition = transform.position;
         OriginalRotation = transform.rotation;
@@ -158,9 +162,9 @@ public abstract class AEnemyController : MonoBehaviour
         if (m_currentHealthPoints <= 0)
         {
             m_currentHealthPoints = 0;
-            if (m_playerController.m_targetedEnemy == this.gameObject)
+            if (m_PlayerController.m_playerStats.m_targetEnemy == this.gameObject)
             {
-                m_playerController.m_targetedEnemy = null;
+                m_PlayerController.m_playerStats.m_targetEnemy = null;
             }
             GameManager.Instance.m_Enemies.Remove(this.gameObject);
             gameObject.SetActive(false);
