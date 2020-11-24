@@ -9,17 +9,20 @@ using UnityEngine.EventSystems;
 public class MainMenuBehaviours : MonoBehaviour
 {
     [SerializeField] private Button m_continueButton;
+    [SerializeField] private Button m_LoadGameBackButton;
 
-    [Header("Menu Panels")] 
-    [SerializeField] private GameObject m_mainMenuPanel;
+    [Header("Menu Panels")] [SerializeField]
+    private GameObject m_mainMenuPanel;
+
     [SerializeField] private GameObject m_loadGamePanel;
     [SerializeField] private GameObject m_videoSettingsPanel;
     [SerializeField] private GameObject m_audioSettingsPanel;
     [SerializeField] private GameObject m_creditsPanel;
     [SerializeField] private GameObject m_quitGamePanel;
 
-    [Header("First Selected Button per Panel")] 
-    [SerializeField] private GameObject m_mainMenuPanelFirstSelectedButton;
+    [Header("First Selected Button per Panel")] [SerializeField]
+    private GameObject m_mainMenuPanelFirstSelectedButton;
+
     [SerializeField] private GameObject m_loadGamePanelFirstSelectedButton;
     [SerializeField] private GameObject m_videoSettingsPanelFirstSelectedButton;
     [SerializeField] private GameObject m_audioSettingsPanelFirstSelectedButton;
@@ -27,8 +30,9 @@ public class MainMenuBehaviours : MonoBehaviour
     [SerializeField] private GameObject m_quitGamePanelFirstSelectedButton;
     [SerializeField] private GameObject m_selectedButton;
 
-    [Header("Load File Boxes")] 
-    [SerializeField] private Button m_buttonSlot1;
+    [Header("Load File Boxes")] [SerializeField]
+    private Button m_buttonSlot1;
+
     [SerializeField] private Button m_buttonSlot2;
     [SerializeField] private Button m_buttonSlot3;
 
@@ -39,7 +43,7 @@ public class MainMenuBehaviours : MonoBehaviour
     [SerializeField] private Button m_deletaButtonSlot1;
     [SerializeField] private Button m_deletaButtonSlot2;
     [SerializeField] private Button m_deletaButtonSlot3;
-    
+
     private bool m_saveFileExists = false;
 
     private string m_pathSlot1;
@@ -52,7 +56,7 @@ public class MainMenuBehaviours : MonoBehaviour
         m_pathSlot1 = Application.persistentDataPath + "/PlayerData1.pyd";
         m_pathSlot2 = Application.persistentDataPath + "/PlayerData2.pyd";
         m_pathSlot3 = Application.persistentDataPath + "/PlayerData3.pyd";
-        
+
         CheckIfSaveFileExists();
     }
 
@@ -64,7 +68,7 @@ public class MainMenuBehaviours : MonoBehaviour
         m_audioSettingsPanel.SetActive(false);
         m_creditsPanel.SetActive(false);
         m_quitGamePanel.SetActive(false);
-        
+
         if (m_saveFileExists)
         {
             EventSystem.current.firstSelectedGameObject = null;
@@ -92,6 +96,7 @@ public class MainMenuBehaviours : MonoBehaviour
                 mostRecentSlot = 1;
             }
         }
+
         if (File.Exists(m_pathSlot2))
         {
             if (File.GetLastWriteTime(m_pathSlot2) >= tempTime)
@@ -101,6 +106,7 @@ public class MainMenuBehaviours : MonoBehaviour
                 mostRecentSlot = 2;
             }
         }
+
         if (File.Exists(m_pathSlot3))
         {
             if (File.GetLastWriteTime(m_pathSlot3) >= tempTime)
@@ -121,54 +127,69 @@ public class MainMenuBehaviours : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    //TODO First selected
     public void LoadGame()
     {
         m_selectedButton = EventSystem.current.currentSelectedGameObject;
         m_loadGamePanel.SetActive(true);
         m_mainMenuPanel.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(m_loadGamePanelFirstSelectedButton);
 
         DateTime tempString;
-        
-        if (File.Exists(m_pathSlot1))
+
+        if (m_saveFileExists)
         {
-            tempString = File.GetLastWriteTime(m_pathSlot1);
-            m_textSlot1.text = tempString.ToString();
-            m_buttonSlot1.interactable = true;
-            m_deletaButtonSlot1.interactable = true;
+            if (File.Exists(m_pathSlot1))
+            {
+                tempString = File.GetLastWriteTime(m_pathSlot1);
+                m_textSlot1.text = tempString.ToString();
+                m_buttonSlot1.interactable = true;
+                m_deletaButtonSlot1.interactable = true;
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(m_buttonSlot1.gameObject);
+            }
+            else
+            {
+                m_textSlot1.text = "No Save Game";
+                m_buttonSlot1.interactable = false;
+                m_deletaButtonSlot1.interactable = false;
+            }
+
+            if (File.Exists(m_pathSlot2))
+            {
+                tempString = File.GetLastWriteTime(m_pathSlot2);
+                m_textSlot2.text = tempString.ToString();
+                m_buttonSlot2.interactable = true;
+                m_deletaButtonSlot2.interactable = true;
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(m_buttonSlot2.gameObject);
+            }
+            else
+            {
+                m_textSlot2.text = "No Save Game";
+                m_buttonSlot2.interactable = false;
+                m_deletaButtonSlot2.interactable = false;
+            }
+
+            if (File.Exists(m_pathSlot3))
+            {
+                tempString = File.GetLastWriteTime(m_pathSlot3);
+                m_textSlot3.text = tempString.ToString();
+                m_buttonSlot3.interactable = true;
+                m_deletaButtonSlot3.interactable = true;
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(m_buttonSlot3.gameObject);
+            }
+            else
+            {
+                m_textSlot3.text = "No Save Game";
+                m_buttonSlot3.interactable = false;
+                m_deletaButtonSlot3.interactable = false;
+            }
         }
         else
         {
-            m_textSlot1.text = "No Save Game";
-            m_buttonSlot1.interactable = false;
-            m_deletaButtonSlot1.interactable = false;
-        }
-        if (File.Exists(m_pathSlot2))
-        {
-            tempString = File.GetLastWriteTime(m_pathSlot2);
-            m_textSlot2.text = tempString.ToString();
-            m_buttonSlot2.interactable = true;
-            m_deletaButtonSlot2.interactable = true;
-        }
-        else
-        {
-            m_textSlot2.text = "No Save Game";
-            m_buttonSlot2.interactable = false;
-            m_deletaButtonSlot2.interactable = false;
-        }
-        if (File.Exists(m_pathSlot3))
-        {
-            tempString = File.GetLastWriteTime(m_pathSlot3);
-            m_textSlot3.text = tempString.ToString();            
-            m_buttonSlot3.interactable = true;
-            m_deletaButtonSlot3.interactable = true;
-        }
-        else
-        {
-            m_textSlot3.text = "No Save Game";
-            m_buttonSlot3.interactable = false;
-            m_deletaButtonSlot3.interactable = false;
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(m_LoadGameBackButton.gameObject);
         }
     }
 
@@ -206,10 +227,25 @@ public class MainMenuBehaviours : MonoBehaviour
     public void GoBack()
     {
         CheckIfSaveFileExists();
-        if (m_loadGamePanel.activeInHierarchy) {m_loadGamePanel.SetActive(false);}
-        if (m_audioSettingsPanel.activeInHierarchy) {m_audioSettingsPanel.SetActive(false);}
-        if (m_videoSettingsPanel.activeInHierarchy) {m_videoSettingsPanel.SetActive(false);}
-        if (m_creditsPanel.activeInHierarchy) {m_creditsPanel.SetActive(false);}
+        if (m_loadGamePanel.activeInHierarchy)
+        {
+            m_loadGamePanel.SetActive(false);
+        }
+
+        if (m_audioSettingsPanel.activeInHierarchy)
+        {
+            m_audioSettingsPanel.SetActive(false);
+        }
+
+        if (m_videoSettingsPanel.activeInHierarchy)
+        {
+            m_videoSettingsPanel.SetActive(false);
+        }
+
+        if (m_creditsPanel.activeInHierarchy)
+        {
+            m_creditsPanel.SetActive(false);
+        }
 
         m_mainMenuPanel.SetActive(true);
         EventSystem.current.SetSelectedGameObject(null);
@@ -266,14 +302,14 @@ public class MainMenuBehaviours : MonoBehaviour
     public void LoadSaveGameSlot(int _saveSlot)
     {
         GlobalGameData.Instance.SavePlayerDataGlobalFromFile(_saveSlot);
-        Debug.Log("Load SaveSlot "+ _saveSlot);
+        Debug.Log("Load SaveSlot " + _saveSlot);
         SceneManager.LoadScene(GlobalGameData.Instance.m_PlayerData.m_SceneIndex);
     }
 
     public void DeleteSaveGameSlot(int _saveSlot)
     {
         string path = Application.persistentDataPath + "/PlayerData" + _saveSlot + ".pyd";
-        
+
         if (File.Exists(path))
         {
             File.Delete(path);
@@ -283,8 +319,8 @@ public class MainMenuBehaviours : MonoBehaviour
 
     public void CheckIfSaveFileExists()
     {
-        m_saveFileExists = DataManager.Instance.CheckForSaveFile(m_pathSlot1,m_pathSlot2,m_pathSlot3);
-        
+        m_saveFileExists = DataManager.Instance.CheckForSaveFile(m_pathSlot1, m_pathSlot2, m_pathSlot3);
+
         m_continueButton.interactable = m_saveFileExists;
     }
 }
