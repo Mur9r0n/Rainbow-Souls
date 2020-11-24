@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class PlayerData
 {
+    public int m_SceneIndex = 0;
+    
     public float m_MaxHealth;
     public float m_CurrentHealth;
 
@@ -23,6 +27,8 @@ public class PlayerData
 
     public PlayerData(PlayerStats _playerStats)
     {
+        m_SceneIndex = SceneManager.GetActiveScene().buildIndex;
+        
         m_MaxHealth = _playerStats.m_MaxHealthPoints;
         m_CurrentHealth = _playerStats.m_CurrentHealthPoints;
 

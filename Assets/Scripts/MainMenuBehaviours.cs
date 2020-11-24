@@ -9,8 +9,8 @@ using UnityEngine.EventSystems;
 public class MainMenuBehaviours : MonoBehaviour
 {
     [SerializeField] private Button m_continueButton;
-    
-    [Header("Menu Panels")]
+
+    [Header("Menu Panels")] 
     [SerializeField] private GameObject m_mainMenuPanel;
     [SerializeField] private GameObject m_loadGamePanel;
     [SerializeField] private GameObject m_videoSettingsPanel;
@@ -18,7 +18,7 @@ public class MainMenuBehaviours : MonoBehaviour
     [SerializeField] private GameObject m_creditsPanel;
     [SerializeField] private GameObject m_quitGamePanel;
 
-    [Header("First Selected Button per Panel")]
+    [Header("First Selected Button per Panel")] 
     [SerializeField] private GameObject m_mainMenuPanelFirstSelectedButton;
     [SerializeField] private GameObject m_loadGamePanelFirstSelectedButton;
     [SerializeField] private GameObject m_videoSettingsPanelFirstSelectedButton;
@@ -77,14 +77,16 @@ public class MainMenuBehaviours : MonoBehaviour
     public void ContinueGame()
     {
         DateTime tempTime = DateTime.MinValue;
-        string tempString = "";
+        string playerDataPath = "";
+        int mostRecentSlot = 1;
 
         if (File.Exists(m_pathSlot1))
         {
             if (File.GetLastWriteTime(m_pathSlot1) >= tempTime)
             {
                 tempTime = File.GetLastWriteTime(m_pathSlot1);
-                tempString = m_pathSlot1;
+                playerDataPath = m_pathSlot1;
+                mostRecentSlot = 1;
             }
         }
         if (File.Exists(m_pathSlot2))
@@ -92,7 +94,8 @@ public class MainMenuBehaviours : MonoBehaviour
             if (File.GetLastWriteTime(m_pathSlot2) >= tempTime)
             {
                 tempTime = File.GetLastWriteTime(m_pathSlot2);
-                tempString = m_pathSlot2;
+                playerDataPath = m_pathSlot2;
+                mostRecentSlot = 2;
             }
         }
         if (File.Exists(m_pathSlot3))
@@ -100,11 +103,13 @@ public class MainMenuBehaviours : MonoBehaviour
             if (File.GetLastWriteTime(m_pathSlot3) >= tempTime)
             {
                 tempTime = File.GetLastWriteTime(m_pathSlot3);
-                tempString = m_pathSlot3;
+                playerDataPath = m_pathSlot3;
+                mostRecentSlot = 3;
             }
         }
-        
-        Debug.Log("Load " + tempString);
+
+        Debug.Log("Load " + playerDataPath);
+        GlobalGameData.Instance.SavePlayerDataGlobalFromFile(mostRecentSlot);
         SceneManager.LoadScene(1);
     }
 
@@ -237,7 +242,8 @@ public class MainMenuBehaviours : MonoBehaviour
     //TODO Loading the current Slot
     public void LoadSaveGameSlot(int _saveSlot)
     {
+        GlobalGameData.Instance.SavePlayerDataGlobalFromFile(_saveSlot);
         Debug.Log("Load SaveSlot "+ _saveSlot);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(GlobalGameData.Instance.m_PlayerData.m_SceneIndex);
     }
 }
