@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class ItemInteraction : Interactables
 {
@@ -19,6 +20,7 @@ public class ItemInteraction : Interactables
             Debug.Log("You forgot the InteractableItem Component in " + gameObject.name);
         }
     }
+    
     //Weapons begin with 10XXX
     //ID 10000 - Son of a Bitch
     
@@ -65,15 +67,19 @@ public class ItemInteraction : Interactables
     public override void Interact()
     {
         m_inventoryManager.AddItem(m_interactableItem.m_Item);
+        
+        for (int i = 0; i < InventoryManager.Instance.Inventory.Count; i++)
+        {
+            UIManager.Instance.m_inventorySlots[i].m_item= InventoryManager.Instance.Inventory[i];
+        }
+        
         Debug.Log("Picked up " + m_interactableItem.m_Item.Name);
         m_interactmanager.m_interactables.Remove(this);
-        Destroy(gameObject);
         
         switch (ID)
         {
             case 10000:
             {
-                
                 Debug.Log("Interact with Son of a Bitch");
                 break;
             }
@@ -82,6 +88,7 @@ public class ItemInteraction : Interactables
                 Debug.Log("Interact with Helmet of Doom");
                 break;
             }
+            
 
 
             default:
@@ -91,6 +98,9 @@ public class ItemInteraction : Interactables
                 break;
             }
         }
+
+        
+        Destroy(gameObject);
         
         UIManager.Instance.UpdateSlotsUI();
     }

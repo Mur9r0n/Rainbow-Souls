@@ -55,4 +55,9 @@ public class InteractManager : MonoBehaviour
         Debug.Log("NULL");
         return null;
     }
+
+    public void UpdateItems()
+    {
+
+    }
 }

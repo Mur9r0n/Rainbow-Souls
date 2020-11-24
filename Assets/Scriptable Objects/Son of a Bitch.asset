@@ -21,5 +21,5 @@ MonoBehaviour:
     name, found in the old Tombs of Wobniar"'
   m_pigmentValue: 420
   m_icon: {fileID: 21300000, guid: 8ad4934461cb0af40bd1b7024806035e, type: 3}
-  m_ItemType: 3
+  m_ItemType: 0
   m_damage: 69

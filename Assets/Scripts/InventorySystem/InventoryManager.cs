@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,11 +23,12 @@ public class InventoryManager : MonoBehaviour
     #endregion
 
     private int m_inventorySpace = 50;
+    private int m_equipmentSpace = 4;
 
     public delegate void ItemPickedup();
 
     public List<Item> Inventory = new List<Item>();
-    // public List<EquipmentSlot> Equipment = new List<EquipmentSlot>();
+    public List<Item> Equipment = new List<Item>();
 
     public void AddItem(Item _item)
     {
@@ -40,15 +42,21 @@ public class InventoryManager : MonoBehaviour
     {
         Inventory.Remove(_item);
     }
-}
 
-// [System.Serializable]
-// public class EquipmentSlot
-// {
-//     public Helmet m_helmet;
-//
-//     public EquipmentSlot(Helmet _helmet)
-//     {
-//         m_helmet = _helmet;
-//     }
-// }
+    /// <summary>
+    /// Equipment[0] Helmet Slot
+    /// Equipment[1] Armor Slot
+    /// Equipment[2] Weapon Slot
+    /// Equipment[3] Cape Slot
+    /// </summary>
+    /// <param name="_equipmentSlot"></param>
+    public void Equip(Item _item)
+    {
+        if (Equipment.Count < m_equipmentSpace)
+        {
+            Equipment.Add(_item);
+        }
+    }
+    
+    
+}

@@ -21,7 +21,7 @@ public abstract class Item : ScriptableObject
     private int m_pigmentValue;
 
     [SerializeField, Tooltip("Icon")] 
-    private Sprite m_icon;
+    public Sprite m_icon;
     
     [SerializeField, Tooltip("Type")] 
     private ItemType m_ItemType;

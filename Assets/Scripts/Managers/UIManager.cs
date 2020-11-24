@@ -27,11 +27,14 @@ public class UIManager : MonoBehaviour
     public GameObject m_InteractionPanel;
     public GameObject m_InventoryPanel;
     public GameObject m_ItemGridParent;
-    private InventorySlot[] m_inventorySlots;
+    public InventorySlot[] m_inventorySlots;
+    public GameObject m_EquipmentPanel;
+    public EquipmentSlot[] m_equipmentSlots;
 
     private void Start()
     {
         m_inventorySlots = m_ItemGridParent.GetComponentsInChildren<InventorySlot>();
+        m_equipmentSlots = m_EquipmentPanel.GetComponentsInChildren<EquipmentSlot>();
     }
 
     public void UpdateHealthBar(float _maxHealth, float _currentHealth)
@@ -54,6 +57,11 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < InventoryManager.Instance.Inventory.Count; i++)
         {
             m_inventorySlots[i].m_icon.sprite = InventoryManager.Instance.Inventory[i].Icon;
+        }
+        
+        for (int i = 0; i < InventoryManager.Instance.Equipment.Count; i++)
+        {
+            m_equipmentSlots[i].m_Icon.sprite = InventoryManager.Instance.Equipment[i].m_icon;
         }
     }
     
