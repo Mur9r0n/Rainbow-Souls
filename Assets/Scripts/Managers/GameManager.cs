@@ -25,6 +25,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        PlayerTransform = FindObjectOfType<PlayerController>().transform;
+        PlayerTransform = FindObjectOfType<PlayerMovement>().transform;
     }
 }
