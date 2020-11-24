@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class InteractManager : MonoBehaviour
 {
-    #region Singleton
     public static InteractManager Instance;
+    
+    #region Singleton
 
     private void Awake()
     {
@@ -21,53 +22,37 @@ public class InteractManager : MonoBehaviour
     }
     #endregion
     
-    private RenderInteractionUI m_renderInteractionUI;
-    private ChestInteraction m_chestInteraction;
-    private CheckpointInteraction m_checkpointInteraction;
-    private DoorInteraction m_doorInteraction;
-    private ItemInteraction m_itemInteraction;
-    private NPCInteraction m_npcInteraction;
-    
-    private void Start()
-    {
-        m_renderInteractionUI = FindObjectOfType<RenderInteractionUI>();
-        m_chestInteraction = FindObjectOfType<ChestInteraction>();
-        m_checkpointInteraction = FindObjectOfType<CheckpointInteraction>();
-        m_doorInteraction = FindObjectOfType<DoorInteraction>();
-        m_itemInteraction = FindObjectOfType<ItemInteraction>();
-        m_npcInteraction = FindObjectOfType<NPCInteraction>();
-    }
+    public List<Interactables> m_interactables = new List<Interactables>();
 
-    // private void Update()
-    // {
-    //     if (m_chestInteraction.m_canInteractChest)
-    //     {
-    //         m_renderInteractionUI.ActivateInteractionUI(true);
-    //         m_renderInteractionUI.RenderInteractionChest();
-    //     }
-    //     else if (m_checkpointInteraction.m_canInteractCheckpoint)
-    //     {
-    //         m_renderInteractionUI.ActivateInteractionUI(true);
-    //         m_renderInteractionUI.RenderInteractionCheckpoint();
-    //     }
-    //     else if (m_doorInteraction.m_canInteractDoor)
-    //     {
-    //         m_renderInteractionUI.ActivateInteractionUI(true);
-    //         m_renderInteractionUI.RenderInteractionDoor();
-    //     }
-    //     else if (m_itemInteraction.m_canInteractItems)
-    //     {
-    //         m_renderInteractionUI.ActivateInteractionUI(true);
-    //         m_renderInteractionUI.RenderInteractionItem();
-    //     }
-    //     else if (m_npcInteraction.m_canInteractNPC)
-    //     {
-    //         m_renderInteractionUI.ActivateInteractionUI(true);
-    //         m_renderInteractionUI.RenderInteractionNPC();
-    //     }
-    //     else
-    //     {
-    //         m_renderInteractionUI.ActivateInteractionUI(false);
-    //     }
-    // }
+    public Interactables LookForClosestInteraction()
+    {
+        Interactables tempClosestInteractable = null;
+        
+        foreach (Interactables interactable in m_interactables)
+        {
+
+            if (tempClosestInteractable != null)
+            {
+                if (Vector3.Distance(interactable.gameObject.transform.position, GameManager.Instance.PlayerTransform.position)
+                    <= Vector3.Distance(tempClosestInteractable.transform.position, GameManager.Instance.PlayerTransform.position))
+                {
+                    tempClosestInteractable = interactable;
+                }
+            }
+            if (tempClosestInteractable == null)
+            {
+                tempClosestInteractable = interactable;
+            }
+        }
+
+        if (tempClosestInteractable != null)
+        {
+            Debug.Log("TEMP");
+
+            return tempClosestInteractable;
+        }
+        
+        Debug.Log("NULL");
+        return null;
+    }
 }

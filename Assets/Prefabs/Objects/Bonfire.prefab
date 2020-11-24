@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2682936592359089937}
-  - component: {fileID: 7677535652885802002}
+  - component: {fileID: 5056117307049806409}
   m_Layer: 0
   m_Name: Bonfire
   m_TagString: Interactable
@@ -34,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7677535652885802002
+--- !u!114 &5056117307049806409
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,14 +43,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3525907818659377509}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c39f8b612213a14abef65e620e7a5a6, type: 3}
+  m_Script: {fileID: 11500000, guid: e6e9ddb736f572644bf7c08c9ebe1f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_lootPrefab: {fileID: 0}
-  m_interactableItem: {fileID: 0}
-  m_Type: 0
-  m_Dissolving: 0
-  m_Material: {fileID: 0}
+  m_interactmanager: {fileID: 0}
+  m_IsInteractable: 0
+  m_Type: 1
 --- !u!1001 &1119531632820505129
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 6967164017651494493}
   - component: {fileID: 8263038781566591300}
   - component: {fileID: 7956136856359684359}
-  - component: {fileID: 5811481121891847067}
   - component: {fileID: 1191921776385659885}
+  - component: {fileID: 4490053939116566995}
   m_Layer: 0
   m_Name: Chest
   m_TagString: Interactable
@@ -83,23 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5811481121891847067
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6507847008512283946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c39f8b612213a14abef65e620e7a5a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_lootPrefab: {fileID: 5902159599524492826, guid: b0950da00337718478028abac4f314c4, type: 3}
-  m_interactableItem: {fileID: 0}
-  m_Type: 1
-  m_Dissolving: 0
-  m_Material: {fileID: 2100000, guid: 10a8bcb24a70aaa42ba4e752f2ce196d, type: 2}
 --- !u!65 &1191921776385659885
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -113,3 +96,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4490053939116566995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6507847008512283946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51f94ac2ec3253642bd686e61dd5ebb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_interactmanager: {fileID: 0}
+  m_IsInteractable: 0
+  m_Type: 0

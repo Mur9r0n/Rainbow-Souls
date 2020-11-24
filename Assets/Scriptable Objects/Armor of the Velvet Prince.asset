@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Armor of the Velvet Prince
   m_EditorClassIdentifier: 
   m_name: Armor of the Velvet Prince
-  m_ID: 500
+  m_ID: 30000
   m_description: "Armor consisting of Velvet\n\n\"This very Rare Armor-piece belongs
     to the Gaylord called `the Velvet Prince\xB4 \""
   m_pigmentValue: 560

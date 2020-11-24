@@ -8,4 +8,5 @@ public class Sword : Item
     
     [SerializeField, Tooltip("Damage Amount")]
     private int m_damage;
+
 }

@@ -1,17 +1,27 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public abstract class Interactables : MonoBehaviour
 {
-
-    private float m_interactionRadius;
     private LayerMask m_playerLayer;
+    private float m_interactionRadius;
+    
+    public InteractManager m_interactmanager;
+    public int ID = 10000000;
+    public bool m_IsInteractable = false;
 
     public virtual void Start()
     {
         m_playerLayer = LayerMask.GetMask("Player");
+        m_interactmanager = InteractManager.Instance;
+    }
+
+    public virtual void Update()
+    {
+        
     }
 
     protected bool CheckForInteraction(Vector3 _position, float _interactionRadius)
@@ -29,6 +39,11 @@ public abstract class Interactables : MonoBehaviour
         }
 
         return false;
+    }
+
+    public virtual void Interact()
+    {
+        
     }
     
     private void OnDrawGizmos()

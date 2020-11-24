@@ -20,11 +20,20 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
     #endregion
-    
+
     public Image m_Healthbar;
     public Image m_Staminabar;
     public TMP_Text m_Pigment;
-    
+    public GameObject m_InteractionPanel;
+    public GameObject m_InventoryPanel;
+    public GameObject m_ItemGridParent;
+    private InventorySlot[] m_inventorySlots;
+
+    private void Start()
+    {
+        m_inventorySlots = m_ItemGridParent.GetComponentsInChildren<InventorySlot>();
+    }
+
     public void UpdateHealthBar(float _maxHealth, float _currentHealth)
     {
         m_Healthbar.fillAmount = _currentHealth / _maxHealth;
@@ -40,11 +49,40 @@ public class UIManager : MonoBehaviour
         m_Pigment.text = _pigmentAmount.ToString();
     }
     
+    public void UpdateSlotsUI()
+    {
+        for (int i = 0; i < InventoryManager.Instance.Inventory.Count; i++)
+        {
+            m_inventorySlots[i].m_icon.sprite = InventoryManager.Instance.Inventory[i].Icon;
+        }
+    }
+    
+    public void ShowInventory()
+    {
+        if (m_InventoryPanel.gameObject.activeSelf)
+        {
+            m_InventoryPanel.gameObject.SetActive(false);
+        }
+        else
+        {
+            m_InventoryPanel.gameObject.SetActive(true);
+        }
+    }
+
+    public void ShowInteractionTooltip(string _text)
+    {
+        m_InteractionPanel.SetActive(true);
+        m_InteractionPanel.GetComponentInChildren<TextMeshProUGUI>().text = _text;
+    }
+
+    public void HideInteractionTooltip() {m_InteractionPanel.SetActive(false);}
+    
+    
     public void RefreshUI(float _maxHealth, float _currentHealth,float _maxStamina, float _currentStamina, int _pigmentAmount)
     {
         UpdateHealthBar(_maxHealth, _currentHealth);
         UpdateStaminaBar(_maxStamina,_currentStamina);
         UpdatePigmentCounter(_pigmentAmount);
+        UpdateSlotsUI();
     }
-    
 }
