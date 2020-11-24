@@ -9,6 +9,7 @@ TagManager:
   - Sheep
   - Bee
   - Mushroom
+  - Portal
   layers:
   - Default
   - TransparentFX

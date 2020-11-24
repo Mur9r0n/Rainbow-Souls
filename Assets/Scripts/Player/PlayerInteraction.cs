@@ -82,19 +82,19 @@ public class PlayerInteraction : MonoBehaviour
         if (GUI.Button(new Rect(10, 150, 150, 25), "Save 1"))
         {
             DataManager.Instance.SavePlayer(m_playerStats, 1);
-            Debug.Log("Saved");
+            Debug.Log("Saved 1");
         }
         
         if (GUI.Button(new Rect(10, 180, 150, 25), "Save 2"))
         {
             DataManager.Instance.SavePlayer(m_playerStats, 2);
-            Debug.Log("Saved");
+            Debug.Log("Saved 2");
         }
         
         if (GUI.Button(new Rect(10, 210, 150, 25), "Save 3"))
         {
             DataManager.Instance.SavePlayer(m_playerStats, 3);
-            Debug.Log("Saved");
+            Debug.Log("Saved 3");
         }
 
         if (GUI.Button(new Rect(10, 300, 150, 25), "Load 1"))
@@ -122,8 +122,6 @@ public class PlayerInteraction : MonoBehaviour
 
             UIManager.Instance.RefreshUI(m_playerStats.m_MaxHealthPoints,m_playerStats.m_CurrentHealthPoints,m_playerStats.m_MaxStaminaPoints,
                 m_playerStats.m_CurrentStaminaPoints,m_playerStats.m_Pigments);
-            
-            Debug.Log(temppos);
         }
         
         if (GUI.Button(new Rect(10, 330, 150, 25), "Load 2"))
