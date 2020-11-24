@@ -35,6 +35,10 @@ public class MainMenuBehaviours : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_textSlot1;
     [SerializeField] private TextMeshProUGUI m_textSlot2;
     [SerializeField] private TextMeshProUGUI m_textSlot3;
+
+    [SerializeField] private Button m_deletaButtonSlot1;
+    [SerializeField] private Button m_deletaButtonSlot2;
+    [SerializeField] private Button m_deletaButtonSlot3;
     
     private bool m_saveFileExists = false;
 
@@ -49,7 +53,7 @@ public class MainMenuBehaviours : MonoBehaviour
         m_pathSlot2 = Application.persistentDataPath + "/PlayerData2.pyd";
         m_pathSlot3 = Application.persistentDataPath + "/PlayerData3.pyd";
         
-        m_saveFileExists = DataManager.Instance.CheckForSaveFile(m_pathSlot1,m_pathSlot2,m_pathSlot3);
+        CheckIfSaveFileExists();
     }
 
     private void Start()
@@ -60,7 +64,6 @@ public class MainMenuBehaviours : MonoBehaviour
         m_audioSettingsPanel.SetActive(false);
         m_creditsPanel.SetActive(false);
         m_quitGamePanel.SetActive(false);
-        m_continueButton.interactable = m_saveFileExists;
         
         if (m_saveFileExists)
         {
@@ -133,19 +136,39 @@ public class MainMenuBehaviours : MonoBehaviour
             tempString = File.GetLastWriteTime(m_pathSlot1);
             m_textSlot1.text = tempString.ToString();
             m_buttonSlot1.interactable = true;
-
+            m_deletaButtonSlot1.interactable = true;
+        }
+        else
+        {
+            m_textSlot1.text = "No Save Game";
+            m_buttonSlot1.interactable = false;
+            m_deletaButtonSlot1.interactable = false;
         }
         if (File.Exists(m_pathSlot2))
         {
             tempString = File.GetLastWriteTime(m_pathSlot2);
             m_textSlot2.text = tempString.ToString();
             m_buttonSlot2.interactable = true;
+            m_deletaButtonSlot2.interactable = true;
+        }
+        else
+        {
+            m_textSlot2.text = "No Save Game";
+            m_buttonSlot2.interactable = false;
+            m_deletaButtonSlot2.interactable = false;
         }
         if (File.Exists(m_pathSlot3))
         {
             tempString = File.GetLastWriteTime(m_pathSlot3);
             m_textSlot3.text = tempString.ToString();            
             m_buttonSlot3.interactable = true;
+            m_deletaButtonSlot3.interactable = true;
+        }
+        else
+        {
+            m_textSlot3.text = "No Save Game";
+            m_buttonSlot3.interactable = false;
+            m_deletaButtonSlot3.interactable = false;
         }
     }
 
@@ -182,6 +205,7 @@ public class MainMenuBehaviours : MonoBehaviour
 
     public void GoBack()
     {
+        CheckIfSaveFileExists();
         if (m_loadGamePanel.activeInHierarchy) {m_loadGamePanel.SetActive(false);}
         if (m_audioSettingsPanel.activeInHierarchy) {m_audioSettingsPanel.SetActive(false);}
         if (m_videoSettingsPanel.activeInHierarchy) {m_videoSettingsPanel.SetActive(false);}
@@ -239,11 +263,28 @@ public class MainMenuBehaviours : MonoBehaviour
         }
     }
 
-    //TODO Loading the current Slot
     public void LoadSaveGameSlot(int _saveSlot)
     {
         GlobalGameData.Instance.SavePlayerDataGlobalFromFile(_saveSlot);
         Debug.Log("Load SaveSlot "+ _saveSlot);
         SceneManager.LoadScene(GlobalGameData.Instance.m_PlayerData.m_SceneIndex);
+    }
+
+    public void DeleteSaveGameSlot(int _saveSlot)
+    {
+        string path = Application.persistentDataPath + "/PlayerData" + _saveSlot + ".pyd";
+        
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+            LoadGame();
+        }
+    }
+
+    public void CheckIfSaveFileExists()
+    {
+        m_saveFileExists = DataManager.Instance.CheckForSaveFile(m_pathSlot1,m_pathSlot2,m_pathSlot3);
+        
+        m_continueButton.interactable = m_saveFileExists;
     }
 }
