@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -180,6 +181,16 @@ public class PlayerInteraction : MonoBehaviour
                 m_playerStats.m_CurrentStaminaPoints,m_playerStats.m_Pigments);
             
             Debug.Log(temppos);
+        }
+
+        if (GUI.Button(new Rect(10, 420, 150, 50), "Main Menu"))
+        {
+            SceneManager.LoadScene(0);
+        }
+        
+        if (GUI.Button(new Rect(10, 480, 150, 50), "Exit"))
+        {
+            Application.Quit();
         }
     }
     
