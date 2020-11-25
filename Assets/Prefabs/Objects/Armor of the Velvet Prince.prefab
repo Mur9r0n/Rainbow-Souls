@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5553391081127741400}
   - component: {fileID: 5074903532821965200}
   m_Layer: 0
-  m_Name: Helmet of Doom
+  m_Name: Armor of the Velvet Prince
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af3f7abc618a3144a99ee1e0402eb65b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Item: {fileID: 11400000, guid: 19c7c1908543325419523ea2dc8fa9d1, type: 2}
+  m_Item: {fileID: 11400000, guid: ee00ebe0fc313b14b89c021816225a1f, type: 2}
 --- !u!114 &5074903532821965200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_interactmanager: {fileID: 0}
-  ID: 20000
+  ID: 30000
   m_IsInteractable: 0
   m_interactableItem: {fileID: 0}
 --- !u!1001 &5943030261247228700

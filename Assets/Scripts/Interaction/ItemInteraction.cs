@@ -67,7 +67,6 @@ public class ItemInteraction : Interactables
         m_inventoryManager.AddItem(m_interactableItem.m_Item);
         Debug.Log("Picked up " + m_interactableItem.m_Item.Name);
         m_interactmanager.m_interactables.Remove(this);
-        Destroy(gameObject);
         
         switch (ID)
         {
@@ -82,7 +81,21 @@ public class ItemInteraction : Interactables
                 Debug.Log("Interact with Helmet of Doom");
                 break;
             }
-
+            case 30000:
+            {
+                Debug.Log("Interact with Armor of the Velvet Prince");
+                break;
+            }         
+            case 40000:
+            {
+                Debug.Log("Interact with Cape of Higher Destination");
+                break;
+            }
+            case 90000:
+            {
+                Debug.Log("Interact with Skeleton Key");
+                break;
+            }
 
             default:
             {
@@ -91,6 +104,7 @@ public class ItemInteraction : Interactables
                 break;
             }
         }
+        Destroy(gameObject);
         
         UIManager.Instance.UpdateSlotsUI();
     }

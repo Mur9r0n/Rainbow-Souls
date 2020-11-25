@@ -45,16 +45,24 @@ public class PlayerInteraction : MonoBehaviour
     
     public void Interact()
     {
-        if (m_interactManager.m_interactables.Count > 0)
+        if (m_interactManager.m_interactables != null)
         {
-            m_interactable = m_interactManager.LookForClosestInteraction();
-            m_interactable.Interact();
-            UIManager.Instance.HideInteractionTooltip();
+            if (m_interactManager.m_interactables.Count > 0)
+            {
+                m_interactable = m_interactManager.LookForClosestInteraction();
+                m_interactable.Interact();
+                UIManager.Instance.HideInteractionTooltip();
+            }
+            else if (m_interactManager.m_interactables.Count == 0)
+            {
+                Debug.Log("Interactable List is Empty");
+            }
         }
-        else if (m_interactManager.m_interactables.Count == 0)
+        else
         {
-            Debug.Log("Interactable List is Empty");
+            Debug.Log("Interactable list is NULL");
         }
+        
     }
 
     public void SwitchItems(float _context)

@@ -45,6 +45,7 @@ public class ChestInteraction : Interactables
             }
             else
             {
+                m_interactmanager.m_interactables.Remove(this);
                 Destroy(gameObject);
             }
         }

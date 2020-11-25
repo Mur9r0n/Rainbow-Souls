@@ -59,8 +59,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_interactmanager: {fileID: 0}
-  ID: 0
+  ID: 10000
   m_IsInteractable: 0
+  m_interactableItem: {fileID: 0}
 --- !u!1001 &5943030261247228700
 PrefabInstance:
   m_ObjectHideFlags: 0
