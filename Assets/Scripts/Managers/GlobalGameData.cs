@@ -30,7 +30,7 @@ public class GlobalGameData : MonoBehaviour
     
     void Start()
     {
-        if (m_DataFromFile)
+        if (m_DataFromFile && SceneManager.GetActiveScene().buildIndex != 0)
         {
             PlayerStats m_playerStats = FindObjectOfType<PlayerStats>();
             CharacterController m_controller = FindObjectOfType<CharacterController>();
