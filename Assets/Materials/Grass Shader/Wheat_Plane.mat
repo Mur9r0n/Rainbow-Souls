@@ -68,7 +68,7 @@ Material:
     - _AlphaClip: 0
     - _AlphaCutOff: 0.98
     - _AlphaCutoff: 0.99
-    - _Base: 0.28
+    - _Base: 0.68
     - _Blend: 0
     - _BumpScale: 1
     - _Cull: 2
@@ -78,11 +78,11 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Height: 0.83
+    - _Height: 1.15
     - _LightPower: 0.29
-    - _MaxHeight: 0.82
+    - _MaxHeight: 1.34
     - _Metallic: 0
-    - _MinHeight: 0.47
+    - _MinHeight: 0.84
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
