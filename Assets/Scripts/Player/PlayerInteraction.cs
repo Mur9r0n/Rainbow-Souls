@@ -64,6 +64,7 @@ public class PlayerInteraction : MonoBehaviour
     public void OpenInventory()
     {
         m_uiManager.ShowInventory();
+        m_uiManager.ShowEquipment();
         m_uiManager.UpdateSlotsUI();
     }
 

@@ -19,5 +19,5 @@ MonoBehaviour:
     and doesn\xB4t belong to all these other Peasants in the World\""
   m_pigmentValue: 6000
   m_icon: {fileID: 0}
-  m_ItemType: 6
+  m_ItemType: 3
   m_amountOfNonPeasantry: 100

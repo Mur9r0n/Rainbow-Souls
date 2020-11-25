@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 385598589285363043}
-  - component: {fileID: 8675352338782165768}
+  - component: {fileID: 3591409301572932608}
   m_Layer: 5
   m_Name: Equipment Slot
   m_TagString: Untagged
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 130, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8675352338782165768
+--- !u!114 &3591409301572932608
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

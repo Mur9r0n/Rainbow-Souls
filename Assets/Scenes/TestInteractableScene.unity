@@ -280,6 +280,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Inventory: []
   Equipment: []
+  m_helmetdefault: {fileID: 11400000, guid: b21e638cc9d9d9547945b1e683c4830f, type: 2}
+  m_armordefault: {fileID: 11400000, guid: 839264d1c2b36eb41be1bcdd2d07585d, type: 2}
+  m_weapondefault: {fileID: 11400000, guid: 808c641537d1b2745945b555ea149a4c, type: 2}
+  m_capedefault: {fileID: 11400000, guid: f124191863cee3a49a82b3ee6436980b, type: 2}
 --- !u!4 &97871258
 Transform:
   m_ObjectHideFlags: 0
@@ -1148,6 +1152,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3591409301572932608, guid: e4fb0404445445a41a966264506626dc, type: 3}
+      propertyPath: m_Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 839264d1c2b36eb41be1bcdd2d07585d, type: 2}
     m_RemovedComponents:
     - {fileID: 8459837941140108107, guid: e4fb0404445445a41a966264506626dc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e4fb0404445445a41a966264506626dc, type: 3}
@@ -1617,6 +1625,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3591409301572932608, guid: e4fb0404445445a41a966264506626dc, type: 3}
+      propertyPath: m_Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 808c641537d1b2745945b555ea149a4c, type: 2}
     m_RemovedComponents:
     - {fileID: 8459837941140108107, guid: e4fb0404445445a41a966264506626dc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e4fb0404445445a41a966264506626dc, type: 3}
@@ -4829,6 +4841,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3591409301572932608, guid: e4fb0404445445a41a966264506626dc, type: 3}
+      propertyPath: m_Item
+      value: 
+      objectReference: {fileID: 11400000, guid: f124191863cee3a49a82b3ee6436980b, type: 2}
     m_RemovedComponents:
     - {fileID: 8459837941140108107, guid: e4fb0404445445a41a966264506626dc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e4fb0404445445a41a966264506626dc, type: 3}
@@ -5403,6 +5419,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3591409301572932608, guid: e4fb0404445445a41a966264506626dc, type: 3}
+      propertyPath: m_Item
+      value: 
+      objectReference: {fileID: 11400000, guid: b21e638cc9d9d9547945b1e683c4830f, type: 2}
     m_RemovedComponents:
     - {fileID: 8459837941140108107, guid: e4fb0404445445a41a966264506626dc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e4fb0404445445a41a966264506626dc, type: 3}

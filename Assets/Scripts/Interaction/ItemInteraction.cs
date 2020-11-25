@@ -88,9 +88,6 @@ public class ItemInteraction : Interactables
                 Debug.Log("Interact with Helmet of Doom");
                 break;
             }
-            
-
-
             default:
             {
                 Debug.Log("ID Not Implemented yet!");

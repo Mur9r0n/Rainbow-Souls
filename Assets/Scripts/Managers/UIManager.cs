@@ -76,6 +76,18 @@ public class UIManager : MonoBehaviour
             m_InventoryPanel.gameObject.SetActive(true);
         }
     }
+    
+    public void ShowEquipment()
+    {
+        if (m_EquipmentPanel.gameObject.activeSelf)
+        {
+            m_EquipmentPanel.gameObject.SetActive(false);
+        }
+        else
+        {
+            m_EquipmentPanel.gameObject.SetActive(true);
+        }
+    }
 
     public void ShowInteractionTooltip(string _text)
     {
