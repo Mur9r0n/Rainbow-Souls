@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerCombat : MonoBehaviour
 {
@@ -25,6 +27,14 @@ public class PlayerCombat : MonoBehaviour
         m_playerInputs.Player.LightAttack.performed += _ => LightAttack();
         m_playerInputs.Player.HeavyAttack.performed += _ => HeavyAttack();
         m_playerInputs.Player.TargetSystem.performed += _ => TargetEnemy();
+    }
+
+    private void Update()
+    {
+        if (transform.position.y <= 27f)
+        {
+            Die();
+        }
     }
 
     public void Dodge()
@@ -143,8 +153,15 @@ public class PlayerCombat : MonoBehaviour
 
         if (m_playerStats.m_CurrentHealthPoints <= 0)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            Die();
         }
+    }
+
+    //TODO
+    public void Die()
+    {
+        //Die and respawn at checkpoint
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     
     private void OnEnable()

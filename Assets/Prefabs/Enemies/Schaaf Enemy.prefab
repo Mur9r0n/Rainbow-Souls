@@ -240,13 +240,15 @@ MonoBehaviour:
   m_Agent: {fileID: 0}
   m_Healthbar: {fileID: 0}
   m_anim: {fileID: 0}
-  m_playerController: {fileID: 0}
+  m_PlayerController: {fileID: 0}
+  m_PigmentAmount: 15
   m_maxHealthPoints: 100
   m_currentHealthPoints: 100
   m_ResetDelay: 5.75
   m_FOVDistance: 11.5
   m_FOVAngle: 30
   m_AttackDistance: 4.9
+  m_AttackDelay: 1
 --- !u!195 &6958477954692950600
 NavMeshAgent:
   m_ObjectHideFlags: 0
