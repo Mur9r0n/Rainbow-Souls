@@ -25,16 +25,22 @@ public class UIManager : MonoBehaviour
     public Image m_Staminabar;
     public TMP_Text m_Pigment;
     public GameObject m_InteractionPanel;
+    public GameObject m_InventoryChoicePanel;
+    public GameObject m_EquipmentChoicePanel;
+    
+    [Header("Inventory")]
     public GameObject m_InventoryPanel;
     public GameObject m_ItemGridParent;
-    public InventorySlot[] m_inventorySlots;
+    public Button[] m_InventorySlots;
+    
+    [Header("Equipment")]
     public GameObject m_EquipmentPanel;
-    public EquipmentSlot[] m_equipmentSlots;
+    public Button[] m_EquipmentSlots;
 
     private void Start()
     {
-        m_inventorySlots = m_ItemGridParent.GetComponentsInChildren<InventorySlot>();
-        m_equipmentSlots = m_EquipmentPanel.GetComponentsInChildren<EquipmentSlot>();
+        m_InventorySlots = m_ItemGridParent.GetComponentsInChildren<Button>();
+        m_EquipmentSlots = m_EquipmentPanel.GetComponentsInChildren<Button>();
     }
 
     public void UpdateHealthBar(float _maxHealth, float _currentHealth)
@@ -54,15 +60,17 @@ public class UIManager : MonoBehaviour
     
     public void UpdateSlotsUI()
     {
-        for (int i = 0; i < InventoryManager.Instance.Inventory.Count; i++)
-        {
-            m_inventorySlots[i].m_icon.sprite = InventoryManager.Instance.Inventory[i].Icon;
-        }
         
-        for (int i = 0; i < InventoryManager.Instance.Equipment.Count; i++)
+        for (int i = 0; i < InventoryManager.Instance.m_inventorySpace; i++)
         {
-            m_equipmentSlots[i].m_Icon.sprite = InventoryManager.Instance.Equipment[i].m_icon;
+             m_InventorySlots[i].image.sprite = InventoryManager.Instance.Inventory[i].GetIcon();
         }
+
+        for (int i = 0; i < InventoryManager.Instance.m_equipmentSpace; i++)
+        {
+            m_EquipmentSlots[i].image.sprite = InventoryManager.Instance.Equipment[i].GetIcon();
+        }
+
     }
     
     public void ShowInventory()
@@ -103,6 +111,5 @@ public class UIManager : MonoBehaviour
         UpdateHealthBar(_maxHealth, _currentHealth);
         UpdateStaminaBar(_maxStamina,_currentStamina);
         UpdatePigmentCounter(_pigmentAmount);
-        UpdateSlotsUI();
     }
 }

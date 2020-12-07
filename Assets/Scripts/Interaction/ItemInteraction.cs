@@ -67,13 +67,8 @@ public class ItemInteraction : Interactables
     public override void Interact()
     {
         m_inventoryManager.AddItem(m_interactableItem.m_Item);
-        
-        for (int i = 0; i < InventoryManager.Instance.Inventory.Count; i++)
-        {
-            UIManager.Instance.m_inventorySlots[i].m_item= InventoryManager.Instance.Inventory[i];
-        }
-        
-        Debug.Log("Picked up " + m_interactableItem.m_Item.Name);
+
+        Debug.Log("Picked up " + m_interactableItem.m_Item.GetName());
         m_interactmanager.m_interactables.Remove(this);
         
         switch (ID)

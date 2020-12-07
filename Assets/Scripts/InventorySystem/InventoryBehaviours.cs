@@ -6,54 +6,104 @@ using UnityEngine.UI;
 
 public class InventoryBehaviours : MonoBehaviour
 {
-    private InventorySlot m_inventorySlot;
-    private InventoryManager m_inventoryManager;
-
-
-    private void Start()
+    private int m_inventorySlot = -1;
+    private int m_equipmentSlot = -1;
+    
+    //TODO ITEM SHOWCASE
+    public void ShowChoicePanelInventory(int _inventorySlot)
     {
-        m_inventorySlot = GetComponentInParent<InventorySlot>();
-        m_inventoryManager = InventoryManager.Instance;
+        m_equipmentSlot = -1;
+        m_inventorySlot = _inventorySlot;
+        UIManager.Instance.m_EquipmentChoicePanel.SetActive(false);
+        UIManager.Instance.m_InventoryChoicePanel.SetActive(true);
+        UIManager.Instance.m_InventoryChoicePanel.transform.position = UIManager.Instance.m_InventorySlots[_inventorySlot].transform.position;
+    }
+    
+    public void ShowChoicePanelEquipment(int _equipmentSlot)
+    {
+        m_inventorySlot = -1;
+        m_equipmentSlot = _equipmentSlot;
+        UIManager.Instance.m_InventoryChoicePanel.SetActive(false);
+        UIManager.Instance.m_EquipmentChoicePanel.SetActive(true);
+        UIManager.Instance.m_EquipmentChoicePanel.transform.position = UIManager.Instance.m_EquipmentSlots[_equipmentSlot].transform.position;
     }
 
-    public void EquipItem()
+    public void UseSlot()
     {
-        Debug.Log("BLA");
-        if (m_inventorySlot.m_item != null)
+        //TODO PLayer stat changes
+        switch (InventoryManager.Instance.Inventory[m_inventorySlot].GetType())
         {
-            if (m_inventorySlot.m_item.Type == Item.ItemType.Helmet)
+            case Item.ItemType.Helmet:
             {
-                m_inventoryManager.Equip(m_inventorySlot.m_item);
+                InventoryManager.Instance.Equipment[0] = InventoryManager.Instance.Inventory[m_inventorySlot];
+                break;
+            }
+            case Item.ItemType.Weapon:
+            {
+                InventoryManager.Instance.Equipment[1] = InventoryManager.Instance.Inventory[m_inventorySlot];
+                break;
+            }
+            case Item.ItemType.Armor:
+            {
+                InventoryManager.Instance.Equipment[2] = InventoryManager.Instance.Inventory[m_inventorySlot];
+                break;
+            }
+            case Item.ItemType.Cape:
+            {
+                InventoryManager.Instance.Equipment[3] = InventoryManager.Instance.Inventory[m_inventorySlot];
+                break;
             }
 
-            else if (m_inventorySlot.m_item.Type == Item.ItemType.Armor)
+            default:
             {
-                m_inventoryManager.Equip(m_inventorySlot.m_item);
-            }
-
-            else if (m_inventorySlot.m_item.Type == Item.ItemType.Weapon)
-            {
-                // if (UIManager.Instance.m_equipmentSlots[2] != null)
-                // {
-                //     UIManager.Instance.m_equipmentSlots[2].m_Item = null;
-                //     UIManager.Instance.m_equipmentSlots[2].m_Icon.sprite = null;
-                // }
-                
-                m_inventoryManager.Equip(m_inventorySlot.m_item);
-                m_inventoryManager.RemoveItem(m_inventorySlot.m_item);
-                m_inventorySlot.m_item = null;
-                m_inventorySlot.m_icon.sprite = null;
-
-                for (int i = 0; i < InventoryManager.Instance.Equipment.Count; i++)
-                {
-                    UIManager.Instance.m_equipmentSlots[i].m_Icon.sprite = InventoryManager.Instance.Equipment[i].m_icon;
-                }
-            }
-
-            else if (m_inventorySlot.m_item.Type == Item.ItemType.Cape)
-            {
-                m_inventoryManager.Equip(m_inventorySlot.m_item);
+                InventoryManager.Instance.Inventory[m_inventorySlot].Use();
+                break;
             }
         }
+
+        InventoryManager.Instance.Inventory[m_inventorySlot] = InventoryManager.Instance.m_placeHolder;
+        UIManager.Instance.UpdateSlotsUI();
+        UIManager.Instance.m_InventoryChoicePanel.SetActive(false);
+    }
+
+    public void DropSlot()
+    {
+        //TODO: Instantiate the dropped item
+        if (InventoryManager.Instance.Inventory[m_inventorySlot] != InventoryManager.Instance.m_placeHolder)
+        {
+            InventoryManager.Instance.Inventory[m_inventorySlot] = InventoryManager.Instance.m_placeHolder;
+            UIManager.Instance.UpdateSlotsUI();
+            UIManager.Instance.m_InventoryChoicePanel.SetActive(false);
+        }
+    }
+
+    public void Cancel()
+    {
+        if (UIManager.Instance.m_EquipmentChoicePanel.activeSelf)
+        {
+            UIManager.Instance.m_EquipmentChoicePanel.SetActive(false);
+        }
+
+        if (UIManager.Instance.m_InventoryChoicePanel.activeSelf)
+        {
+            UIManager.Instance.m_InventoryChoicePanel.SetActive(false);
+        }
+    }
+
+    public void Unequip()
+    {
+        //TODO Inventory full message ------- Stats changes
+        for (int i = 0; i < InventoryManager.Instance.Inventory.Length; i++)
+        {
+            if (InventoryManager.Instance.Inventory[i].GetType() == Item.ItemType.Empty)
+            {
+                InventoryManager.Instance.Inventory[i] = InventoryManager.Instance.Equipment[m_equipmentSlot];
+                InventoryManager.Instance.Equipment[m_equipmentSlot] = InventoryManager.Instance.m_placeHolder;
+                break;
+            }
+        }
+        
+        UIManager.Instance.UpdateSlotsUI();
+        UIManager.Instance.m_EquipmentChoicePanel.SetActive(false);
     }
 }

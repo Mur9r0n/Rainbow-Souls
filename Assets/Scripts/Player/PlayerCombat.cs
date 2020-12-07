@@ -31,10 +31,11 @@ public class PlayerCombat : MonoBehaviour
 
     private void Update()
     {
-        if (transform.position.y <= 27f)
-        {
-            Die();
-        }
+        //TODO : Player muss stierwen wann en rooffällt
+        // if (transform.position.y <= 27f)
+        // {
+        //     Die();
+        // }
     }
 
     public void Dodge()
