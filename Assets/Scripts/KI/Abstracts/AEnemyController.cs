@@ -17,6 +17,9 @@ public abstract class AEnemyController : MonoBehaviour
     public float OriginalFOVAngle { get; set; }
     public float OriginalFOVDistance { get; set; }
 
+    [SerializeField, Tooltip("Pigment Amount to Drop when killed.")]
+    public int m_PigmentAmount;
+    
     [SerializeField, Tooltip("Maximum Healthpoints.")]
     public float m_maxHealthPoints;
 
@@ -166,6 +169,11 @@ public abstract class AEnemyController : MonoBehaviour
             {
                 m_PlayerController.m_playerStats.m_targetEnemy = null;
             }
+
+            PlayerStats temp = FindObjectOfType<PlayerStats>();
+            temp.m_Pigments += m_PigmentAmount;
+            UIManager.Instance.UpdatePigmentCounter(temp.m_Pigments);
+            
             GameManager.Instance.m_Enemies.Remove(this.gameObject);
             gameObject.SetActive(false);
         }

@@ -88,6 +88,22 @@ public class ItemInteraction : Interactables
                 Debug.Log("Interact with Helmet of Doom");
                 break;
             }
+            case 30000:
+            {
+                Debug.Log("Interact with Armor of the Velvet Prince");
+                break;
+            }         
+            case 40000:
+            {
+                Debug.Log("Interact with Cape of Higher Destination");
+                break;
+            }
+            case 90000:
+            {
+                Debug.Log("Interact with Skeleton Key");
+                break;
+            }
+
             default:
             {
                 Debug.Log("ID Not Implemented yet!");
@@ -95,7 +111,7 @@ public class ItemInteraction : Interactables
                 break;
             }
         }
-
+        Destroy(gameObject);
         
         Destroy(gameObject);
         

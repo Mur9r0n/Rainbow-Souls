@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Grass
+  m_Name: Wheat_Plane
   m_Shader: {fileID: 4800000, guid: b442e302b51d4e2499e9d447afad474f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -33,7 +33,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 44133ab0e0e8fb3478e8674aea5c9d18, type: 3}
+        m_Texture: {fileID: 2800000, guid: e6785291456660847aeba81645ab9d80, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -68,7 +68,7 @@ Material:
     - _AlphaClip: 0
     - _AlphaCutOff: 0.98
     - _AlphaCutoff: 0.99
-    - _Base: 0.88
+    - _Base: 0.68
     - _Blend: 0
     - _BumpScale: 1
     - _Cull: 2
@@ -78,11 +78,11 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _Height: 0.83
+    - _Height: 1.15
     - _LightPower: 0.29
-    - _MaxHeight: 0.82
+    - _MaxHeight: 1.34
     - _Metallic: 0
-    - _MinHeight: 0.47
+    - _MinHeight: 0.84
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -93,16 +93,16 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _TPower: 0.02
-    - _Wind: 0
+    - _Wind: 1
     - _WindStrength: 0.95
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.13490163, g: 0.3490566, b: 0.11031505, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Darker: {r: 0, g: 0.1981132, b: 0.0024075103, a: 1}
+    - _Darker: {r: 0.3490566, g: 0.28863415, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tint: {r: 0.100610584, g: 0.9150943, b: 0.047481313, a: 1}
+    - _Tint: {r: 1, g: 0.85797286, b: 0, a: 1}
     - _WindFrequency: {r: 0.05, g: 0.05, b: 0, a: 0}
   m_BuildTextureStacks: []

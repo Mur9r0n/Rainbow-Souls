@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -44,16 +45,24 @@ public class PlayerInteraction : MonoBehaviour
     
     public void Interact()
     {
-        if (m_interactManager.m_interactables.Count > 0)
+        if (m_interactManager.m_interactables != null)
         {
-            m_interactable = m_interactManager.LookForClosestInteraction();
-            m_interactable.Interact();
-            UIManager.Instance.HideInteractionTooltip();
+            if (m_interactManager.m_interactables.Count > 0)
+            {
+                m_interactable = m_interactManager.LookForClosestInteraction();
+                m_interactable.Interact();
+                UIManager.Instance.HideInteractionTooltip();
+            }
+            else if (m_interactManager.m_interactables.Count == 0)
+            {
+                Debug.Log("Interactable List is Empty");
+            }
         }
-        else if (m_interactManager.m_interactables.Count == 0)
+        else
         {
-            Debug.Log("Interactable List is Empty");
+            Debug.Log("Interactable list is NULL");
         }
+        
     }
 
     public void SwitchItems(float _context)
@@ -83,19 +92,19 @@ public class PlayerInteraction : MonoBehaviour
         if (GUI.Button(new Rect(10, 150, 150, 25), "Save 1"))
         {
             DataManager.Instance.SavePlayer(m_playerStats, 1);
-            Debug.Log("Saved");
+            Debug.Log("Saved 1");
         }
         
         if (GUI.Button(new Rect(10, 180, 150, 25), "Save 2"))
         {
             DataManager.Instance.SavePlayer(m_playerStats, 2);
-            Debug.Log("Saved");
+            Debug.Log("Saved 2");
         }
         
         if (GUI.Button(new Rect(10, 210, 150, 25), "Save 3"))
         {
             DataManager.Instance.SavePlayer(m_playerStats, 3);
-            Debug.Log("Saved");
+            Debug.Log("Saved 3");
         }
 
         if (GUI.Button(new Rect(10, 300, 150, 25), "Load 1"))
@@ -123,8 +132,6 @@ public class PlayerInteraction : MonoBehaviour
 
             UIManager.Instance.RefreshUI(m_playerStats.m_MaxHealthPoints,m_playerStats.m_CurrentHealthPoints,m_playerStats.m_MaxStaminaPoints,
                 m_playerStats.m_CurrentStaminaPoints,m_playerStats.m_Pigments);
-            
-            Debug.Log(temppos);
         }
         
         if (GUI.Button(new Rect(10, 330, 150, 25), "Load 2"))
@@ -183,6 +190,16 @@ public class PlayerInteraction : MonoBehaviour
                 m_playerStats.m_CurrentStaminaPoints,m_playerStats.m_Pigments);
             
             Debug.Log(temppos);
+        }
+
+        if (GUI.Button(new Rect(10, 420, 150, 50), "Main Menu"))
+        {
+            SceneManager.LoadScene(0);
+        }
+        
+        if (GUI.Button(new Rect(10, 480, 150, 50), "Exit"))
+        {
+            Application.Quit();
         }
     }
     
