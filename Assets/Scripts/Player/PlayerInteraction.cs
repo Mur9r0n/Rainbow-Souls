@@ -4,7 +4,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    //Maybe
+    private PlayerMovement m_playerMovement = null;
+    private PlayerCombat m_playerCombat = null;
     private PlayerInputs m_playerInputs = null;
     private PlayerStats m_playerStats = null;
     private CharacterController m_controller = null;
@@ -16,6 +17,8 @@ public class PlayerInteraction : MonoBehaviour
     {
         m_playerInputs = new PlayerInputs();
         m_playerStats = GetComponent<PlayerStats>();
+        m_playerMovement = GetComponent<PlayerMovement>();
+        m_playerCombat = GetComponent<PlayerCombat>();
         m_controller = GetComponent<CharacterController>();
 
         m_playerInputs.Player.Use.performed += _ => Use();
@@ -27,7 +30,6 @@ public class PlayerInteraction : MonoBehaviour
 
     void Start()
     {
-        InventoryManager.Instance.Inventory.Clear();
         UIManager.Instance.RefreshUI(m_playerStats.m_MaxHealthPoints,
                                         m_playerStats.m_CurrentHealthPoints,
                                         m_playerStats.m_MaxStaminaPoints,
@@ -72,13 +74,31 @@ public class PlayerInteraction : MonoBehaviour
 
     public void OpenInventory()
     {
+        FreezeUnfreezePlayer();
         m_uiManager.ShowInventory();
+        m_uiManager.ShowEquipment();
         m_uiManager.UpdateSlotsUI();
     }
 
     public void OpenMenu()
     {
         Debug.Log("Open Menu");
+    }
+
+    public void FreezeUnfreezePlayer()
+    {
+        if (m_playerMovement.enabled)
+        {
+            m_playerMovement.enabled = false;
+            m_playerCombat.enabled = false;
+            m_playerMovement.m_cinemachineFreeLook.enabled = false;
+        }
+        else
+        {
+            m_playerMovement.enabled = true;            
+            m_playerCombat.enabled = true;
+            m_playerMovement.m_cinemachineFreeLook.enabled = true;
+        }
     }
     
     private void OnGUI()

@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7be57f99a7545d4fa424c2ea7bd198f, type: 3}
-  m_Name: Bran
+  m_Script: {fileID: 11500000, guid: a4dd427e1fbabf84da3f6db4a5ed7ffe, type: 3}
+  m_Name: DefaultCape
   m_EditorClassIdentifier: 
-  m_name: Bran
-  m_ID: 70000
-  m_description: "It\xB4s just Bran."
-  m_pigmentValue: 1
-  m_icon: {fileID: 0}
-  m_ItemType: 5
+  m_name: 
+  m_ID: 0
+  m_description: 
+  m_pigmentValue: 0
+  m_icon: {fileID: 21300000, guid: ab79a75f40afc59418feba4af565f898, type: 3}
+  m_ItemType: 3
+  m_amountOfNonPeasantry: 0
