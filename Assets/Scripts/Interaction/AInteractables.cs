@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public abstract class Interactables : MonoBehaviour
+public abstract class AInteractables : MonoBehaviour
 {
     private LayerMask m_playerLayer;
     private float m_interactionRadius;

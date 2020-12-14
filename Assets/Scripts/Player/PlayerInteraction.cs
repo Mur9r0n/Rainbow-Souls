@@ -10,7 +10,7 @@ public class PlayerInteraction : MonoBehaviour
     private PlayerStats m_playerStats = null;
     private CharacterController m_controller = null;
     private InteractManager m_interactManager;
-    private Interactables m_interactable;
+    private AInteractables m_aInteractable;
     private UIManager m_uiManager;
 
     void Awake()
@@ -51,8 +51,8 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (m_interactManager.m_interactables.Count > 0)
             {
-                m_interactable = m_interactManager.LookForClosestInteraction();
-                m_interactable.Interact();
+                m_aInteractable = m_interactManager.LookForClosestInteraction();
+                m_aInteractable.Interact();
                 UIManager.Instance.HideInteractionTooltip();
             }
             else if (m_interactManager.m_interactables.Count == 0)
@@ -143,6 +143,12 @@ public class PlayerInteraction : MonoBehaviour
             m_playerStats.m_Constitution = temp.m_Constitution;
             m_playerStats.m_Strength = temp.m_Strength;
             m_playerStats.m_Dexterity = temp.m_Dexterity;
+            
+            m_playerStats.m_PhysicalDefense = temp.m_PhysicalDefense;
+            m_playerStats.m_BleedingResistance = temp.m_BleedingResistance;
+            m_playerStats.m_PoisonResistance = temp.m_PoisonResistance;
+
+            m_playerStats.m_BaseDamage = temp.m_BaseDamage;
 
             Vector3 temppos = new Vector3(temp.m_Position[0], temp.m_Position[1], temp.m_Position[2]);
             m_controller.enabled = false;
@@ -171,6 +177,12 @@ public class PlayerInteraction : MonoBehaviour
             m_playerStats.m_Strength = temp.m_Strength;
             m_playerStats.m_Dexterity = temp.m_Dexterity;
 
+            m_playerStats.m_PhysicalDefense = temp.m_PhysicalDefense;
+            m_playerStats.m_BleedingResistance = temp.m_BleedingResistance;
+            m_playerStats.m_PoisonResistance = temp.m_PoisonResistance;
+
+            m_playerStats.m_BaseDamage = temp.m_BaseDamage;
+
             Vector3 temppos = new Vector3(temp.m_Position[0], temp.m_Position[1], temp.m_Position[2]);
             m_controller.enabled = false;
             transform.position = temppos;
@@ -178,8 +190,6 @@ public class PlayerInteraction : MonoBehaviour
 
             UIManager.Instance.RefreshUI(m_playerStats.m_MaxHealthPoints,m_playerStats.m_CurrentHealthPoints,m_playerStats.m_MaxStaminaPoints,
                 m_playerStats.m_CurrentStaminaPoints,m_playerStats.m_Pigments);
-            
-            Debug.Log(temppos);
         }
         
         if (GUI.Button(new Rect(10, 360, 150, 25), "Load 3"))
@@ -199,6 +209,12 @@ public class PlayerInteraction : MonoBehaviour
             m_playerStats.m_Constitution = temp.m_Constitution;
             m_playerStats.m_Strength = temp.m_Strength;
             m_playerStats.m_Dexterity = temp.m_Dexterity;
+            
+            m_playerStats.m_PhysicalDefense = temp.m_PhysicalDefense;
+            m_playerStats.m_BleedingResistance = temp.m_BleedingResistance;
+            m_playerStats.m_PoisonResistance = temp.m_PoisonResistance;
+
+            m_playerStats.m_BaseDamage = temp.m_BaseDamage;
 
             Vector3 temppos = new Vector3(temp.m_Position[0], temp.m_Position[1], temp.m_Position[2]);
             m_controller.enabled = false;

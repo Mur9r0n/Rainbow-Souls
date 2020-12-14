@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChestInteraction : Interactables
+public class ChestInteraction : AInteractables
 {
     [SerializeField] private GameObject m_lootprefab;
     public bool m_isDissolving = false;

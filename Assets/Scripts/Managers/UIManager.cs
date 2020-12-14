@@ -24,7 +24,10 @@ public class UIManager : MonoBehaviour
     public Image m_Healthbar;
     public Image m_Staminabar;
     public TMP_Text m_Pigment;
+    public GameObject m_HUDPanel;
     public GameObject m_InteractionPanel;
+    public GameObject m_CheckPointMenuPanel;
+    public GameObject m_LevelingPanel;
     public GameObject m_InventoryChoicePanel;
     public GameObject m_EquipmentChoicePanel;
     

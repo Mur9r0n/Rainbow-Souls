@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class ItemInteraction : Interactables
+public class ItemInteraction : AInteractables
 {
     private InventoryManager m_inventoryManager;
 

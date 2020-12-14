@@ -22,34 +22,32 @@ public class InteractManager : MonoBehaviour
     }
     #endregion
     
-    public List<Interactables> m_interactables = new List<Interactables>();
+    public List<AInteractables> m_interactables = new List<AInteractables>();
 
-    public Interactables LookForClosestInteraction()
+    public AInteractables LookForClosestInteraction()
     {
-        Interactables tempClosestInteractable = null;
+        AInteractables tempClosestAInteractable = null;
         
-        foreach (Interactables interactable in m_interactables)
+        foreach (AInteractables interactable in m_interactables)
         {
 
-            if (tempClosestInteractable != null)
+            if (tempClosestAInteractable != null)
             {
                 if (Vector3.Distance(interactable.gameObject.transform.position, GameManager.Instance.PlayerTransform.position)
-                    <= Vector3.Distance(tempClosestInteractable.transform.position, GameManager.Instance.PlayerTransform.position))
+                    <= Vector3.Distance(tempClosestAInteractable.transform.position, GameManager.Instance.PlayerTransform.position))
                 {
-                    tempClosestInteractable = interactable;
+                    tempClosestAInteractable = interactable;
                 }
             }
-            if (tempClosestInteractable == null)
+            if (tempClosestAInteractable == null)
             {
-                tempClosestInteractable = interactable;
+                tempClosestAInteractable = interactable;
             }
         }
 
-        if (tempClosestInteractable != null)
+        if (tempClosestAInteractable != null)
         {
-            Debug.Log("TEMP");
-
-            return tempClosestInteractable;
+            return tempClosestAInteractable;
         }
         
         Debug.Log("NULL");
