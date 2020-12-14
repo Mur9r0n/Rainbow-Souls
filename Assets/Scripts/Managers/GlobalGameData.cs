@@ -80,6 +80,12 @@ public class GlobalGameData : MonoBehaviour
         m_PlayerData.m_Constitution = temp.m_Constitution;
         m_PlayerData.m_Strength = temp.m_Strength;
         m_PlayerData.m_Dexterity = temp.m_Dexterity;
+        
+        m_PlayerData.m_PhysicalDefense = temp.m_PhysicalDefense;
+        m_PlayerData.m_BleedingResistance = temp.m_BleedingResistance;
+        m_PlayerData.m_PoisonResistance = temp.m_PoisonResistance;
+
+        m_PlayerData.m_BaseDamage = temp.m_BaseDamage;
 
         m_PlayerData.m_Position = new float[] {temp.m_Position[0], temp.m_Position[1], temp.m_Position[2]};
 
@@ -100,6 +106,10 @@ public class GlobalGameData : MonoBehaviour
         m_PlayerData.m_Constitution = _playerStats.m_Constitution;
         m_PlayerData.m_Strength = _playerStats.m_Strength;
         m_PlayerData.m_Dexterity = _playerStats.m_Dexterity;
+        m_PlayerData.m_PhysicalDefense = _playerStats.m_PhysicalDefense;
+        m_PlayerData.m_BleedingResistance = _playerStats.m_BleedingResistance;
+        m_PlayerData.m_PoisonResistance = _playerStats.m_PoisonResistance;
+        m_PlayerData.m_BaseDamage = _playerStats.m_BaseDamage;
         
         m_PlayerData.m_Position = new float[] {0,0,0};
         

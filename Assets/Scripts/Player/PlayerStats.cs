@@ -23,6 +23,11 @@ public class PlayerStats : MonoBehaviour
     [Tooltip("Strength Statpoints.")] public int m_Strength = 10;
     [Tooltip("Dexterity Statpoints.")] public int m_Dexterity = 10;
 
+    [Header("Defenses")] 
+    [Tooltip("Physical Defense")] public float m_PhysicalDefense = 5f;
+    [Tooltip("Bleeding Resistance")] public float m_BleedingResistance = 5f;
+    [Tooltip("Poison Resistance")] public float m_PoisonResistance = 5f;
+
     [Header("Movementspeed.")]
     [Tooltip("MovementSpeeds of the Player.")] public Vector2 m_MovementSpeed= new Vector2(5.0f, 10.0f);
     [Tooltip("Player is Sprinting.")] public bool m_isSprinting = false;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCInteraction : Interactables
+public class NPCInteraction : AInteractables
 {
     public override void Start()
     {

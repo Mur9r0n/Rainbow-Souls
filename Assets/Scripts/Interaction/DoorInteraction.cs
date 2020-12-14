@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorInteraction : Interactables
+public class DoorInteraction : AInteractables
 {
     public override void Start()
     {
