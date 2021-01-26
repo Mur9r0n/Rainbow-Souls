@@ -13,29 +13,13 @@ public class ChestInteraction : AInteractables
     {
         base.Start();
         m_material = GetComponent<Renderer>().material;
+        m_interactableType = InteractableType.Chest;
     }
 
     public override void Update()
     {
-        if (CheckForInteraction(gameObject.transform.position, 3.0f))
-        {
-            m_IsInteractable = true;
-            if (!m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Add(this);
-                UIManager.Instance.ShowInteractionTooltip("Open "+ gameObject.name);
-            }
-        }
-        else
-        {
-            m_IsInteractable = false;
-            if (m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Remove(this);
-                UIManager.Instance.HideInteractionTooltip();
-            }
-        }
-
+        base.Update();
+        
         if (m_isDissolving)
         {
             float temp = m_material.GetFloat("Vector1_8DEAC01A");

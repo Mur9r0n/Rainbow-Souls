@@ -19,6 +19,8 @@ public class ItemInteraction : AInteractables
         {
             Debug.Log("You forgot the InteractableItem Component in " + gameObject.name);
         }
+
+        m_interactableType = InteractableType.Item;
     }
     
     //Weapons begin with 10XXX
@@ -44,24 +46,7 @@ public class ItemInteraction : AInteractables
     
     public override void Update()
     {
-        if (CheckForInteraction(gameObject.transform.position, 3.0f))
-        {
-            m_IsInteractable = true;
-            if (!m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Add(this);
-                UIManager.Instance.ShowInteractionTooltip("Pick up "+ gameObject.name);
-            }
-        }
-        else
-        {
-            m_IsInteractable = false;
-            if (m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Remove(this);
-                UIManager.Instance.HideInteractionTooltip();
-            }
-        }
+        base.Update();
     }
     
     public override void Interact()
