@@ -9,7 +9,7 @@ public abstract class AEnemyController : MonoBehaviour
 {
     [HideInInspector] public NavMeshAgent m_Agent = null;
     [HideInInspector] public Healthbar m_Healthbar = null;
-    [HideInInspector] public Animator m_anim = null;
+    [HideInInspector] public Animator m_Anim = null;
     [HideInInspector] public PlayerCombat m_PlayerController = null;
 
     public Vector3 OriginalPosition { get; set; }
@@ -17,7 +17,10 @@ public abstract class AEnemyController : MonoBehaviour
     public float OriginalFOVAngle { get; set; }
     public float OriginalFOVDistance { get; set; }
 
-    [SerializeField, Tooltip("Pigment Amount to Drop when killed.")]
+    [SerializeField, Tooltip("Show if Creature is alive or dead.")]
+    public bool m_IsAlive = true;
+    
+    [SerializeField, Tooltip("Pigment Amount to drop when killed.")]
     public int m_PigmentAmount;
     
     [SerializeField, Tooltip("Maximum Healthpoints.")]
@@ -49,7 +52,7 @@ public abstract class AEnemyController : MonoBehaviour
     private void Awake()
     {
         m_Agent = GetComponent<NavMeshAgent>();
-        m_anim = GetComponent<Animator>();
+        m_Anim = GetComponent<Animator>();
         m_Healthbar = GetComponentInChildren<Healthbar>();
         m_PlayerController = FindObjectOfType<PlayerCombat>();
         
@@ -61,10 +64,13 @@ public abstract class AEnemyController : MonoBehaviour
 
     public virtual void Start()
     {
-        GameManager.Instance.m_Enemies.Add(this.gameObject);
         m_Healthbar.GetMaxHealth(m_maxHealthPoints);
         
         m_idleState = new EnemyIdleState();
+        if (!GameManager.Instance.m_Enemies.Contains(this))
+        {
+            GameManager.Instance.m_Enemies.Add(this);
+        }
     }
 
     
@@ -173,8 +179,8 @@ public abstract class AEnemyController : MonoBehaviour
             PlayerStats temp = FindObjectOfType<PlayerStats>();
             temp.m_Pigments += m_PigmentAmount;
             UIManager.Instance.UpdatePigmentCounter(temp.m_Pigments);
-            
-            GameManager.Instance.m_Enemies.Remove(this.gameObject);
+
+            m_IsAlive = false;
             gameObject.SetActive(false);
         }
     }

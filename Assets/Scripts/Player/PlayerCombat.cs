@@ -88,19 +88,19 @@ public class PlayerCombat : MonoBehaviour
     {
         if (!m_playerStats.m_targetEnemy)
         {
-            foreach (GameObject possibleTarget in GameManager.Instance.m_Enemies)
+            foreach (AEnemyController possibleTarget in GameManager.Instance.m_Enemies)
             {
                 if (m_playerStats.m_targetEnemy != null)
                 {
                     if (Vector3.Distance(possibleTarget.transform.position, transform.position) <
                         Vector3.Distance(m_playerStats.m_targetEnemy.transform.position, transform.position))
                     {
-                        m_playerStats.m_targetEnemy = possibleTarget;
+                        m_playerStats.m_targetEnemy = possibleTarget.gameObject;
                     }
                 }
                 else
                 {
-                    m_playerStats.m_targetEnemy = possibleTarget;
+                    m_playerStats.m_targetEnemy = possibleTarget.gameObject;
                 }
             }
 

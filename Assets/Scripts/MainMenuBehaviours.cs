@@ -319,7 +319,7 @@ public class MainMenuBehaviours : MonoBehaviour
 
     public void CheckIfSaveFileExists()
     {
-        m_saveFileExists = DataManager.Instance.CheckForSaveFile(m_pathSlot1, m_pathSlot2, m_pathSlot3);
+        m_saveFileExists = DataManager.Instance.CheckForSaveFile();
 
         m_continueButton.interactable = m_saveFileExists;
     }
