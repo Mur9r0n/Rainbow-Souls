@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CheckpointInteraction : AInteractables
 {
-    public bool m_IsActivated = false;
     
     public override void Start()
     {
@@ -24,9 +23,6 @@ public class CheckpointInteraction : AInteractables
 
     public override void Interact()
     {
-        if (m_IsActivated == false)
-            m_IsActivated = true;
-        
         Debug.Log("Interact with " + gameObject.name);
 
         UIManager.Instance.m_CheckPointMenuPanel.SetActive(true);

@@ -8,8 +8,7 @@ public class ItemInteraction : AInteractables
     private InventoryManager m_inventoryManager;
 
     [SerializeField] private InteractableItem m_interactableItem;
-    public bool m_IsAvailable = true;
-    
+
     public override void Start()
     {
         base.Start();
@@ -60,8 +59,6 @@ public class ItemInteraction : AInteractables
         Debug.Log("Picked up " + m_interactableItem.m_Item.GetName());
         m_interactmanager.m_interactables.Remove(this);
 
-        m_IsAvailable = false;
-        
         switch (ID)
         {
             case 10000:

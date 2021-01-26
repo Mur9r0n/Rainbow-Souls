@@ -9,8 +9,6 @@ public class ChestInteraction : AInteractables
     public bool m_isDissolving = false;
     public Material m_material;
 
-    public bool m_IsOpened = false;
-    
     public override void Start()
     {
         base.Start();
