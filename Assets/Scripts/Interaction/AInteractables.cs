@@ -8,6 +8,7 @@ public abstract class AInteractables : MonoBehaviour
 {
     private LayerMask m_playerLayer;
     private float m_interactionRadius;
+    private InteractableType m_interactableType;
     
     public InteractManager m_interactmanager;
     public int ID = 10000000;
@@ -21,7 +22,7 @@ public abstract class AInteractables : MonoBehaviour
 
     public virtual void Update()
     {
-        
+
     }
 
     protected bool CheckForInteraction(Vector3 _position, float _interactionRadius)
@@ -50,4 +51,13 @@ public abstract class AInteractables : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, m_interactionRadius);
     }
+}
+
+enum InteractableType
+{
+    Item,
+    Chest,
+    Door,
+    NPC,
+    Checkpoint
 }
