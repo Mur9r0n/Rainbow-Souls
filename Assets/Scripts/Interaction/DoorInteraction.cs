@@ -35,5 +35,7 @@ public class DoorInteraction : AInteractables
     {
         Debug.Log("Interact with " + gameObject.name);
         
+        Destroy(this.gameObject);
+        
     }
 }

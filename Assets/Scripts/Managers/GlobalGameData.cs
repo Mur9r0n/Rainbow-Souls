@@ -27,6 +27,7 @@ public class GlobalGameData : MonoBehaviour
     }
     
     [Header("Player Data from File")] public PlayerData m_PlayerData;
+    [Header("World Data from File")] public WorldData m_WorldData;
     
     void Start()
     {
