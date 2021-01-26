@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [System.Serializable]
 public class PlayerData
 {
+    public int m_SceneIndex = 0;
+    
     public float m_MaxHealth;
     public float m_CurrentHealth;
 
@@ -18,11 +22,19 @@ public class PlayerData
     public int m_Constitution;
     public int m_Strength;
     public int m_Dexterity;
+
+    public float m_PhysicalDefense;
+    public float m_BleedingResistance;
+    public float m_PoisonResistance;
+
+    public float m_BaseDamage;
     
     public float[] m_Position;
 
     public PlayerData(PlayerStats _playerStats)
     {
+        m_SceneIndex = SceneManager.GetActiveScene().buildIndex;
+        
         m_MaxHealth = _playerStats.m_MaxHealthPoints;
         m_CurrentHealth = _playerStats.m_CurrentHealthPoints;
 
@@ -36,6 +48,12 @@ public class PlayerData
         m_Constitution = _playerStats.m_Constitution;
         m_Strength = _playerStats.m_Strength;
         m_Dexterity = _playerStats.m_Dexterity;
+
+        m_PhysicalDefense = _playerStats.m_PhysicalDefense;
+        m_BleedingResistance = _playerStats.m_BleedingResistance;
+        m_PoisonResistance = _playerStats.m_PoisonResistance;
+
+        m_BaseDamage = _playerStats.m_BaseDamage;
 
         m_Position = new float[3];
         m_Position[0] = _playerStats.transform.position.x;

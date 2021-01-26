@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -99,7 +100,8 @@ public class PlayerMovement : MonoBehaviour
             m_cinemachineFreeLook.m_RecenterToTargetHeading.m_WaitTime = 0;
             m_cinemachineFreeLook.m_RecenterToTargetHeading.m_RecenteringTime = 0.1f;
             Vector3 desiredMoveDirection = (m_playerStats.m_targetEnemy.transform.position - transform.position).normalized;
-
+            desiredMoveDirection.y = 0;
+            
             if (desiredMoveDirection != Vector3.zero)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection),

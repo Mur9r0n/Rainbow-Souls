@@ -36,40 +36,41 @@ public abstract class Item : ScriptableObject
         Consumables,   //ID Prefix 50XXX
         Undefined,     //ID Prefix 70XXX
         KeyItem,       //ID Prefix 90XXX
+        Empty          //ID 1
     }
 
     public virtual void Use()
     {
-        Debug.Log("Used" + Name);
+        Debug.Log("Used " + GetName());
     }
 
-    public string Name
+    public string GetName()
     {
-        get => m_name;
+        return m_name;
     }
 
-    public int ID
+    public int GetID()
     {
-        get => m_ID;
+        return m_ID;
     }
 
-    public string Description
+    public string GetDescription()
     {
-        get => m_description;
+        return m_description;
     }
 
-    public int PigmentValue
+    public int GetPigmentValue()
     {
-        get => m_pigmentValue;
+        return m_pigmentValue;
     }
 
-    public Sprite Icon
+    public Sprite GetIcon()
     {
-        get => m_icon;
+        return m_icon;
     }
 
-    public ItemType Type
+    public ItemType GetType()
     {
-        get => m_ItemType;
+        return m_ItemType;
     }
 }

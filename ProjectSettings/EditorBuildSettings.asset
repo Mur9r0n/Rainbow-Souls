@@ -9,6 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: e3a04e903e3fc424c8be272843fa4084
   - enabled: 1
+    path: Assets/Scenes/Alpha Level.unity
+    guid: 1df773ab7dc5dad499fbcba540bfb30f
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/Testing Props and Scene/SaveTestWorld1.unity
+    guid: b4e8f5105f588fd47b25bd5298896d6a
+  - enabled: 1
+    path: Assets/Testing Props and Scene/SaveTestWorld2.unity
+    guid: 70284fada3a746e4590d845b4f3746b0
+  - enabled: 1
+    path: Assets/Scenes/TestInteractableScene.unity
+    guid: 8f6085371e09ea649924a25581bbc84f
   m_configObjects: {}

@@ -385,7 +385,8 @@ MonoBehaviour:
   m_Agent: {fileID: 0}
   m_Healthbar: {fileID: 0}
   m_anim: {fileID: 0}
-  m_playerController: {fileID: 0}
+  m_PlayerController: {fileID: 0}
+  m_PigmentAmount: 25
   m_maxHealthPoints: 250
   m_currentHealthPoints: 250
   m_ResetDelay: 20

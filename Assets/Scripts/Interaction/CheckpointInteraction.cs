@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckpointInteraction : Interactables
+public class CheckpointInteraction : AInteractables
 {
     public override void Start()
     {
@@ -35,6 +35,12 @@ public class CheckpointInteraction : Interactables
     public override void Interact()
     {
         Debug.Log("Interact with " + gameObject.name);
+
+        UIManager.Instance.m_CheckPointMenuPanel.SetActive(true);
+        UIManager.Instance.m_HUDPanel.SetActive(false);
+        FindObjectOfType<PlayerMovement>().m_cinemachineFreeLook.enabled = false;
+        FindObjectOfType<PlayerMovement>().enabled = false;
+        FindObjectOfType<PlayerCombat>().enabled = false;
     }
 
 }

@@ -24,14 +24,26 @@ public class UIManager : MonoBehaviour
     public Image m_Healthbar;
     public Image m_Staminabar;
     public TMP_Text m_Pigment;
+    public GameObject m_HUDPanel;
     public GameObject m_InteractionPanel;
+    public GameObject m_CheckPointMenuPanel;
+    public GameObject m_LevelingPanel;
+    public GameObject m_InventoryChoicePanel;
+    public GameObject m_EquipmentChoicePanel;
+    
+    [Header("Inventory")]
     public GameObject m_InventoryPanel;
     public GameObject m_ItemGridParent;
-    private InventorySlot[] m_inventorySlots;
+    public Button[] m_InventorySlots;
+    
+    [Header("Equipment")]
+    public GameObject m_EquipmentPanel;
+    public Button[] m_EquipmentSlots;
 
     private void Start()
     {
-        m_inventorySlots = m_ItemGridParent.GetComponentsInChildren<InventorySlot>();
+        m_InventorySlots = m_ItemGridParent.GetComponentsInChildren<Button>();
+        m_EquipmentSlots = m_EquipmentPanel.GetComponentsInChildren<Button>();
     }
 
     public void UpdateHealthBar(float _maxHealth, float _currentHealth)
@@ -51,10 +63,17 @@ public class UIManager : MonoBehaviour
     
     public void UpdateSlotsUI()
     {
-        for (int i = 0; i < InventoryManager.Instance.Inventory.Count; i++)
+        
+        for (int i = 0; i < InventoryManager.Instance.m_inventorySpace; i++)
         {
-            m_inventorySlots[i].m_icon.sprite = InventoryManager.Instance.Inventory[i].Icon;
+             m_InventorySlots[i].image.sprite = InventoryManager.Instance.Inventory[i].GetIcon();
         }
+
+        for (int i = 0; i < InventoryManager.Instance.m_equipmentSpace; i++)
+        {
+            m_EquipmentSlots[i].image.sprite = InventoryManager.Instance.Equipment[i].GetIcon();
+        }
+
     }
     
     public void ShowInventory()
@@ -66,6 +85,18 @@ public class UIManager : MonoBehaviour
         else
         {
             m_InventoryPanel.gameObject.SetActive(true);
+        }
+    }
+    
+    public void ShowEquipment()
+    {
+        if (m_EquipmentPanel.gameObject.activeSelf)
+        {
+            m_EquipmentPanel.gameObject.SetActive(false);
+        }
+        else
+        {
+            m_EquipmentPanel.gameObject.SetActive(true);
         }
     }
 
@@ -83,6 +114,5 @@ public class UIManager : MonoBehaviour
         UpdateHealthBar(_maxHealth, _currentHealth);
         UpdateStaminaBar(_maxStamina,_currentStamina);
         UpdatePigmentCounter(_pigmentAmount);
-        UpdateSlotsUI();
     }
 }
