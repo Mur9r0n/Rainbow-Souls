@@ -9,11 +9,16 @@ public class ChestInteraction : AInteractables
     public bool m_isDissolving = false;
     public Material m_material;
 
+    public bool m_IsOpened = false;
+    
     public override void Start()
     {
         base.Start();
         m_material = GetComponent<Renderer>().material;
         m_interactableType = InteractableType.Chest;
+
+        if (!GameManager.Instance.m_Chests.Contains(this))
+            GameManager.Instance.m_Chests.Add(this);
     }
 
     public override void Update()
@@ -30,7 +35,7 @@ public class ChestInteraction : AInteractables
             else
             {
                 m_interactmanager.m_interactables.Remove(this);
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }
     }

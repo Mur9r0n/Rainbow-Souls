@@ -8,7 +8,8 @@ public class ItemInteraction : AInteractables
     private InventoryManager m_inventoryManager;
 
     [SerializeField] private InteractableItem m_interactableItem;
-
+    public bool m_IsAvailable = true;
+    
     public override void Start()
     {
         base.Start();
@@ -21,6 +22,9 @@ public class ItemInteraction : AInteractables
         }
 
         m_interactableType = InteractableType.Item;
+        
+        if (!GameManager.Instance.m_Items.Contains(this))
+            GameManager.Instance.m_Items.Add(this);
     }
     
     //Weapons begin with 10XXX
@@ -55,6 +59,8 @@ public class ItemInteraction : AInteractables
 
         Debug.Log("Picked up " + m_interactableItem.m_Item.GetName());
         m_interactmanager.m_interactables.Remove(this);
+
+        m_IsAvailable = false;
         
         switch (ID)
         {
@@ -91,9 +97,8 @@ public class ItemInteraction : AInteractables
                 break;
             }
         }
-        Destroy(gameObject);
-        
-        Destroy(gameObject);
+
+        gameObject.SetActive(false);
         
         UIManager.Instance.UpdateSlotsUI();
     }

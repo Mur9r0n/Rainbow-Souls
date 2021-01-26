@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class CheckpointInteraction : AInteractables
 {
+    public bool m_IsActivated = false;
+    
     public override void Start()
     {
         base.Start();
 
         m_interactableType = InteractableType.Checkpoint;
+        
+        if (!GameManager.Instance.m_CheckPoints.Contains(this))
+            GameManager.Instance.m_CheckPoints.Add(this);
     }
 
     public override void Update()
@@ -19,6 +24,9 @@ public class CheckpointInteraction : AInteractables
 
     public override void Interact()
     {
+        if (m_IsActivated == false)
+            m_IsActivated = true;
+        
         Debug.Log("Interact with " + gameObject.name);
 
         UIManager.Instance.m_CheckPointMenuPanel.SetActive(true);
