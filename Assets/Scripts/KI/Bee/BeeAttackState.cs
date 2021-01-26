@@ -2,7 +2,6 @@
 
 public class BeeAttackState : ABaseState
 {
-    private Vector3 m_playerTransformPosition;
     private BeeController m_beeController;
 
     private float m_shotTimer = 0f;
@@ -16,8 +15,6 @@ public class BeeAttackState : ABaseState
     
     public override void Update()
     {
-        m_playerTransformPosition = GameManager.Instance.PlayerTransform.position;
-
         if (m_shotTimer > 0)
         {
             m_shotTimer -= Time.deltaTime;

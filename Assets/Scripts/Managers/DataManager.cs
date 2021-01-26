@@ -54,32 +54,66 @@ public class DataManager : MonoBehaviour
     }
 
     //TODO Most Recent File to continue
-    public bool CheckForSaveFile(string _pathSlot1, string _pathSlot2, string _pathSlot3)
+    public bool CheckForSaveFile()
     {
-        string path = Application.persistentDataPath + "/PlayerData1.pyd";
+        string playerDataPath = Application.persistentDataPath + "/PlayerData1.pyd";
 
         // System.DateTime recentSave = File.GetLastWriteTime(path);
 
-        if (File.Exists(path))
+        if (File.Exists(playerDataPath))
         {
             return true;
         }
         
-        path = Application.persistentDataPath + "/PlayerData2.pyd";
+        playerDataPath = Application.persistentDataPath + "/PlayerData2.pyd";
 
-        if (File.Exists(path))
+        if (File.Exists(playerDataPath))
         {
             return true;
         }
         
-        path = Application.persistentDataPath + "/PlayerData3.pyd";
+        playerDataPath = Application.persistentDataPath + "/PlayerData3.pyd";
 
-        if (File.Exists(path))
+        if (File.Exists(playerDataPath))
         {
             return true;
         }
         
 
         return false;
+    }
+    
+    public void SaveWorld(WorldStats _worldStats, int _saveSlot)
+    {
+        BinaryFormatter bf = new BinaryFormatter();
+        string path = Application.persistentDataPath + "/WorldData"+_saveSlot+".wrd";
+        FileStream fs = new FileStream(path, FileMode.Create);
+
+        WorldData data = new WorldData(_worldStats);
+
+        bf.Serialize(fs, data);
+        fs.Close();
+    }
+    
+    public WorldData LoadWorld(int _saveSlot)
+    {
+        string path = Application.persistentDataPath + "/World"+_saveSlot+".wrd";
+
+        if (File.Exists(path))
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream fs = new FileStream(path, FileMode.Open);
+
+            WorldData data = (WorldData)bf.Deserialize(fs);
+            fs.Close();
+
+            return data;
+        }
+        else
+        {
+            Debug.Log("Data not found :" + path);
+
+            return null;
+        }
     }
 }

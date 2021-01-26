@@ -32,7 +32,6 @@ public abstract class ABaseState
 
     public virtual bool Enter()
     {
-        // Debug.Log($"Entered {this}!");
         IsFinished = false;
         return true;
     }

@@ -9,7 +9,7 @@ public abstract class AEnemyController : MonoBehaviour
 {
     [HideInInspector] public NavMeshAgent m_Agent = null;
     [HideInInspector] public Healthbar m_Healthbar = null;
-    [HideInInspector] public Animator m_anim = null;
+    [HideInInspector] public Animator m_Anim = null;
     [HideInInspector] public PlayerCombat m_PlayerController = null;
 
     public Vector3 OriginalPosition { get; set; }
@@ -17,7 +17,7 @@ public abstract class AEnemyController : MonoBehaviour
     public float OriginalFOVAngle { get; set; }
     public float OriginalFOVDistance { get; set; }
 
-    [SerializeField, Tooltip("Pigment Amount to Drop when killed.")]
+    [SerializeField, Tooltip("Pigment Amount to drop when killed.")]
     public int m_PigmentAmount;
     
     [SerializeField, Tooltip("Maximum Healthpoints.")]
@@ -49,7 +49,7 @@ public abstract class AEnemyController : MonoBehaviour
     private void Awake()
     {
         m_Agent = GetComponent<NavMeshAgent>();
-        m_anim = GetComponent<Animator>();
+        m_Anim = GetComponent<Animator>();
         m_Healthbar = GetComponentInChildren<Healthbar>();
         m_PlayerController = FindObjectOfType<PlayerCombat>();
         
