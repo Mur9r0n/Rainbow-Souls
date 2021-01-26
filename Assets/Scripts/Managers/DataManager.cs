@@ -83,13 +83,13 @@ public class DataManager : MonoBehaviour
         return false;
     }
     
-    public void SaveWorld(WorldStats _worldStats, int _saveSlot)
+    public void SaveWorld(int _saveSlot)
     {
         BinaryFormatter bf = new BinaryFormatter();
         string path = Application.persistentDataPath + "/WorldData"+_saveSlot+".wrd";
         FileStream fs = new FileStream(path, FileMode.Create);
 
-        WorldData data = new WorldData(_worldStats);
+        WorldData data = new WorldData();
 
         bf.Serialize(fs, data);
         fs.Close();

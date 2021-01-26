@@ -6,18 +6,18 @@ using UnityEngine.SceneManagement;
 [System.Serializable]
 public class WorldData
 {
-    public List<AEnemyController> p_Enemies = new List<AEnemyController>();
-    public List<ChestInteraction> p_Chests = new List<ChestInteraction>();
-    public List<CheckpointInteraction> p_CheckPoints = new List<CheckpointInteraction>();
-    public List<DoorInteraction> p_Doors = new List<DoorInteraction>();
-    public List<ItemInteraction> p_Items = new List<ItemInteraction>();
+    public List<AEnemyController> m_Enemies = new List<AEnemyController>();
+    public List<ChestInteraction> m_Chests = new List<ChestInteraction>();
+    public List<CheckpointInteraction> m_CheckPoints = new List<CheckpointInteraction>();
+    public List<DoorInteraction> m_Doors = new List<DoorInteraction>();
+    public List<ItemInteraction> m_Items = new List<ItemInteraction>();
 
-    public WorldData(WorldStats _worldStats)
+    public WorldData()
     {
-        p_Enemies = _worldStats.p_Enemies;
-        p_Chests = _worldStats.p_Chests;
-        p_CheckPoints = _worldStats.p_CheckPoints;
-        p_Doors = _worldStats.p_Doors;
-        p_Items = _worldStats.p_Items;
+        m_Enemies = GameManager.Instance.m_Enemies;
+        m_Chests = GameManager.Instance.m_Chests;
+        m_CheckPoints = GameManager.Instance.m_CheckPoints;
+        m_Doors = GameManager.Instance.m_Doors;
+        m_Items = GameManager.Instance.m_Items;
     }
 }
