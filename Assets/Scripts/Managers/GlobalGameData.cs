@@ -28,6 +28,7 @@ public class GlobalGameData : MonoBehaviour
     
     [Header("Player Data from File")] public PlayerData m_PlayerData;
     [Header("World Data from File")] public WorldData m_WorldData;
+    [Header("Inventory Data from File")] public InventoryData m_InventoryData;
     
     void Start()
     {
@@ -56,7 +57,13 @@ public class GlobalGameData : MonoBehaviour
             m_controller.enabled = true;
 
             UIManager.Instance.RefreshUI(m_playerStats.m_MaxHealthPoints,m_playerStats.m_CurrentHealthPoints,m_playerStats.m_MaxStaminaPoints,
-                m_playerStats.m_CurrentStaminaPoints,m_playerStats.m_Pigments);   
+                m_playerStats.m_CurrentStaminaPoints,m_playerStats.m_Pigments);
+
+            GameManager.Instance.m_FallenEnemies = m_WorldData.m_FallenEnemies;
+            GameManager.Instance.m_LootedItems = m_WorldData.m_LootedItems;
+            GameManager.Instance.m_OpenedChests = m_WorldData.m_OpenedChests;
+            GameManager.Instance.m_OpenedDoors = m_WorldData.m_OpenedDoors;
+            GameManager.Instance.m_ActivatedCheckPoints = m_WorldData.m_ActivatedCheckPoints;
         }
         
         Debug.Log("Start");
@@ -106,6 +113,16 @@ public class GlobalGameData : MonoBehaviour
         m_DataFromFile = true;
     }
 
+    public void SaveInventoryDataGlobalFromFile(int _saveSlot)
+    {
+        InventoryData temp = DataManager.Instance.LoadInventory(_saveSlot);
+        
+        m_InventoryData.m_InventoryItems = temp.m_InventoryItems;
+        m_InventoryData.m_EquipmentItems = temp.m_EquipmentItems;
+        
+        m_DataFromFile = true;
+    }
+
     public void SavePlayerDataGlobalFromGame(PlayerStats _playerStats)
     {
         m_PlayerData.m_SceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -129,7 +146,21 @@ public class GlobalGameData : MonoBehaviour
         
         m_DataFromFile = true;
     }
-    
+
+    public void SaveInventoryDataGlobalFromGame()
+    {
+        for (int i = 0; i < InventoryManager.Instance.Inventory.Length; i++)
+        {
+            m_InventoryData.m_InventoryItems[i] = InventoryManager.Instance.Inventory[i].GetID();
+        }
+        for (int i = 0; i < InventoryManager.Instance.Equipment.Length; i++)
+        {
+            m_InventoryData.m_EquipmentItems[i] = InventoryManager.Instance.Equipment[i].GetID();
+        }
+        
+        m_DataFromFile = true;
+    }
+
     private void TriggerStart(Scene _newScene, LoadSceneMode _mode)
     {
         Start();

@@ -12,6 +12,7 @@ public class WorldData
     public List<int> m_LootedItems = new List<int>();
     public List<int> m_ActivatedCheckPoints = new List<int>();
 
+
     public WorldData()
     {
         if (GameManager.Instance != null)
