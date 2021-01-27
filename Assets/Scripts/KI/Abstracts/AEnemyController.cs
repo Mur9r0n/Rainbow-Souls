@@ -19,33 +19,31 @@ public abstract class AEnemyController : MonoBehaviour
 
     [SerializeField, Tooltip("Creature ID.")]
     public int m_ID = 10000000;
-    
+
     [SerializeField, Tooltip("Pigment Amount to drop when killed.")]
     public int m_PigmentAmount;
-    
+
     [SerializeField, Tooltip("Maximum Healthpoints.")]
     public float m_maxHealthPoints;
 
     [SerializeField, Tooltip("Current Healthpoints.")]
     public float m_currentHealthPoints;
-    
+
     [SerializeField, Tooltip("Time to pass until resetting."), Range(1f, 20f)]
     public float m_ResetDelay = 1f;
-    
-    [Header("FOV Parameters:")]
-    [SerializeField, Tooltip("Field of View Distance."), Range(1f, 100f)]
+
+    [Header("FOV Parameters:")] [SerializeField, Tooltip("Field of View Distance."), Range(1f, 100f)]
     public float m_FOVDistance = 1f;
 
     [SerializeField, Tooltip("Field of View Angle."), Range(0f, 90f)]
-    public float m_FOVAngle = 1f; 
-    
-    [Header("Attack Parameters:")]
-    [SerializeField, Tooltip("Distance at which the GameObject is able to Attack."),Range(1f, 100f)]
+    public float m_FOVAngle = 1f;
+
+    [Header("Attack Parameters:")] [SerializeField, Tooltip("Distance at which the GameObject is able to Attack."), Range(1f, 100f)]
     public float m_AttackDistance = 1f;
 
     [SerializeField, Tooltip("Time between Attacks.")]
     public float m_AttackDelay = 1f;
-    
+
     public ABaseState m_activeState;
     public EnemyIdleState m_idleState;
 
@@ -55,7 +53,7 @@ public abstract class AEnemyController : MonoBehaviour
         m_Anim = GetComponent<Animator>();
         m_Healthbar = GetComponentInChildren<Healthbar>();
         m_PlayerController = FindObjectOfType<PlayerCombat>();
-        
+
         OriginalPosition = transform.position;
         OriginalRotation = transform.rotation;
         OriginalFOVAngle = m_FOVAngle;
@@ -65,22 +63,25 @@ public abstract class AEnemyController : MonoBehaviour
     public virtual void Start()
     {
         m_Healthbar.GetMaxHealth(m_maxHealthPoints);
-        
+
         m_idleState = new EnemyIdleState();
 
-        if (GlobalGameData.Instance.m_WorldData.m_FallenEnemies.Contains(m_ID))
+        if (GlobalGameData.Instance != null)
         {
-            gameObject.SetActive(false);
-            return;
+            if (GlobalGameData.Instance.m_WorldData.m_FallenEnemies.Contains(m_ID))
+            {
+                gameObject.SetActive(false);
+                return;
+            }
         }
-        
+
         if (!GameManager.Instance.m_Enemies.Contains(this))
         {
             GameManager.Instance.m_Enemies.Add(this);
         }
     }
 
-    
+
     public virtual void Update()
     {
         if (m_activeState is object)
@@ -107,6 +108,7 @@ public abstract class AEnemyController : MonoBehaviour
             }
         }
     }
+
     public bool PlayerInFOV()
     {
         Vector3 playerposition = GameManager.Instance.PlayerTransform.position;
@@ -167,6 +169,7 @@ public abstract class AEnemyController : MonoBehaviour
                 }
             }
         }
+
         return false;
     }
 
@@ -174,7 +177,7 @@ public abstract class AEnemyController : MonoBehaviour
     {
         m_currentHealthPoints -= _damageAmount;
         m_Healthbar.GetCurrentHealth(m_currentHealthPoints);
-        
+
         if (m_currentHealthPoints <= 0)
         {
             m_currentHealthPoints = 0;
@@ -192,7 +195,7 @@ public abstract class AEnemyController : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    
+
     public virtual void OnDrawGizmos()
     {
         Vector3 origin = transform.position + new Vector3(0, 1, 0);

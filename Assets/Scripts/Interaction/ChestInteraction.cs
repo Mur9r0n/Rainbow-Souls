@@ -14,9 +14,12 @@ public class ChestInteraction : AInteractables
         base.Start();
         m_material = GetComponent<Renderer>().material;
         m_interactableType = InteractableType.Chest;
-        if(GlobalGameData.Instance.m_WorldData.m_OpenedChests.Contains(ID))
+        if (GlobalGameData.Instance != null)
         {
-            gameObject.SetActive(false);
+            if (GlobalGameData.Instance.m_WorldData.m_OpenedChests.Contains(ID))
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 

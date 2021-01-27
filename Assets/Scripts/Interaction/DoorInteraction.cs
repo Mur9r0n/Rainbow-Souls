@@ -9,9 +9,12 @@ public class DoorInteraction : AInteractables
     {
         base.Start();
         m_interactableType = InteractableType.Door;
-        if(GlobalGameData.Instance.m_WorldData.m_OpenedDoors.Contains(ID))
+        if (GlobalGameData.Instance != null)
         {
-            gameObject.SetActive(false);
+            if (GlobalGameData.Instance.m_WorldData.m_OpenedDoors.Contains(ID))
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
