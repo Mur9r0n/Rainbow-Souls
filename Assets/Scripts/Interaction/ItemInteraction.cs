@@ -94,8 +94,8 @@ public class ItemInteraction : AInteractables
                 break;
             }
         }
-
         gameObject.SetActive(false);
+        GameManager.Instance.m_LootedItems.Add(ID);
         
         UIManager.Instance.UpdateSlotsUI();
     }

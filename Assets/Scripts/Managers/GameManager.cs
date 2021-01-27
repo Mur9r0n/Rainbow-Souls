@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     public List<AEnemyController> m_Enemies = new List<AEnemyController>();
     
     public List<int> m_FallenEnemies = new List<int>();
+    public List<int> m_OpenedChests = new List<int>();
+    public List<int> m_OpenedDoors = new List<int>();
+    public List<int> m_LootedItems = new List<int>();
+    public List<int> m_ActivatedCheckPoints = new List<int>();
 
     #region Singleton
     public static GameManager Instance { get; private set; }

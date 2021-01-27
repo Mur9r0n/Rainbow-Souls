@@ -57,36 +57,39 @@ public class DataManager : MonoBehaviour
     public bool CheckForSaveFile()
     {
         string playerDataPath = Application.persistentDataPath + "/PlayerData1.pyd";
+        string worldDataPath = Application.persistentDataPath + "/WorldData1.wrd";
 
         // System.DateTime recentSave = File.GetLastWriteTime(path);
 
-        if (File.Exists(playerDataPath))
+        if (File.Exists(playerDataPath) && File.Exists(worldDataPath))
         {
             return true;
         }
         
         playerDataPath = Application.persistentDataPath + "/PlayerData2.pyd";
+        worldDataPath = Application.persistentDataPath + "/WorldData2.wrd";
 
-        if (File.Exists(playerDataPath))
+        if (File.Exists(playerDataPath) && File.Exists(worldDataPath))
         {
             return true;
         }
         
         playerDataPath = Application.persistentDataPath + "/PlayerData3.pyd";
+        worldDataPath = Application.persistentDataPath + "/WorldData3.wrd";
 
-        if (File.Exists(playerDataPath))
+        if (File.Exists(playerDataPath) && File.Exists(worldDataPath))
         {
             return true;
         }
         
-
         return false;
     }
     
     public void SaveWorld(int _saveSlot)
     {
-        BinaryFormatter bf = new BinaryFormatter();
         string path = Application.persistentDataPath + "/WorldData"+_saveSlot+".wrd";
+        
+        BinaryFormatter bf = new BinaryFormatter();
         FileStream fs = new FileStream(path, FileMode.Create);
 
         WorldData data = new WorldData();

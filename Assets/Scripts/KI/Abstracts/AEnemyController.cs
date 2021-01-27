@@ -67,8 +67,8 @@ public abstract class AEnemyController : MonoBehaviour
         m_Healthbar.GetMaxHealth(m_maxHealthPoints);
         
         m_idleState = new EnemyIdleState();
-        
-        if (GameManager.Instance.m_FallenEnemies.Contains(this.m_ID))
+
+        if (GlobalGameData.Instance.m_WorldData.m_FallenEnemies.Contains(m_ID))
         {
             gameObject.SetActive(false);
             return;

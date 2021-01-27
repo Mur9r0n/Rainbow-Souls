@@ -9,9 +9,10 @@ public class DoorInteraction : AInteractables
     {
         base.Start();
         m_interactableType = InteractableType.Door;
-        
-        if (!GameManager.Instance.m_Doors.Contains(this))
-            GameManager.Instance.m_Doors.Add(this);
+        if(GlobalGameData.Instance.m_WorldData.m_OpenedDoors.Contains(ID))
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public override void Update()
@@ -22,6 +23,9 @@ public class DoorInteraction : AInteractables
     public override void Interact()
     {
         Debug.Log("Interact with " + gameObject.name);
+        GameManager.Instance.m_OpenedDoors.Add(ID);
+        
         gameObject.SetActive(false);
+        
     }
 }

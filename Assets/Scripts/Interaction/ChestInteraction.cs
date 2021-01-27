@@ -14,9 +14,10 @@ public class ChestInteraction : AInteractables
         base.Start();
         m_material = GetComponent<Renderer>().material;
         m_interactableType = InteractableType.Chest;
-
-        if (!GameManager.Instance.m_Chests.Contains(this))
-            GameManager.Instance.m_Chests.Add(this);
+        if(GlobalGameData.Instance.m_WorldData.m_OpenedChests.Contains(ID))
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public override void Update()
@@ -43,6 +44,7 @@ public class ChestInteraction : AInteractables
         Debug.Log("Interact with " + gameObject.name);
 
         Instantiate(m_lootprefab, transform.position, Quaternion.identity);
+        GameManager.Instance.m_OpenedChests.Add(ID);
         m_isDissolving = true;
     }
 }
