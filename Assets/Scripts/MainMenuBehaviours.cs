@@ -309,6 +309,7 @@ public class MainMenuBehaviours : MonoBehaviour
     {
         GlobalGameData.Instance.SavePlayerDataGlobalFromFile(_saveSlot);
         GlobalGameData.Instance.SaveWorldDataGlobalFromFile(_saveSlot);
+        GlobalGameData.Instance.SaveInventoryDataGlobalFromFile(_saveSlot);
         Debug.Log("Load SaveSlot " + _saveSlot);
         SceneManager.LoadScene(GlobalGameData.Instance.m_PlayerData.m_SceneIndex);
     }
@@ -317,11 +318,13 @@ public class MainMenuBehaviours : MonoBehaviour
     {
         string playerPath = Application.persistentDataPath + "/PlayerData" + _saveSlot + ".pyd";
         string worldPath = Application.persistentDataPath + "/WorldData" + _saveSlot + ".wrd";
+        string inventoryPath = Application.persistentDataPath + "/InventoryData" + _saveSlot + ".inv";
 
         if (File.Exists(playerPath) && File.Exists(worldPath))
         {
             File.Delete(playerPath);
             File.Delete(worldPath);
+            File.Delete(inventoryPath);
             LoadGame();
         }
     }
