@@ -111,18 +111,21 @@ public class PlayerInteraction : MonoBehaviour
         if (GUI.Button(new Rect(10, 150, 150, 25), "Save 1"))
         {
             DataManager.Instance.SavePlayer(m_playerStats, 1);
+            DataManager.Instance.SaveWorld(1);
             Debug.Log("Saved 1");
         }
         
         if (GUI.Button(new Rect(10, 180, 150, 25), "Save 2"))
         {
             DataManager.Instance.SavePlayer(m_playerStats, 2);
+            DataManager.Instance.SaveWorld(2);
             Debug.Log("Saved 2");
         }
         
         if (GUI.Button(new Rect(10, 210, 150, 25), "Save 3"))
         {
             DataManager.Instance.SavePlayer(m_playerStats, 3);
+            DataManager.Instance.SaveWorld(3);
             Debug.Log("Saved 3");
         }
 

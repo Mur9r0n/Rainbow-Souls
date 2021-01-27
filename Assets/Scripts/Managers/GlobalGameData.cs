@@ -27,7 +27,7 @@ public class GlobalGameData : MonoBehaviour
     }
     
     [Header("Player Data from File")] public PlayerData m_PlayerData;
-    // [Header("World Data from File")] public WorldData m_WorldData;
+    [Header("World Data from File")] public WorldData m_WorldData;
     
     void Start()
     {
@@ -90,6 +90,19 @@ public class GlobalGameData : MonoBehaviour
 
         m_PlayerData.m_Position = new float[] {temp.m_Position[0], temp.m_Position[1], temp.m_Position[2]};
 
+        m_DataFromFile = true;
+    }
+    
+    public void SaveWorldDataGlobalFromFile(int _saveSlot)
+    {
+        WorldData temp = DataManager.Instance.LoadWorld(_saveSlot);
+
+        m_WorldData.m_FallenEnemies = temp.m_FallenEnemies;
+        m_WorldData.m_LootedItems = temp.m_LootedItems;
+        m_WorldData.m_OpenedChests = temp.m_OpenedChests;
+        m_WorldData.m_ActivatedCheckPoints = temp.m_ActivatedCheckPoints;
+        m_WorldData.m_OpenedDoors = temp.m_OpenedDoors;
+        
         m_DataFromFile = true;
     }
 

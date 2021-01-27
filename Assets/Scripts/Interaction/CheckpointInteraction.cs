@@ -34,6 +34,10 @@ public class CheckpointInteraction : AInteractables
 
     public override void Interact()
     {
+        if (!GameManager.Instance.m_ActivatedCheckPoints.Contains(ID))
+        {
+            GameManager.Instance.m_ActivatedCheckPoints.Add(ID);
+        }
         Debug.Log("Interact with " + gameObject.name);
 
         UIManager.Instance.m_CheckPointMenuPanel.SetActive(true);

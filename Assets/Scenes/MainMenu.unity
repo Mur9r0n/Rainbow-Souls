@@ -7412,7 +7412,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_continueButton: {fileID: 1476028604}
-  m_LoadGameBackButton: {fileID: 628920629}
+  m_loadGameBackButton: {fileID: 628920629}
   m_mainMenuPanel: {fileID: 683900823}
   m_loadGamePanel: {fileID: 600463479}
   m_videoSettingsPanel: {fileID: 2143185545}
@@ -7432,9 +7432,9 @@ MonoBehaviour:
   m_textSlot1: {fileID: 931038714}
   m_textSlot2: {fileID: 1737976133}
   m_textSlot3: {fileID: 266057678}
-  m_deletaButtonSlot1: {fileID: 490824741}
-  m_deletaButtonSlot2: {fileID: 1381255813}
-  m_deletaButtonSlot3: {fileID: 469706757}
+  m_deleteButtonSlot1: {fileID: 490824741}
+  m_deleteButtonSlot2: {fileID: 1381255813}
+  m_deleteButtonSlot3: {fileID: 469706757}
 --- !u!1 &1868320170
 GameObject:
   m_ObjectHideFlags: 0
@@ -7736,6 +7736,12 @@ MonoBehaviour:
     m_PoisonResistance: 0
     m_BaseDamage: 0
     m_Position: []
+  m_WorldData:
+    m_FallenEnemies: 
+    m_OpenedChests: 
+    m_OpenedDoors: 
+    m_LootedItems: 
+    m_ActivatedCheckPoints: 
 --- !u!4 &1939452445
 Transform:
   m_ObjectHideFlags: 0

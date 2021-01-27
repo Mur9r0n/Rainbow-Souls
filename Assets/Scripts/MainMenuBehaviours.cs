@@ -3,13 +3,15 @@ using System.IO;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
+using Slider = UnityEngine.UI.Slider;
 
 public class MainMenuBehaviours : MonoBehaviour
 {
     [SerializeField] private Button m_continueButton;
-    [SerializeField] private Button m_LoadGameBackButton;
+    [SerializeField] private Button m_loadGameBackButton;
 
     [Header("Menu Panels")] [SerializeField]
     private GameObject m_mainMenuPanel;
@@ -40,22 +42,28 @@ public class MainMenuBehaviours : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_textSlot2;
     [SerializeField] private TextMeshProUGUI m_textSlot3;
 
-    [SerializeField] private Button m_deletaButtonSlot1;
-    [SerializeField] private Button m_deletaButtonSlot2;
-    [SerializeField] private Button m_deletaButtonSlot3;
+    [SerializeField] private Button m_deleteButtonSlot1;
+    [SerializeField] private Button m_deleteButtonSlot2;
+    [SerializeField] private Button m_deleteButtonSlot3;
 
     private bool m_saveFileExists = false;
 
-    private string m_pathSlot1;
-    private string m_pathSlot2;
-    private string m_pathSlot3;
-
+    private string m_playerPathSlot1;
+    private string m_playerPathSlot2;
+    private string m_playerPathSlot3;
+    
+    private string m_worldPathSlot1;
+    private string m_worldPathSlot2;
+    private string m_worldPathSlot3;
 
     public void Awake()
     {
-        m_pathSlot1 = Application.persistentDataPath + "/PlayerData1.pyd";
-        m_pathSlot2 = Application.persistentDataPath + "/PlayerData2.pyd";
-        m_pathSlot3 = Application.persistentDataPath + "/PlayerData3.pyd";
+        m_playerPathSlot1 = Application.persistentDataPath + "/PlayerData1.pyd";
+        m_playerPathSlot2 = Application.persistentDataPath + "/PlayerData2.pyd";
+        m_playerPathSlot3 = Application.persistentDataPath + "/PlayerData3.pyd";
+        m_worldPathSlot1 = Application.persistentDataPath + "/WorldData1.wrd";
+        m_worldPathSlot2 = Application.persistentDataPath + "/WorldData2.wrd";
+        m_worldPathSlot3 = Application.persistentDataPath + "/WorldData3.wrd";
 
         CheckIfSaveFileExists();
     }
@@ -87,38 +95,41 @@ public class MainMenuBehaviours : MonoBehaviour
         string playerDataPath = "";
         int mostRecentSlot = 1;
 
-        if (File.Exists(m_pathSlot1))
+        if (File.Exists(m_playerPathSlot1))
         {
-            if (File.GetLastWriteTime(m_pathSlot1) >= tempTime)
+            if (File.GetLastWriteTime(m_playerPathSlot1) >= tempTime)
             {
-                tempTime = File.GetLastWriteTime(m_pathSlot1);
-                playerDataPath = m_pathSlot1;
+                tempTime = File.GetLastWriteTime(m_playerPathSlot1);
+                playerDataPath = m_playerPathSlot1 + " " + m_worldPathSlot1;
                 mostRecentSlot = 1;
             }
         }
 
-        if (File.Exists(m_pathSlot2))
+        if (File.Exists(m_playerPathSlot2))
         {
-            if (File.GetLastWriteTime(m_pathSlot2) >= tempTime)
+            if (File.GetLastWriteTime(m_playerPathSlot2) >= tempTime)
             {
-                tempTime = File.GetLastWriteTime(m_pathSlot2);
-                playerDataPath = m_pathSlot2;
+                tempTime = File.GetLastWriteTime(m_playerPathSlot2);
+                playerDataPath = m_playerPathSlot2 + " " + m_worldPathSlot2;
                 mostRecentSlot = 2;
             }
         }
 
-        if (File.Exists(m_pathSlot3))
+        if (File.Exists(m_playerPathSlot3))
         {
-            if (File.GetLastWriteTime(m_pathSlot3) >= tempTime)
+            if (File.GetLastWriteTime(m_playerPathSlot3) >= tempTime)
             {
-                tempTime = File.GetLastWriteTime(m_pathSlot3);
-                playerDataPath = m_pathSlot3;
+                tempTime = File.GetLastWriteTime(m_playerPathSlot3);
+                playerDataPath = m_playerPathSlot3 + " " + m_worldPathSlot3;
                 mostRecentSlot = 3;
             }
         }
 
         Debug.Log("Load " + playerDataPath);
         GlobalGameData.Instance.SavePlayerDataGlobalFromFile(mostRecentSlot);
+        GlobalGameData.Instance.SaveWorldDataGlobalFromFile(mostRecentSlot);
+        
+        //TODO load last used Scene
         SceneManager.LoadScene(1);
     }
 
@@ -138,12 +149,12 @@ public class MainMenuBehaviours : MonoBehaviour
 
         if (m_saveFileExists)
         {
-            if (File.Exists(m_pathSlot1))
+            if (File.Exists(m_playerPathSlot1))
             {
-                tempString = File.GetLastWriteTime(m_pathSlot1);
+                tempString = File.GetLastWriteTime(m_playerPathSlot1);
                 m_textSlot1.text = tempString.ToString();
                 m_buttonSlot1.interactable = true;
-                m_deletaButtonSlot1.interactable = true;
+                m_deleteButtonSlot1.interactable = true;
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(m_buttonSlot1.gameObject);
             }
@@ -151,15 +162,15 @@ public class MainMenuBehaviours : MonoBehaviour
             {
                 m_textSlot1.text = "No Save Game";
                 m_buttonSlot1.interactable = false;
-                m_deletaButtonSlot1.interactable = false;
+                m_deleteButtonSlot1.interactable = false;
             }
 
-            if (File.Exists(m_pathSlot2))
+            if (File.Exists(m_playerPathSlot2))
             {
-                tempString = File.GetLastWriteTime(m_pathSlot2);
+                tempString = File.GetLastWriteTime(m_playerPathSlot2);
                 m_textSlot2.text = tempString.ToString();
                 m_buttonSlot2.interactable = true;
-                m_deletaButtonSlot2.interactable = true;
+                m_deleteButtonSlot2.interactable = true;
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(m_buttonSlot2.gameObject);
             }
@@ -167,15 +178,15 @@ public class MainMenuBehaviours : MonoBehaviour
             {
                 m_textSlot2.text = "No Save Game";
                 m_buttonSlot2.interactable = false;
-                m_deletaButtonSlot2.interactable = false;
+                m_deleteButtonSlot2.interactable = false;
             }
 
-            if (File.Exists(m_pathSlot3))
+            if (File.Exists(m_playerPathSlot3))
             {
-                tempString = File.GetLastWriteTime(m_pathSlot3);
+                tempString = File.GetLastWriteTime(m_playerPathSlot3);
                 m_textSlot3.text = tempString.ToString();
                 m_buttonSlot3.interactable = true;
-                m_deletaButtonSlot3.interactable = true;
+                m_deleteButtonSlot3.interactable = true;
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(m_buttonSlot3.gameObject);
             }
@@ -183,13 +194,13 @@ public class MainMenuBehaviours : MonoBehaviour
             {
                 m_textSlot3.text = "No Save Game";
                 m_buttonSlot3.interactable = false;
-                m_deletaButtonSlot3.interactable = false;
+                m_deleteButtonSlot3.interactable = false;
             }
         }
         else
         {
             EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(m_LoadGameBackButton.gameObject);
+            EventSystem.current.SetSelectedGameObject(m_loadGameBackButton.gameObject);
         }
     }
 
@@ -302,17 +313,20 @@ public class MainMenuBehaviours : MonoBehaviour
     public void LoadSaveGameSlot(int _saveSlot)
     {
         GlobalGameData.Instance.SavePlayerDataGlobalFromFile(_saveSlot);
+        GlobalGameData.Instance.SaveWorldDataGlobalFromFile(_saveSlot);
         Debug.Log("Load SaveSlot " + _saveSlot);
         SceneManager.LoadScene(GlobalGameData.Instance.m_PlayerData.m_SceneIndex);
     }
 
     public void DeleteSaveGameSlot(int _saveSlot)
     {
-        string path = Application.persistentDataPath + "/PlayerData" + _saveSlot + ".pyd";
+        string playerPath = Application.persistentDataPath + "/PlayerData" + _saveSlot + ".pyd";
+        string worldPath = Application.persistentDataPath + "/WorldData" + _saveSlot + ".wrd";
 
-        if (File.Exists(path))
+        if (File.Exists(playerPath) && File.Exists(worldPath))
         {
-            File.Delete(path);
+            File.Delete(playerPath);
+            File.Delete(worldPath);
             LoadGame();
         }
     }
