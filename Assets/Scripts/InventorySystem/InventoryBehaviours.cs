@@ -8,9 +8,6 @@ public class InventoryBehaviours : MonoBehaviour
 {
     private int m_inventorySlot = -1;
     private int m_equipmentSlot = -1;
-
-    [SerializeField]
-    private GameObject m_swordGO;
     
     //TODO ITEM SHOWCASE
     public void ShowChoicePanelInventory(int _inventorySlot)
@@ -44,12 +41,6 @@ public class InventoryBehaviours : MonoBehaviour
             case Item.ItemType.Weapon:
             {
                 InventoryManager.Instance.Equipment[1] = InventoryManager.Instance.Inventory[m_inventorySlot];
-
-                if (InventoryManager.Instance.Inventory[m_inventorySlot].m_ID == 10000)
-                {
-                    m_swordGO.SetActive(true);
-                }
-                
                 break;
             }
             case Item.ItemType.Armor:

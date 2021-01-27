@@ -12,7 +12,7 @@ public abstract class Item : ScriptableObject
     private string m_name;
 
     [SerializeField, Tooltip("Identification")]
-    public int m_ID;
+    private int m_ID;
 
     [SerializeField, Tooltip("Description")] [TextArea(5, 15)]
     private string m_description;
