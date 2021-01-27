@@ -10,7 +10,7 @@ public class InventoryBehaviours : MonoBehaviour
     private int m_equipmentSlot = -1;
 
     [SerializeField]
-    private GameObject m_swordGO;
+    public GameObject m_swordGO;
     
     //TODO ITEM SHOWCASE
     public void ShowChoicePanelInventory(int _inventorySlot)
