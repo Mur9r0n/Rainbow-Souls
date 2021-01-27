@@ -12,6 +12,7 @@ public class GlobalGameData : MonoBehaviour
     private void Awake()
     {
         #region Singleton
+
         if (Instance == null)
         {
             DontDestroyOnLoad(gameObject);
@@ -21,22 +22,23 @@ public class GlobalGameData : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
         #endregion
 
         SceneManager.sceneLoaded += TriggerStart;
     }
-    
+
     [Header("Player Data from File")] public PlayerData m_PlayerData;
     [Header("World Data from File")] public WorldData m_WorldData;
     [Header("Inventory Data from File")] public InventoryData m_InventoryData;
-    
+
     void Start()
     {
         if (m_DataFromFile && SceneManager.GetActiveScene().buildIndex != 0)
         {
             PlayerStats m_playerStats = FindObjectOfType<PlayerStats>();
             CharacterController m_controller = FindObjectOfType<CharacterController>();
-            
+
             m_playerStats.m_MaxHealthPoints = m_PlayerData.m_MaxHealth;
             m_playerStats.m_CurrentHealthPoints = m_PlayerData.m_CurrentHealth;
 
@@ -56,16 +58,68 @@ public class GlobalGameData : MonoBehaviour
             m_controller.transform.position = temppos;
             m_controller.enabled = true;
 
-            UIManager.Instance.RefreshUI(m_playerStats.m_MaxHealthPoints,m_playerStats.m_CurrentHealthPoints,m_playerStats.m_MaxStaminaPoints,
-                m_playerStats.m_CurrentStaminaPoints,m_playerStats.m_Pigments);
+            UIManager.Instance.RefreshUI(m_playerStats.m_MaxHealthPoints, m_playerStats.m_CurrentHealthPoints, m_playerStats.m_MaxStaminaPoints,
+                m_playerStats.m_CurrentStaminaPoints, m_playerStats.m_Pigments);
 
             GameManager.Instance.m_FallenEnemies = m_WorldData.m_FallenEnemies;
             GameManager.Instance.m_LootedItems = m_WorldData.m_LootedItems;
             GameManager.Instance.m_OpenedChests = m_WorldData.m_OpenedChests;
             GameManager.Instance.m_OpenedDoors = m_WorldData.m_OpenedDoors;
             GameManager.Instance.m_ActivatedCheckPoints = m_WorldData.m_ActivatedCheckPoints;
+
+            int index = 0;
+            foreach (int i in m_InventoryData.m_InventoryItems)
+            { 
+                if (i != 1)
+                {
+                    foreach (Item x in ItemPool.Instance.m_ItemPool)
+                    {
+                        if (x.m_ID == i)
+                        {
+                            InventoryManager.Instance.Inventory[index] = x;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (Item x in ItemPool.Instance.m_ItemPool)
+                    {
+                        if (x.m_ID == 1)
+                        {
+                            InventoryManager.Instance.Inventory[index] = x;
+                        }
+                    }
+                }
+                index++;
+            }
+
+            index = 0;
+            foreach (int i in m_InventoryData.m_EquipmentItems)
+            { 
+                if (i != 1)
+                {
+                    foreach (Item x in ItemPool.Instance.m_ItemPool)
+                    {
+                        if (x.m_ID == i)
+                        {
+                            InventoryManager.Instance.Equipment[index] = x;
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (Item x in ItemPool.Instance.m_ItemPool)
+                    {
+                        if (x.m_ID == 1)
+                        {
+                            InventoryManager.Instance.Equipment[index] = x;
+                        }
+                    }
+                }
+                index++;
+            }
         }
-        
+
         Debug.Log("Start");
     }
 
@@ -74,7 +128,7 @@ public class GlobalGameData : MonoBehaviour
         PlayerData temp = DataManager.Instance.LoadPlayer(_saveSlot);
 
         m_PlayerData.m_SceneIndex = temp.m_SceneIndex;
-        
+
         m_PlayerData.m_MaxHealth = temp.m_MaxHealth;
         m_PlayerData.m_CurrentHealth = temp.m_CurrentHealth;
 
@@ -88,7 +142,7 @@ public class GlobalGameData : MonoBehaviour
         m_PlayerData.m_Constitution = temp.m_Constitution;
         m_PlayerData.m_Strength = temp.m_Strength;
         m_PlayerData.m_Dexterity = temp.m_Dexterity;
-        
+
         m_PlayerData.m_PhysicalDefense = temp.m_PhysicalDefense;
         m_PlayerData.m_BleedingResistance = temp.m_BleedingResistance;
         m_PlayerData.m_PoisonResistance = temp.m_PoisonResistance;
@@ -99,7 +153,7 @@ public class GlobalGameData : MonoBehaviour
 
         m_DataFromFile = true;
     }
-    
+
     public void SaveWorldDataGlobalFromFile(int _saveSlot)
     {
         WorldData temp = DataManager.Instance.LoadWorld(_saveSlot);
@@ -109,17 +163,17 @@ public class GlobalGameData : MonoBehaviour
         m_WorldData.m_OpenedChests = temp.m_OpenedChests;
         m_WorldData.m_ActivatedCheckPoints = temp.m_ActivatedCheckPoints;
         m_WorldData.m_OpenedDoors = temp.m_OpenedDoors;
-        
+
         m_DataFromFile = true;
     }
 
     public void SaveInventoryDataGlobalFromFile(int _saveSlot)
     {
         InventoryData temp = DataManager.Instance.LoadInventory(_saveSlot);
-        
+
         m_InventoryData.m_InventoryItems = temp.m_InventoryItems;
         m_InventoryData.m_EquipmentItems = temp.m_EquipmentItems;
-        
+
         m_DataFromFile = true;
     }
 
@@ -141,9 +195,9 @@ public class GlobalGameData : MonoBehaviour
         m_PlayerData.m_BleedingResistance = _playerStats.m_BleedingResistance;
         m_PlayerData.m_PoisonResistance = _playerStats.m_PoisonResistance;
         m_PlayerData.m_BaseDamage = _playerStats.m_BaseDamage;
-        
-        m_PlayerData.m_Position = new float[] {0,0,0};
-        
+
+        m_PlayerData.m_Position = new float[] {0, 0, 0};
+
         m_DataFromFile = true;
     }
 
@@ -153,11 +207,12 @@ public class GlobalGameData : MonoBehaviour
         {
             m_InventoryData.m_InventoryItems[i] = InventoryManager.Instance.Inventory[i].GetID();
         }
+
         for (int i = 0; i < InventoryManager.Instance.Equipment.Length; i++)
         {
             m_InventoryData.m_EquipmentItems[i] = InventoryManager.Instance.Equipment[i].GetID();
         }
-        
+
         m_DataFromFile = true;
     }
 

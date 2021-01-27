@@ -236,6 +236,10 @@ public class PlayerInteraction : MonoBehaviour
 
         if (GUI.Button(new Rect(10, 420, 150, 50), "Main Menu"))
         {
+            GlobalGameData.Instance.m_PlayerData = null;
+            GlobalGameData.Instance.m_WorldData = null;
+            GlobalGameData.Instance.m_InventoryData = null;
+            GlobalGameData.Instance.m_DataFromFile = false;
             SceneManager.LoadScene(0);
         }
         
