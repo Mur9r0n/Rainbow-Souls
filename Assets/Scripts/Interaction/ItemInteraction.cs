@@ -21,9 +21,6 @@ public class ItemInteraction : AInteractables
         }
 
         m_interactableType = InteractableType.Item;
-        
-        if (!GameManager.Instance.m_Items.Contains(this))
-            GameManager.Instance.m_Items.Add(this);
     }
     
     //Weapons begin with 10XXX

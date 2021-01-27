@@ -11,9 +11,6 @@ public class CheckpointInteraction : AInteractables
         base.Start();
 
         m_interactableType = InteractableType.Checkpoint;
-        
-        if (!GameManager.Instance.m_CheckPoints.Contains(this))
-            GameManager.Instance.m_CheckPoints.Add(this);
     }
 
     public override void Update()
