@@ -585,7 +585,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 516874809892199412, guid: 2268bedd10aac224094db3d94e1725d4, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 516874809892199412, guid: 2268bedd10aac224094db3d94e1725d4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -599,9 +599,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3479309726199537656, guid: 2268bedd10aac224094db3d94e1725d4, type: 3}
+      propertyPath: m_ID
+      value: 101
+      objectReference: {fileID: 0}
     - target: {fileID: 3861035375256684244, guid: 2268bedd10aac224094db3d94e1725d4, type: 3}
       propertyPath: m_Name
-      value: Schaaf Enemy
+      value: Schaaf Enemy 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2268bedd10aac224094db3d94e1725d4, type: 3}
@@ -1255,6 +1259,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 705979867}
     m_Modifications:
+    - target: {fileID: 2780015163308823606, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
+      propertyPath: m_ID
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4813719563666702964, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1265,7 +1273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5921139730103073903, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_Name
-      value: Bee Enemy (1)
+      value: Bee Enemy 2
       objectReference: {fileID: 0}
     - target: {fileID: 6793978411756020504, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1297,7 +1305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6793978411756020504, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6793978411756020504, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1814,6 +1822,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 705979867}
     m_Modifications:
+    - target: {fileID: 2780015163308823606, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
+      propertyPath: m_ID
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4813719563666702964, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1824,7 +1836,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5921139730103073903, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_Name
-      value: Bee Enemy
+      value: Bee Enemy 3
       objectReference: {fileID: 0}
     - target: {fileID: 6793978411756020504, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1856,7 +1868,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6793978411756020504, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6793978411756020504, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3141,6 +3153,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 705979867}
     m_Modifications:
+    - target: {fileID: 2780015163308823606, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
+      propertyPath: m_ID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4813719563666702964, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -3151,7 +3167,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5921139730103073903, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_Name
-      value: Bee Enemy
+      value: Bee Enemy 1
       objectReference: {fileID: 0}
     - target: {fileID: 6793978411756020504, guid: 44330dce68486cf448b4ee1158769f05, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3237,13 +3253,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 690746790}
+  - {fileID: 1297693451}
+  - {fileID: 542706230}
   - {fileID: 1444222221}
+  - {fileID: 328419082}
   - {fileID: 1513521362}
   - {fileID: 793385643}
   - {fileID: 1940829765}
-  - {fileID: 328419082}
-  - {fileID: 1297693451}
-  - {fileID: 542706230}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3619,7 +3635,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468389, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_Name
-      value: Mushroom Enemy
+      value: Mushroom Enemy 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6284733359925468408, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
+      propertyPath: m_ID
+      value: 202
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468409, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3651,7 +3671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468409, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468409, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3952,7 +3972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 516874809892199412, guid: 2268bedd10aac224094db3d94e1725d4, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 516874809892199412, guid: 2268bedd10aac224094db3d94e1725d4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3966,9 +3986,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3479309726199537656, guid: 2268bedd10aac224094db3d94e1725d4, type: 3}
+      propertyPath: m_ID
+      value: 102
+      objectReference: {fileID: 0}
     - target: {fileID: 3861035375256684244, guid: 2268bedd10aac224094db3d94e1725d4, type: 3}
       propertyPath: m_Name
-      value: Schaaf Enemy
+      value: Schaaf Enemy 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2268bedd10aac224094db3d94e1725d4, type: 3}
@@ -5310,7 +5334,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468389, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_Name
-      value: Mushroom Enemy (1)
+      value: Mushroom Enemy 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6284733359925468408, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
+      propertyPath: m_ID
+      value: 201
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468409, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5342,7 +5370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468409, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468409, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5774,7 +5802,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468389, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_Name
-      value: Mushroom Enemy
+      value: Mushroom Enemy 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6284733359925468408, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
+      propertyPath: m_ID
+      value: 203
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468409, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5806,7 +5838,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468409, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6284733359925468409, guid: d76a1c2379b8d13479aa6fe8c01131f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6026,6 +6058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Enemies: []
+  m_FallenEnemies: 65000000
 --- !u!4 &1671237520 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2994290417792181541, guid: b8b9cb9e65dedce4f8aebecc8ad8ec77, type: 3}

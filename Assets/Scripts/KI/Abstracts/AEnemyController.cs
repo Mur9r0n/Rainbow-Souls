@@ -17,8 +17,8 @@ public abstract class AEnemyController : MonoBehaviour
     public float OriginalFOVAngle { get; set; }
     public float OriginalFOVDistance { get; set; }
 
-    [SerializeField, Tooltip("Show if Creature is alive or dead.")]
-    public bool m_IsAlive = true;
+    [SerializeField, Tooltip("Creature ID.")]
+    public int m_ID = 10000000;
     
     [SerializeField, Tooltip("Pigment Amount to drop when killed.")]
     public int m_PigmentAmount;
@@ -67,6 +67,13 @@ public abstract class AEnemyController : MonoBehaviour
         m_Healthbar.GetMaxHealth(m_maxHealthPoints);
         
         m_idleState = new EnemyIdleState();
+        
+        if (GameManager.Instance.m_FallenEnemies.Contains(this.m_ID))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        
         if (!GameManager.Instance.m_Enemies.Contains(this))
         {
             GameManager.Instance.m_Enemies.Add(this);
@@ -180,7 +187,8 @@ public abstract class AEnemyController : MonoBehaviour
             temp.m_Pigments += m_PigmentAmount;
             UIManager.Instance.UpdatePigmentCounter(temp.m_Pigments);
 
-            m_IsAlive = false;
+            GameManager.Instance.m_Enemies.Remove(this);
+            GameManager.Instance.m_FallenEnemies.Add(this.m_ID);
             gameObject.SetActive(false);
         }
     }
