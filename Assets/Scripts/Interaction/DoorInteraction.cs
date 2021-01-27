@@ -4,35 +4,23 @@ using UnityEngine;
 
 public class DoorInteraction : AInteractables
 {
+
     public override void Start()
     {
         base.Start();
-        if(GlobalGameData.Instance.m_WorldData.m_OpenedDoors.Contains(ID))
+        m_interactableType = InteractableType.Door;
+        if (GlobalGameData.Instance != null)
         {
-            gameObject.SetActive(false);
+            if (GlobalGameData.Instance.m_WorldData.m_OpenedDoors.Contains(ID))
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
     public override void Update()
     {
-        if (CheckForInteraction(gameObject.transform.position, 3.0f))
-        {
-            m_IsInteractable = true;
-            if (!m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Add(this);
-                UIManager.Instance.ShowInteractionTooltip("Open "+ gameObject.name);
-            }
-        }
-        else
-        {
-            m_IsInteractable = false;
-            if (m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Remove(this);
-                UIManager.Instance.HideInteractionTooltip();
-            }
-        }
+        base.Update();
     }
     
     public override void Interact()

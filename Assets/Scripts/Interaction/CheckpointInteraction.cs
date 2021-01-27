@@ -5,31 +5,17 @@ using UnityEngine;
 
 public class CheckpointInteraction : AInteractables
 {
+    
     public override void Start()
     {
         base.Start();
+
+        m_interactableType = InteractableType.Checkpoint;
     }
 
     public override void Update()
     {
-        if (CheckForInteraction(gameObject.transform.position, 3.0f))
-        {
-            m_IsInteractable = true;
-            if (!m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Add(this);
-                UIManager.Instance.ShowInteractionTooltip("Interact with "+ gameObject.name);
-            }
-        }
-        else
-        {
-            m_IsInteractable = false;
-            if (m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Remove(this);
-                UIManager.Instance.HideInteractionTooltip();
-            }
-        }
+        base.Update();
     }
 
     public override void Interact()

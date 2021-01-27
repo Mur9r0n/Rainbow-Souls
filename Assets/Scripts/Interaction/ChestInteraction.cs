@@ -13,33 +13,20 @@ public class ChestInteraction : AInteractables
     {
         base.Start();
         m_material = GetComponent<Renderer>().material;
-        if(GlobalGameData.Instance.m_WorldData.m_OpenedChests.Contains(ID))
+        m_interactableType = InteractableType.Chest;
+        if (GlobalGameData.Instance != null)
         {
-            gameObject.SetActive(false);
+            if (GlobalGameData.Instance.m_WorldData.m_OpenedChests.Contains(ID))
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
     public override void Update()
     {
-        if (CheckForInteraction(gameObject.transform.position, 3.0f))
-        {
-            m_IsInteractable = true;
-            if (!m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Add(this);
-                UIManager.Instance.ShowInteractionTooltip("Open "+ gameObject.name);
-            }
-        }
-        else
-        {
-            m_IsInteractable = false;
-            if (m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Remove(this);
-                UIManager.Instance.HideInteractionTooltip();
-            }
-        }
-
+        base.Update();
+        
         if (m_isDissolving)
         {
             float temp = m_material.GetFloat("Vector1_8DEAC01A");

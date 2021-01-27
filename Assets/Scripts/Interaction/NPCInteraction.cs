@@ -7,28 +7,12 @@ public class NPCInteraction : AInteractables
     public override void Start()
     {
         base.Start();
+        m_interactableType = InteractableType.NPC;
     }
 
     public override void Update()
     {
-        if (CheckForInteraction(gameObject.transform.position, 3.0f))
-        {
-            m_IsInteractable = true;
-            if (!m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Add(this);
-                UIManager.Instance.ShowInteractionTooltip("Speak to "+ gameObject.name);
-            }
-        }
-        else
-        {
-            m_IsInteractable = false;
-            if (m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Remove(this);
-                UIManager.Instance.HideInteractionTooltip();
-            }
-        }
+        base.Update();
     }
     
     public override void Interact()
