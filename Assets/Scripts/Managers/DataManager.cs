@@ -97,7 +97,7 @@ public class DataManager : MonoBehaviour
     
     public WorldData LoadWorld(int _saveSlot)
     {
-        string path = Application.persistentDataPath + "/World"+_saveSlot+".wrd";
+        string path = Application.persistentDataPath + "/WorldData"+_saveSlot+".wrd";
 
         if (File.Exists(path))
         {

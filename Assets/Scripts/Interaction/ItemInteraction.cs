@@ -19,6 +19,11 @@ public class ItemInteraction : AInteractables
         {
             Debug.Log("You forgot the InteractableItem Component in " + gameObject.name);
         }
+
+        m_interactableType = InteractableType.Item;
+        
+        if (!GameManager.Instance.m_Items.Contains(this))
+            GameManager.Instance.m_Items.Add(this);
     }
     
     //Weapons begin with 10XXX
@@ -44,24 +49,7 @@ public class ItemInteraction : AInteractables
     
     public override void Update()
     {
-        if (CheckForInteraction(gameObject.transform.position, 3.0f))
-        {
-            m_IsInteractable = true;
-            if (!m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Add(this);
-                UIManager.Instance.ShowInteractionTooltip("Pick up "+ gameObject.name);
-            }
-        }
-        else
-        {
-            m_IsInteractable = false;
-            if (m_interactmanager.m_interactables.Contains(this))
-            {
-                m_interactmanager.m_interactables.Remove(this);
-                UIManager.Instance.HideInteractionTooltip();
-            }
-        }
+        base.Update();
     }
     
     public override void Interact()
@@ -70,7 +58,7 @@ public class ItemInteraction : AInteractables
 
         Debug.Log("Picked up " + m_interactableItem.m_Item.GetName());
         m_interactmanager.m_interactables.Remove(this);
-        
+
         switch (ID)
         {
             case 10000:
@@ -106,9 +94,8 @@ public class ItemInteraction : AInteractables
                 break;
             }
         }
-        Destroy(gameObject);
-        
-        Destroy(gameObject);
+
+        gameObject.SetActive(false);
         
         UIManager.Instance.UpdateSlotsUI();
     }
