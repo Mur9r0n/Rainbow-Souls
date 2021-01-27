@@ -112,6 +112,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             DataManager.Instance.SavePlayer(m_playerStats, 1);
             DataManager.Instance.SaveWorld(1);
+            DataManager.Instance.SaveInventory(1);
             Debug.Log("Saved 1");
         }
         
@@ -119,6 +120,8 @@ public class PlayerInteraction : MonoBehaviour
         {
             DataManager.Instance.SavePlayer(m_playerStats, 2);
             DataManager.Instance.SaveWorld(2);
+            DataManager.Instance.SaveInventory(2);
+
             Debug.Log("Saved 2");
         }
         
@@ -126,6 +129,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             DataManager.Instance.SavePlayer(m_playerStats, 3);
             DataManager.Instance.SaveWorld(3);
+            DataManager.Instance.SaveInventory(3);
             Debug.Log("Saved 3");
         }
 

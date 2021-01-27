@@ -51,19 +51,12 @@ public class MainMenuBehaviours : MonoBehaviour
     private string m_playerPathSlot1;
     private string m_playerPathSlot2;
     private string m_playerPathSlot3;
-    
-    private string m_worldPathSlot1;
-    private string m_worldPathSlot2;
-    private string m_worldPathSlot3;
 
     public void Awake()
     {
         m_playerPathSlot1 = Application.persistentDataPath + "/PlayerData1.pyd";
         m_playerPathSlot2 = Application.persistentDataPath + "/PlayerData2.pyd";
         m_playerPathSlot3 = Application.persistentDataPath + "/PlayerData3.pyd";
-        m_worldPathSlot1 = Application.persistentDataPath + "/WorldData1.wrd";
-        m_worldPathSlot2 = Application.persistentDataPath + "/WorldData2.wrd";
-        m_worldPathSlot3 = Application.persistentDataPath + "/WorldData3.wrd";
 
         CheckIfSaveFileExists();
     }
@@ -100,7 +93,7 @@ public class MainMenuBehaviours : MonoBehaviour
             if (File.GetLastWriteTime(m_playerPathSlot1) >= tempTime)
             {
                 tempTime = File.GetLastWriteTime(m_playerPathSlot1);
-                playerDataPath = m_playerPathSlot1 + " " + m_worldPathSlot1;
+                playerDataPath = m_playerPathSlot1;
                 mostRecentSlot = 1;
             }
         }
@@ -110,7 +103,7 @@ public class MainMenuBehaviours : MonoBehaviour
             if (File.GetLastWriteTime(m_playerPathSlot2) >= tempTime)
             {
                 tempTime = File.GetLastWriteTime(m_playerPathSlot2);
-                playerDataPath = m_playerPathSlot2 + " " + m_worldPathSlot2;
+                playerDataPath = m_playerPathSlot2;
                 mostRecentSlot = 2;
             }
         }
@@ -120,7 +113,7 @@ public class MainMenuBehaviours : MonoBehaviour
             if (File.GetLastWriteTime(m_playerPathSlot3) >= tempTime)
             {
                 tempTime = File.GetLastWriteTime(m_playerPathSlot3);
-                playerDataPath = m_playerPathSlot3 + " " + m_worldPathSlot3;
+                playerDataPath = m_playerPathSlot3;
                 mostRecentSlot = 3;
             }
         }
@@ -128,6 +121,7 @@ public class MainMenuBehaviours : MonoBehaviour
         Debug.Log("Load " + playerDataPath);
         GlobalGameData.Instance.SavePlayerDataGlobalFromFile(mostRecentSlot);
         GlobalGameData.Instance.SaveWorldDataGlobalFromFile(mostRecentSlot);
+        GlobalGameData.Instance.SaveInventoryDataGlobalFromFile(mostRecentSlot);
         
         //TODO load last used Scene
         SceneManager.LoadScene(1);
