@@ -40,6 +40,12 @@ public class InventoryManager : MonoBehaviour
         {
             Equipment[i] = m_placeHolder;
         }
+        
+        //Is the equipment place filled with "Son of a Bitch", then activate it
+        // if (Equipment[1].m_ID == 10000)
+        // {
+        //     m_inventoryBehaviours.m_swordGO.SetActive(true);
+        // }
     }
 
     #endregion
